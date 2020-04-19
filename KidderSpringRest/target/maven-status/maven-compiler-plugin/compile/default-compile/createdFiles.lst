@@ -1,0 +1,6 @@
+com\kidder\springBootStarter\Pojo\TestTbl.class
+com\kidder\springBootStarter\Repo\TestRepository.class
+com\kidder\springBootStarter\Controllers\ApiControllers.class
+com\kidder\springBootStarter\Model\TestModel.class
+com\kidder\springBootStarter\Services\TestService.class
+com\kidder\springBootStarter\SpringBootStarter.class
