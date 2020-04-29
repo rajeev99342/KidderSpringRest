@@ -4,13 +4,16 @@ import java.io.Serializable;
 
 public class UserModel implements Serializable {
 	private static final long serialVersionUID = 10002L;
-	   private int user_id;
+	   private Long user_id;
 	   private String  user_name;
 	   private String  user_username;
 	   private String  user_password;
 	   private String  user_email ;
 	   private long user_phone_number;
 	   private String   user_unique_code;
+	   private String error;
+	   private String status;
+	   
 	   public long getUser_phone_number() {
 		return user_phone_number;
 	}
@@ -51,11 +54,23 @@ public class UserModel implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	public int getUser_id() {
+	public Long getUser_id() {
 		return user_id;
 	}
-	public void setUser_id(int user_id) {
+	public void setUser_id(Long user_id) {
 		this.user_id = user_id;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getError() {
+		return error;
+	}
+	public void setError(String error) {
+		this.error = error;
 	}
 	   
 	   

@@ -1,13 +1,19 @@
 package com.kidder.springBootStarter.Services;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kidder.springBootStarter.Model.GroupModel;
 import com.kidder.springBootStarter.Model.UserGrpInfoModel;
 import com.kidder.springBootStarter.Model.UserGrpReqstStatusInfoModel;
+import com.kidder.springBootStarter.Model.UserModel;
+import com.kidder.springBootStarter.Pojo.GroupInfoTbl;
 import com.kidder.springBootStarter.Pojo.GrpReqstTbl;
+import com.kidder.springBootStarter.Repo.GroupRepository;
 import com.kidder.springBootStarter.Repo.UserGrpRepository;
 
 @Service
@@ -16,6 +22,11 @@ public class UserGrpService {
 	UserGrpRepository userGrpRepository;
 	@Autowired
 	GrpReqstTbl grpReqstTbl;
+	
+
+	
+	@Autowired
+	GroupRepository grpRepo;
 	
 	private Timestamp createDate;
 	private Timestamp lastModifiedDate;
@@ -54,4 +65,16 @@ public class UserGrpService {
 			userGrpRepository.updateReqstStatus(userList.getGrp_reqst_status(), getLastModifiedDate(), userList.getUser_username(), userGrpInfoModel.getGrp_admin());
 		}
 	}
+	
+	
+//	public List<GroupModel>getGroupByUser(String username)
+//	{
+//		
+//	}
+	
+	
+
+	
+	
+	
 }

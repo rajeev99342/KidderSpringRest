@@ -1,10 +1,13 @@
 package com.kidder.springBootStarter.Pojo;
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
@@ -13,6 +16,8 @@ import org.springframework.stereotype.Component;
 @Table(name = "user_info_tbl")
 @Component
 public class UserInfoTbl {
+
+
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long user_id;
@@ -40,6 +45,9 @@ public class UserInfoTbl {
 	@javax.persistence.Column( name = "user_unique_code" )
 	private String user_unique_code;
 
+	
+
+	 
 	public Long getUser_id() {
 		return user_id;
 	}
@@ -95,6 +103,10 @@ public class UserInfoTbl {
 	public void setUser_unique_code(String user_unique_code) {
 		this.user_unique_code = user_unique_code;
 	}
+
+
+	
+	
 	
 	
 }

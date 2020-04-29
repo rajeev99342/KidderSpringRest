@@ -11,7 +11,10 @@ public class CommonResource {
 	public enum GrpReqstStatusType {PENDING, ACCEPTED, LEFT, CANCEL_REQUEST,REJECTED}
 	@SuppressWarnings("unused")
 	private static final Random generator = new Random();
-	static final String IMAGEPATH="C:\\Users\\Rashtra Bhushan\\Desktop\\KidderImageStore\\";
+	
+	
+//	static final String IMAGEPATH="C:\\Users\\Rashtra Bhushan\\Desktop\\KidderImageStore\\";
+	static final String IMAGEPATH="C:\\Users\\Rajeev\\Product\\QuizeLocal\\KidderSpringRest\\KidderSpringRest\\resource\\questImage\\";
 	static final String SOURCE = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz";
 	static SecureRandom secureRnd = new SecureRandom();
 	public static String randomString(int length) {

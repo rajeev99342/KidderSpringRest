@@ -2,6 +2,8 @@ package com.kidder.springBootStarter.Model;
 
 import java.io.Serializable;
 
+import com.kidder.springBootStarter.Pojo.UserInfoTbl;
+
 public class GroupModel implements Serializable{
 	/**
 	 * 
@@ -9,9 +11,16 @@ public class GroupModel implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private long grp_id;
 	private String grp_name;
-	private String grp_admin;
 	private String grp_desc;
 	private String grp_unique_code;
+	
+	private String grp_admin;
+	
+	
+
+	private String status;
+	private String error;
+	
 	public long getGrp_id() {
 		return grp_id;
 	}
@@ -42,5 +51,20 @@ public class GroupModel implements Serializable{
 	public void setGrp_unique_code(String grp_unique_code) {
 		this.grp_unique_code = grp_unique_code;
 	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getError() {
+		return error;
+	}
+	public void setError(String error) {
+		this.error = error;
+	}
+
+	
+	
 
 }

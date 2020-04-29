@@ -29,8 +29,36 @@ public class UserQuestInfoService {
 			}
 }
 		
-		userQuestInfoRepository.saveAll(SetParams(userQuestionModel));
+		 userQuestInfoRepository.saveAll(SetParams(userQuestionModel));
 		return null;
+//		List<UserQuestionModel> models = new ArrayList<UserQuestionModel>();
+		
+//		for(UserQuestInfoTbl tbl : userInfoQuesTbls)
+//		{
+//			UserQuestionModel userQuesModel = new UserQuestionModel();
+//			if(tbl.getUser_quest_ans() != null)
+//			{
+//				userQuesModel.setUser_quest_ans(model.getUser_quest_ans());
+//			}
+//			if(tbl.getUser_quest_creator() != null)
+//			{
+//				userQuesModel.setUser_quest_creator(model.getUser_quest_creator());
+//			}
+//			if(tbl.getUser_quest_dgrm_id() != 0L)
+//			{
+//				userQuesModel.setUser_quest_dgrm_id(model.getUser_quest_dgrm_id());
+//			}
+//			if(tbl.getUser_quest_img_id() != 0L)
+//			{
+//				userQuesModel.setUser_quest_img_id(model.getUser_quest_img_id());
+//			}
+//			if(model.getUser_quest_img_model() != null)
+//			{
+//				
+//			}
+//			
+//		}
+//		
 		
 	}
 	public List<UserQuestInfoTbl> SetParams(List<UserQuestionModel> userQuestionModel) {
