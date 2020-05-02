@@ -37,7 +37,7 @@ public class TestRoomService {
 				model.setQuiz_num_of_ques(tbl.getQuiz_num_of_ques());
 				model.setQuiz_published_date(tbl.getQuiz_published_date());
 				UserModel userModel = new UserModel();
-				
+				model.setQuiz_status(tbl.getQuiz_status());
 				userModel.setError(null);
 				userModel.setStatus("Success");
 				userModel.setUser_email(tbl.getUserInfoTbl().getUser_email());

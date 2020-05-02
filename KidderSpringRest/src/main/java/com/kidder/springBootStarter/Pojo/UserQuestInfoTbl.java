@@ -1,79 +1,88 @@
 package com.kidder.springBootStarter.Pojo;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.springframework.stereotype.Component;
 
 @Entity
 @Table(name = "user_quest_info_tbl")
-@Component
+
 public class UserQuestInfoTbl {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long user_quest_id;
-	@javax.persistence.Basic
-	@javax.persistence.Column( name = "user_quest_txt_id" )
-	private long user_quest_txt_id;
+
+	
+//
 	
 	@javax.persistence.Basic
-	@javax.persistence.Column( name = "user_quest_img_id" )
-	private long user_quest_img_id;
-	
-	@javax.persistence.Basic
-	@javax.persistence.Column( name = "user_quest_dgrm_id" )
-	private long user_quest_dgrm_id;
-	
-	@javax.persistence.Basic
-	@javax.persistence.Column( name = "quiz_id" )
-	private long quiz_id;
-	
-	
-	public long getQuiz_id() {
-		return quiz_id;
+	@ManyToOne(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
+	@JoinColumn(name = "img_id")
+	private ImageInfoTbl imgInfoTbl;
+
+	public ImageInfoTbl getImgInfoTbl() {
+		return imgInfoTbl;
 	}
 
-	public void setQuiz_id(long quiz_id) {
-		this.quiz_id = quiz_id;
+	public void setImgInfoTbl(ImageInfoTbl imgInfoTbl) {
+		this.imgInfoTbl = imgInfoTbl;
 	}
 
 	@javax.persistence.Basic
-	@javax.persistence.Column( name = "user_id" )
-	private long user_id;
-	
+	@OneToOne(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
+	@JoinColumn(name = "dgrm_img_id")
+	private DgrmImageInfoTbl dgrmImgInfoTbl;
+
+	public DgrmImageInfoTbl getDgrmImgInfoTbl() {
+		return dgrmImgInfoTbl;
+	}
+
+	public void setDgrmImgInfoTbl(DgrmImageInfoTbl dgrmImgInfoTbl) {
+		this.dgrmImgInfoTbl = dgrmImgInfoTbl;
+	}
+
+
 	@javax.persistence.Basic
-	@javax.persistence.Column( name = "user_quest_name" )
+	@ManyToOne(cascade = {CascadeType.DETACH},fetch = FetchType.EAGER)
+	@JoinColumn(name = "quiz_id")
+	private QuizeInfoTbl quizInfoTbl;
+	public QuizeInfoTbl getQuizInfoTbl() {
+		return quizInfoTbl;
+	}
+
+	public void setQuizInfoTbl(QuizeInfoTbl quizInfoTbl) {
+		this.quizInfoTbl = quizInfoTbl;
+	}
+
+
+	
+
 	private String user_quest_name;
 	
-	@javax.persistence.Basic
-	@javax.persistence.Column( name = "user_quest_optionA" )
+
 	private String user_quest_optionA;
 	
-	@javax.persistence.Basic
-	@javax.persistence.Column( name = "user_quest_optionB" )
+
 	private String user_quest_optionB;
 	
-	@javax.persistence.Basic
-	@javax.persistence.Column( name = "user_quest_optionC" )
+
 	private String user_quest_optionC;
 	
-	@javax.persistence.Basic
-	@javax.persistence.Column( name = "user_quest_optionD" )
+
 	private String user_quest_optionD;
 	
-	@javax.persistence.Basic
-	@javax.persistence.Column( name = "user_quest_ans" )
+
 	private String user_quest_ans;
 	
-	@javax.persistence.Basic
-	@javax.persistence.Column(name = "user_quest_creator")
-	private String user_quest_creator;
-	
-	@javax.persistence.Basic
-	@javax.persistence.Column(name = "user_quest_marks")
+
 	private double user_quest_marks;
 
 	public Long getUser_quest_id() {
@@ -84,38 +93,9 @@ public class UserQuestInfoTbl {
 		this.user_quest_id = user_quest_id;
 	}
 
-	public long getUser_quest_txt_id() {
-		return user_quest_txt_id;
-	}
 
-	public void setUser_quest_txt_id(long user_quest_txt_id) {
-		this.user_quest_txt_id = user_quest_txt_id;
-	}
-
-	public long getUser_quest_img_id() {
-		return user_quest_img_id;
-	}
-
-	public void setUser_quest_img_id(long user_quest_img_id) {
-		this.user_quest_img_id = user_quest_img_id;
-	}
-
-	public long getUser_quest_dgrm_id() {
-		return user_quest_dgrm_id;
-	}
-
-	public void setUser_quest_dgrm_id(long user_quest_dgrm_id) {
-		this.user_quest_dgrm_id = user_quest_dgrm_id;
-	}
-
-	public long getUser_id() {
-		return user_id;
-	}
-
-	public void setUser_id(long user_id) {
-		this.user_id = user_id;
-	}
-
+	@javax.persistence.Basic
+	@javax.persistence.Column( name = "user_quest_name" )
 	public String getUser_quest_name() {
 		return user_quest_name;
 	}
@@ -123,7 +103,10 @@ public class UserQuestInfoTbl {
 	public void setUser_quest_name(String user_quest_name) {
 		this.user_quest_name = user_quest_name;
 	}
-
+	
+	
+	@javax.persistence.Basic
+	@javax.persistence.Column( name = "user_quest_optionA" )
 	public String getUser_quest_optionA() {
 		return user_quest_optionA;
 	}
@@ -132,6 +115,8 @@ public class UserQuestInfoTbl {
 		this.user_quest_optionA = user_quest_optionA;
 	}
 
+	@javax.persistence.Basic
+	@javax.persistence.Column( name = "user_quest_optionB" )
 	public String getUser_quest_optionB() {
 		return user_quest_optionB;
 	}
@@ -140,6 +125,9 @@ public class UserQuestInfoTbl {
 		this.user_quest_optionB = user_quest_optionB;
 	}
 
+	
+	@javax.persistence.Basic
+	@javax.persistence.Column( name = "user_quest_optionC" )
 	public String getUser_quest_optionC() {
 		return user_quest_optionC;
 	}
@@ -148,6 +136,9 @@ public class UserQuestInfoTbl {
 		this.user_quest_optionC = user_quest_optionC;
 	}
 
+	
+	@javax.persistence.Basic
+	@javax.persistence.Column( name = "user_quest_optionD" )
 	public String getUser_quest_optionD() {
 		return user_quest_optionD;
 	}
@@ -156,6 +147,9 @@ public class UserQuestInfoTbl {
 		this.user_quest_optionD = user_quest_optionD;
 	}
 
+	
+	@javax.persistence.Basic
+	@javax.persistence.Column( name = "user_quest_ans" )
 	public String getUser_quest_ans() {
 		return user_quest_ans;
 	}
@@ -164,14 +158,10 @@ public class UserQuestInfoTbl {
 		this.user_quest_ans = user_quest_ans;
 	}
 
-	public String getUser_quest_creator() {
-		return user_quest_creator;
-	}
 
-	public void setUser_quest_creator(String user_quest_creator) {
-		this.user_quest_creator = user_quest_creator;
-	}
-
+	
+	@javax.persistence.Basic
+	@javax.persistence.Column(name = "user_quest_marks")
 	public double getUser_quest_marks() {
 		return user_quest_marks;
 	}
@@ -180,4 +170,33 @@ public class UserQuestInfoTbl {
 		this.user_quest_marks = user_quest_marks;
 	} 
 	
+	@javax.persistence.Basic
+	@OneToOne(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
+	@JoinColumn(name="txt_ques_id")
+	private TxtQuesInfoTbl txtQuesInfoTbl;
+
+	public TxtQuesInfoTbl getTxtQuesInfoTbl() {
+		return txtQuesInfoTbl;
+	}
+
+	public void setTxtQuesInfoTbl(TxtQuesInfoTbl txtQuesInfoTbl) {
+		this.txtQuesInfoTbl = txtQuesInfoTbl;
+	}
+	
+
+
+	@javax.persistence.Basic
+	@ManyToOne(cascade = {CascadeType.DETACH},fetch = FetchType.EAGER)
+	@JoinColumn(name="user_id")
+	private UserInfoTbl userInfoTbl;
+
+	public UserInfoTbl getUserInfoTbl() {
+		return userInfoTbl;
+	}
+
+	public void setUserInfoTbl(UserInfoTbl userInfoTbl) {
+		this.userInfoTbl = userInfoTbl;
+	}
+	
+
 }
