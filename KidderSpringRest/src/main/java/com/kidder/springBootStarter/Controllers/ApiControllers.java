@@ -57,6 +57,8 @@ public class ApiControllers {
 	QuestionService questionService;
 	
 	
+	
+	
 	@Transactional
 	@RequestMapping("/hello")
 	public TestTbl sayHello(@RequestBody TestModel testModel)
@@ -154,6 +156,16 @@ public class ApiControllers {
 	public @ResponseBody Set<GroupModel> getGrpsByUserId(@PathVariable(name="user_id") long user_id) {
 		
 		return groupInfoService.getGrpsByUserId(user_id);
+		
+	}
+	
+	@Transactional
+	@PostMapping("/startTest")
+	public @ResponseBody QuizModel startTest(@RequestBody QuizModel quizModel)
+	{
+		
+		return testRoomService.startTest(quizModel);
+		
 		
 	}
 	

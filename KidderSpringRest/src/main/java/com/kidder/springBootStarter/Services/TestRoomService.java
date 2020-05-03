@@ -3,9 +3,12 @@ package com.kidder.springBootStarter.Services;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Convert;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kidder.Common.ConvertedHelper;
 import com.kidder.springBootStarter.Model.QuizModel;
 import com.kidder.springBootStarter.Model.UserModel;
 import com.kidder.springBootStarter.Pojo.QuizeInfoTbl;
@@ -53,6 +56,34 @@ public class TestRoomService {
 			}
 			return quizModels;
 			
+	}
+	
+	
+	public QuizModel startTest(QuizModel quizModel)
+	{
+		
+		QuizeInfoTbl quizTbl= null;
+		
+		if(quizModel != null && quizModel.getUserModel() != null)
+		{
+			
+			
+			
+			try {
+				QuizeInfoTbl tbl = testRoomRepo.getQuizByQuizId(quizModel.getQuiz_id());
+				tbl.setQuiz_status(1);
+				quizTbl = testRoomRepo.save(tbl);
+			}catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("error while start test"+e.getMessage());
+			}
+			
+			quizModel = null;
+			quizModel =  ConvertedHelper.getQuizModel(quizTbl);
+			
+		}
+		
+		return quizModel;
 	}
 	
 }

@@ -14,4 +14,7 @@ public interface TestRoomRepository extends JpaRepository<QuizeInfoTbl, Long>{
 	@Query("from QuizeInfoTbl as qt where qt.grpInfoTbl.grp_id = :grp_id")
 	List<QuizeInfoTbl> getTestRoomByGroupId(@Param("grp_id") long grp_id);
 	
+	
+	@Query("from QuizeInfoTbl as qt where qt.quiz_id = :quiz_id")
+	QuizeInfoTbl getQuizByQuizId(@Param("quiz_id") long quiz_id);
 }

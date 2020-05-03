@@ -21,7 +21,13 @@ public class ConvertedHelper {
 	 {
 		 QuizModel quizModel = new QuizModel();
 		 
-		 quizModel.setGrpModel(ConvertedHelper.getGroupModel(tbl.getGrpInfoTbl()));
+		 if(tbl.getGrpInfoTbl() != null)
+		 {
+			 quizModel.setGrpModel(ConvertedHelper.getGroupModel(tbl.getGrpInfoTbl()));
+
+		 }
+		 
+		 quizModel.setQuiz_status(tbl.getQuiz_status());
 		 quizModel.setQuiz_created_date(tbl.getQuiz_created_date());
 		 quizModel.setQuiz_duration(tbl.getQuiz_duration());
 		 quizModel.setQuiz_id(tbl.getQuiz_id());
@@ -131,6 +137,32 @@ public class ConvertedHelper {
 		 model.setGrp_part_id(tbl.getGrp_part_id());
 		 model.setIsAdmin(tbl.getIsAdmin());
 		 return model;
+	 }
+	 
+	 public static QuizeInfoTbl getQuizTbl(QuizModel model)
+	 {
+		 QuizeInfoTbl tbl = new QuizeInfoTbl();
+		 
+		 if(model.getGrpModel() != null)
+		 {
+			 tbl.setGrpInfoTbl(ConvertedHelper.getGroupTbl(model.getGrpModel()));
+
+		 }
+		 
+		 
+		 tbl.setUserInfoTbl(ConvertedHelper.getUserTbl(model.getUserModel()));
+		 tbl.setQuiz_created_date(model.getQuiz_created_date());
+		 tbl.setQuiz_duration(model.getQuiz_duration());
+		 tbl.setQuiz_id(model.getQuiz_id());
+		 tbl.setQuiz_marks(model.getQuiz_marks());
+		 tbl.setQuiz_name(model.getQuiz_name());
+		 tbl.setQuiz_num_of_ques(model.getQuiz_num_of_ques());
+		 tbl.setQuiz_status(1);
+		 
+		 
+		 
+		 return tbl;
+		 
 	 }
 	 
 	 
