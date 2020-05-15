@@ -41,6 +41,7 @@ public GroupModel saveGroupDetail(GroupModel groupModel){
 			groupInfoTbl =	groupInfoRepository.save(groupInfoTbl);
 			
 			
+			
 
 		}catch (Exception e) {
 
@@ -161,5 +162,29 @@ public GroupInfoTbl SetParams(GroupModel groupModel) {
 		
 	}
 
+	
+	public Set<GroupModel> getGrpsByUserId(long user_id)
+	{
+	     Set<GroupInfoTbl> tbls = groupInfoRepository.getGrpByUserId(user_id);
+	     Set<GroupModel> models = new HashSet<>();
+	     
+	     for(GroupInfoTbl tbl : tbls)
+	     {
+	    	 GroupModel m = new GroupModel();
+	    	 
+	    	 m.setError(null);
+	    	 m.setStatus("Success");
+	    	 m.setGrp_admin(tbl.getGrp_admin());
+	    	 m.setGrp_desc(tbl.getGrp_desc());
+	    	 m.setGrp_id(tbl.getGrp_id());
+	    	 m.setGrp_name(tbl.getGrp_name());
+	    	 m.setGrp_unique_code(tbl.getGrp_unique_code());
+	    	 models.add(m);
+	    	 
+	     }
+	     return models;
+	}
+	
+	
 }
 

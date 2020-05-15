@@ -26,4 +26,7 @@ public interface GroupInfoRepository extends JpaRepository<GroupInfoTbl,Long>{
 	public Set<GroupInfoTbl>getAllGrp();
 	
 	
+	@Query("from GroupInfoTbl as g where g.grp_id in (select gp.groupInfoTbl.grp_id from GroupParticipantTbl as gp where gp.userInfoTb.user_id = :user_id) ")
+	public Set<GroupInfoTbl>getGrpByUserId(@Param("user_id") long user_id);
+	
 }

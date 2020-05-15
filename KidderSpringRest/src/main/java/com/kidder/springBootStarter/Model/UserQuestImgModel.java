@@ -7,14 +7,14 @@ public class UserQuestImgModel implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 5354598947424245650L;
-	private boolean isEdit;
+	
+	private long user_quest_img_id;
 	private boolean isDelete;
 	private String user_quest_img_base64_url;
 	private String user_quest_img_desc;
-	private long user_quest_img_id;
+	
 	private String user_quest_img_path;
-	private boolean user_quest_img_isDgrm;
-	private boolean user_quest_img_isQuest;
+	private boolean isEdit;
 	private String user_quest_img_name;
 	public String getUser_quest_img_name() {
 		return user_quest_img_name;
@@ -58,17 +58,6 @@ public class UserQuestImgModel implements Serializable{
 	public void setUser_quest_img_path(String user_quest_img_path) {
 		this.user_quest_img_path = user_quest_img_path;
 	}
-	public boolean isUser_quest_img_isDgrm() {
-		return user_quest_img_isDgrm;
-	}
-	public void setUser_quest_img_isDgrm(boolean user_quest_img_isDgrm) {
-		this.user_quest_img_isDgrm = user_quest_img_isDgrm;
-	}
-	public boolean isUser_quest_img_isQuest() {
-		return user_quest_img_isQuest;
-	}
-	public void setUser_quest_img_isQuest(boolean user_quest_img_isQuest) {
-		this.user_quest_img_isQuest = user_quest_img_isQuest;
-	}
+
 	
 }
