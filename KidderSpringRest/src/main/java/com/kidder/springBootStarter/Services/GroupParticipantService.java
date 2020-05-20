@@ -1,16 +1,19 @@
 package com.kidder.springBootStarter.Services;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 
 import com.kidder.Common.CheckTable;
 import com.kidder.Common.CommonResource;
 import com.kidder.Common.ConvertedHelper;
 import com.kidder.springBootStarter.Model.GroupParticipantModel;
-import com.kidder.springBootStarter.Model.UserModel;
-import com.kidder.springBootStarter.Pojo.GroupParticipantTbl;
-import com.kidder.springBootStarter.Pojo.GrpReqstTbl;
-import com.kidder.springBootStarter.Pojo.UserInfoTbl;
+import com.kidder.springBootStarter.Model.KiUserModel;
+import com.kidder.springBootStarter.Pojo.KiGroupParticipantTbl;
+import com.kidder.springBootStarter.Pojo.KiGrpReqstTbl;
+import com.kidder.springBootStarter.Pojo.KiUserTbl;
 import com.kidder.springBootStarter.Repo.GroupParticipantRepository;
 
 @Service
@@ -21,64 +24,75 @@ public class GroupParticipantService {
 	@Autowired
 	UserInfoService userService;
 	
-	public GroupParticipantModel addParticipant(GroupParticipantModel grpPartiModel)
+	
+	public GroupParticipantModel addParticipant(GroupParticipantModel grpPartiModel,String userType)
 	{
 		
-		UserModel grpAdmin = userService.getUser(grpPartiModel.getGroupModel().getGrp_admin());
+//		UserModel grpAdmin = userService.getUser(grpPartiModel.getGroupModel().getGrp_admin());
 		
 		GroupParticipantModel model = new GroupParticipantModel();
-		GroupParticipantTbl tempTbl = new GroupParticipantTbl();
-		UserInfoTbl grpAdminTbl = ConvertedHelper.getUserTbl(grpAdmin);
+		KiGroupParticipantTbl tempTbl = new KiGroupParticipantTbl();
+//		UserInfoTbl grpAdminTbl = ConvertedHelper.getUserTbl(grpAdmin);
 		
 		try {
 			
-			GroupParticipantTbl grpPartiTbl = new GroupParticipantTbl();
-			
-			grpPartiTbl.setGroupInfoTbl(ConvertedHelper.getGroupTbl(grpPartiModel.getGroupModel()));
-			
-			grpPartiTbl.setUserInfoTb(grpAdminTbl);
-			
-			grpPartiTbl.setIsAdmin(1);
-			
-			if(CheckTable.isTableExist("grp_part_tbl"))
-			{
-				GroupParticipantTbl tbl = grpPartiRepo.getByGrpAdminId(grpAdminTbl.getUser_id());
-				
-				if(tbl == null)
-				{
-					 tempTbl = grpPartiRepo.save(grpPartiTbl);
-				}
-				
-			}else {
-				 tempTbl = grpPartiRepo.save(grpPartiTbl);
-			}
-			
-			
-		
-			
-			
-			
-			grpPartiTbl = new GroupParticipantTbl();
+			KiGroupParticipantTbl grpPartiTbl = new KiGroupParticipantTbl();
 			
 			grpPartiTbl.setGroupInfoTbl(ConvertedHelper.getGroupTbl(grpPartiModel.getGroupModel()));
 			
 			grpPartiTbl.setUserInfoTb(ConvertedHelper.getUserTbl(grpPartiModel.getUserModel()));
 			
+			if(userType.equals("Participant"))
+			{
+				grpPartiTbl.setIsAdmin(0);
+			}else if(userType.equals("Admin"))
+			{
+				grpPartiTbl.setIsAdmin(1);
+			}
 			
-			tempTbl = null;
 			
-			grpPartiTbl.setIsAdmin(0);
+			
+			if(CheckTable.isTableExist("grp_part_tbl"))
+			{
+				
+				if(userType.equals("Participant"))
+				{
+					KiGroupParticipantTbl tbl = grpPartiRepo.getParticipantByGrpIdandUserId(grpPartiModel.getUserModel().getUser_id(),grpPartiModel.getGroupModel().getGrp_id());
 
+					if(tbl != null)
+					{
+						model.setError("user already added to you group");
+						model.setStatus("Failure");
+					}else {
+					    tempTbl = grpPartiRepo.save(grpPartiTbl);
+
+					}
+					
+				}else {
+				    tempTbl = grpPartiRepo.save(grpPartiTbl);
+
+				}
+				
 			
-			  tempTbl = grpPartiRepo.save(grpPartiTbl);
+			}else {
+				 tempTbl = grpPartiRepo.save(grpPartiTbl);
+			}
 			
+
 			
 		}catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.getMessage());
 		}
 		
-		return ConvertedHelper.getGroupParticipantModel(tempTbl);
+		if(model.getStatus() == "Failure")
+		{
+			return model;
+		}else {
+			return ConvertedHelper.getGroupParticipantModel(tempTbl);
+
+		}
+		
 		
 	}
 	

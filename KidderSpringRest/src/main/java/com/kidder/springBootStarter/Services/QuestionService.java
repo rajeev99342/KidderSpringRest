@@ -5,10 +5,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.persistence.Convert;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -17,14 +22,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Base64Utils;
 
 import com.kidder.Common.ConvertedHelper;
-import com.kidder.springBootStarter.Model.GroupModel;
+import com.kidder.springBootStarter.Model.DgrmImageInfoModel;
+import com.kidder.springBootStarter.Model.KiGroupModel;
 import com.kidder.springBootStarter.Model.ImageInfoModel;
-import com.kidder.springBootStarter.Model.QuizModel;
-import com.kidder.springBootStarter.Model.UserModel;
-import com.kidder.springBootStarter.Model.UserQuestionModel;
-import com.kidder.springBootStarter.Pojo.GroupInfoTbl;
-import com.kidder.springBootStarter.Pojo.QuizeInfoTbl;
+import com.kidder.springBootStarter.Model.KiKidderQuestModel;
+import com.kidder.springBootStarter.Model.KidderQuestionModel;
+import com.kidder.springBootStarter.Model.KiQuizModel;
+import com.kidder.springBootStarter.Model.KiTxtQuesInfoModel;
+import com.kidder.springBootStarter.Model.KiUserModel;
+import com.kidder.springBootStarter.Model.KiUserQuestionModel;
+import com.kidder.springBootStarter.Pojo.KiDgrmImgTbl;
+import com.kidder.springBootStarter.Pojo.KiGroupTbl;
+import com.kidder.springBootStarter.Pojo.KiKidderQuestTbl;
+import com.kidder.springBootStarter.Pojo.KiQuizeTbl;
+import com.kidder.springBootStarter.Pojo.KiTxtQuestTbl;
+import com.kidder.springBootStarter.Pojo.KiUserTbl;
 import com.kidder.springBootStarter.Pojo.UserQuestInfoTbl;
+import com.kidder.springBootStarter.Repo.KiKidderQuestRepository;
 import com.kidder.springBootStarter.Repo.QuestionRepository;
 
 @Service
@@ -32,24 +46,32 @@ public class QuestionService {
 
 	@Autowired
 	QuestionRepository questionRepo;
+	@Autowired 
+	TxtQuestionService txtQuestService;
+	@Autowired
+	DgrmImageService dgrmService;
+	@Autowired
+	UserInfoService userService;
 	
-	public List<UserQuestionModel> getQuestionByQuizId(long quiz_id) throws Exception
+
+	
+	public List<KiUserQuestionModel> getQuestionByQuizId(long quiz_id) throws Exception
 	{
 	  List<UserQuestInfoTbl> questions = questionRepo.getQuestionByQuizId(quiz_id);
 	  
-	  List<UserQuestionModel> questionModels = new ArrayList<UserQuestionModel>();
+	  List<KiUserQuestionModel> questionModels = new ArrayList<KiUserQuestionModel>();
 	  
 	  for(UserQuestInfoTbl tbl : questions)
 	  {
-		  UserQuestionModel model = new UserQuestionModel();
+		  KiUserQuestionModel model = new KiUserQuestionModel();
 		  
-		  model.setDgrmImageInfoModel(null);
 		  
-		  QuizModel quizModel = new QuizModel();
-		  
-		  quizModel.setGrpModel(null);
+		  KiQuizModel quizModel = new KiQuizModel();
+		  quizModel.setQuiz_duration(tbl.getQuizInfoTbl().getQuiz_duration());
+		  quizModel.setQuiz_status(tbl.getQuizInfoTbl().getQuiz_status());
+		  quizModel.setGrpModel(ConvertedHelper.getGroupModel(tbl.getQuizInfoTbl().getGrpInfoTbl()));
 		  quizModel.setQuiz_created_date(tbl.getQuizInfoTbl().getQuiz_created_date());
-		  
+		  model.setQuizModel(quizModel);
 		  ImageInfoModel imageInfoModel = new ImageInfoModel();
 		  
 		  if(tbl.getImgInfoTbl() != null)
@@ -65,7 +87,7 @@ public class QuestionService {
 			  imageInfoModel.setImg_path(tbl.getImgInfoTbl().getImg_path());
 			  
 		  }
-		  UserModel userModel = new UserModel();
+		  KiUserModel userModel = new KiUserModel();
 		  if(tbl.getUserInfoTbl() != null)
 		  {
 			  
@@ -113,6 +135,7 @@ public class QuestionService {
 			System.out.println(imageString);
 			return imageString;
      }
+	 
 	 
 
 	

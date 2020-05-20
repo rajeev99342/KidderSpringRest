@@ -13,12 +13,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.kidder.context.ApplicationContextProvider;
 
 
-@EntityScan( "com.subex.common.database.hibernate.pojo" )
+@EntityScan( "com.kidder.springBootStarter.Pojo" )
 @ComponentScan(
-{ "com.subex.common.database.springboot", "com.subex.rest.api.springboot" } )
+{ "com.kidder.springBootStarter", "com.kidder.springBootStarter" } )
 @EnableAutoConfiguration
 @EnableJpaRepositories( basePackages =
-{ "com.subex.common.database.springboot", "com.subex.rest.api.springboot" } )
+{ "com.kidder.SpringBootConnection"} )
 @EnableTransactionManagement
 public class SpringDbConnection
 {

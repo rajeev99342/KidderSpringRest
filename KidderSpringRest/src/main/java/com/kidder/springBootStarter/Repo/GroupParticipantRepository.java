@@ -4,11 +4,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.kidder.springBootStarter.Pojo.GroupParticipantTbl;
+import com.kidder.springBootStarter.Pojo.KiGroupParticipantTbl;
 
-public interface GroupParticipantRepository extends JpaRepository<GroupParticipantTbl, Long>{
+public interface GroupParticipantRepository extends JpaRepository<KiGroupParticipantTbl, Long>{
 
-	@Query("from GroupParticipantTbl as gpt where gpt.userInfoTb.user_id = :user_id")
-	public GroupParticipantTbl getByGrpAdminId(@Param("user_id") long user_id);
+	@Query("from KiGroupParticipantTbl as gpt where gpt.userInfoTb.user_id = :user_id")
+	public KiGroupParticipantTbl getByGrpAdminId(@Param("user_id") long user_id);
+	
+	
+	
+	@Query("from KiGroupParticipantTbl as gpt where gpt.userInfoTb.user_id = :user_id and gpt.groupInfoTbl.grp_id= :grp_id")
+	public KiGroupParticipantTbl getParticipantByGrpIdandUserId(@Param("user_id") long user_id,@Param("grp_id") long grp_id);
 	
 }

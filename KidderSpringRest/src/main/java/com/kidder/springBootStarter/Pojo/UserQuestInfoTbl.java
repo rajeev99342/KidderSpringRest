@@ -26,39 +26,39 @@ public class UserQuestInfoTbl {
 	@javax.persistence.Basic
 	@ManyToOne(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
 	@JoinColumn(name = "img_id")
-	private ImageInfoTbl imgInfoTbl;
+	private KiImgTbl imgInfoTbl;
 
-	public ImageInfoTbl getImgInfoTbl() {
+	public KiImgTbl getImgInfoTbl() {
 		return imgInfoTbl;
 	}
 
-	public void setImgInfoTbl(ImageInfoTbl imgInfoTbl) {
+	public void setImgInfoTbl(KiImgTbl imgInfoTbl) {
 		this.imgInfoTbl = imgInfoTbl;
 	}
 
-	@javax.persistence.Basic
-	@OneToOne(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
-	@JoinColumn(name = "dgrm_img_id")
-	private DgrmImageInfoTbl dgrmImgInfoTbl;
-
-	public DgrmImageInfoTbl getDgrmImgInfoTbl() {
-		return dgrmImgInfoTbl;
-	}
-
-	public void setDgrmImgInfoTbl(DgrmImageInfoTbl dgrmImgInfoTbl) {
-		this.dgrmImgInfoTbl = dgrmImgInfoTbl;
-	}
+//	@javax.persistence.Basic
+//	@OneToOne(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
+//	@JoinColumn(name = "dgrm_img_id")
+//	private DgrmImageInfoTbl dgrmImgInfoTbl;
+//
+//	public DgrmImageInfoTbl getDgrmImgInfoTbl() {
+//		return dgrmImgInfoTbl;
+//	}
+//
+//	public void setDgrmImgInfoTbl(DgrmImageInfoTbl dgrmImgInfoTbl) {
+//		this.dgrmImgInfoTbl = dgrmImgInfoTbl;
+//	}
 
 
 	@javax.persistence.Basic
 	@ManyToOne(cascade = {CascadeType.DETACH},fetch = FetchType.EAGER)
 	@JoinColumn(name = "quiz_id")
-	private QuizeInfoTbl quizInfoTbl;
-	public QuizeInfoTbl getQuizInfoTbl() {
+	private KiQuizeTbl quizInfoTbl;
+	public KiQuizeTbl getQuizInfoTbl() {
 		return quizInfoTbl;
 	}
 
-	public void setQuizInfoTbl(QuizeInfoTbl quizInfoTbl) {
+	public void setQuizInfoTbl(KiQuizeTbl quizInfoTbl) {
 		this.quizInfoTbl = quizInfoTbl;
 	}
 
@@ -173,13 +173,13 @@ public class UserQuestInfoTbl {
 	@javax.persistence.Basic
 	@OneToOne(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
 	@JoinColumn(name="txt_ques_id")
-	private TxtQuesInfoTbl txtQuesInfoTbl;
+	private KiTxtQuestTbl txtQuesInfoTbl;
 
-	public TxtQuesInfoTbl getTxtQuesInfoTbl() {
+	public KiTxtQuestTbl getTxtQuesInfoTbl() {
 		return txtQuesInfoTbl;
 	}
 
-	public void setTxtQuesInfoTbl(TxtQuesInfoTbl txtQuesInfoTbl) {
+	public void setTxtQuesInfoTbl(KiTxtQuestTbl txtQuesInfoTbl) {
 		this.txtQuesInfoTbl = txtQuesInfoTbl;
 	}
 	
@@ -188,13 +188,13 @@ public class UserQuestInfoTbl {
 	@javax.persistence.Basic
 	@ManyToOne(cascade = {CascadeType.DETACH},fetch = FetchType.EAGER)
 	@JoinColumn(name="user_id")
-	private UserInfoTbl userInfoTbl;
+	private KiUserTbl userInfoTbl;
 
-	public UserInfoTbl getUserInfoTbl() {
+	public KiUserTbl getUserInfoTbl() {
 		return userInfoTbl;
 	}
 
-	public void setUserInfoTbl(UserInfoTbl userInfoTbl) {
+	public void setUserInfoTbl(KiUserTbl userInfoTbl) {
 		this.userInfoTbl = userInfoTbl;
 	}
 	

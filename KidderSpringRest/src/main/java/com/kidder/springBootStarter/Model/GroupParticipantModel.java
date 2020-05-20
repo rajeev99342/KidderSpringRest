@@ -2,8 +2,8 @@ package com.kidder.springBootStarter.Model;
 
 
 
-import com.kidder.springBootStarter.Pojo.GroupInfoTbl;
-import com.kidder.springBootStarter.Pojo.UserInfoTbl;
+import com.kidder.springBootStarter.Pojo.KiGroupTbl;
+import com.kidder.springBootStarter.Pojo.KiUserTbl;
 
 public class GroupParticipantModel {
 
@@ -11,11 +11,31 @@ public class GroupParticipantModel {
     private Long grp_part_id;
 	
 
-    private GroupModel groupModel;
+    private KiGroupModel groupModel;
 
-    private UserModel userModel;
+    private KiUserModel userModel;
 
 	private Integer isAdmin;
+	
+	private String  status;
+	
+	private String  error;
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getError() {
+		return error;
+	}
+
+	public void setError(String error) {
+		this.error = error;
+	}
 
 	public Long getGrp_part_id() {
 		return grp_part_id;
@@ -27,19 +47,19 @@ public class GroupParticipantModel {
 
 
 
-	public GroupModel getGroupModel() {
+	public KiGroupModel getGroupModel() {
 		return groupModel;
 	}
 
-	public void setGroupModel(GroupModel groupModel) {
+	public void setGroupModel(KiGroupModel groupModel) {
 		this.groupModel = groupModel;
 	}
 
-	public UserModel getUserModel() {
+	public KiUserModel getUserModel() {
 		return userModel;
 	}
 
-	public void setUserModel(UserModel userModel) {
+	public void setUserModel(KiUserModel userModel) {
 		this.userModel = userModel;
 	}
 

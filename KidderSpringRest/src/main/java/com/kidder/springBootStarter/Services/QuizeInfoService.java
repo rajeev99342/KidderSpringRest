@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 import com.kidder.Common.ConvertedHelper;
 import com.kidder.springBootStarter.Model.ImageInfoModel;
 import com.kidder.springBootStarter.Model.QuizDetailModel;
-import com.kidder.springBootStarter.Model.QuizModel;
-import com.kidder.springBootStarter.Model.UserQuestionModel;
-import com.kidder.springBootStarter.Pojo.GroupInfoTbl;
-import com.kidder.springBootStarter.Pojo.ImageInfoTbl;
-import com.kidder.springBootStarter.Pojo.QuizeInfoTbl;
-import com.kidder.springBootStarter.Pojo.UserInfoTbl;
+import com.kidder.springBootStarter.Model.KiQuizModel;
+import com.kidder.springBootStarter.Model.KiUserQuestionModel;
+import com.kidder.springBootStarter.Pojo.KiGroupTbl;
+import com.kidder.springBootStarter.Pojo.KiImgTbl;
+import com.kidder.springBootStarter.Pojo.KiQuizeTbl;
+import com.kidder.springBootStarter.Pojo.KiUserTbl;
 import com.kidder.springBootStarter.Pojo.UserQuestInfoTbl;
 import com.kidder.springBootStarter.Repo.QuizeInfoRepository;
 import com.kidder.springBootStarter.Repo.UserQuestInfoRepository;
@@ -33,7 +33,7 @@ QuesService quesService;
 
 
 
-	public QuizDetailModel saveUserQuiz(List<UserQuestionModel> userQuesModels,QuizModel quizModel)
+	public QuizDetailModel saveUserQuiz(List<KiUserQuestionModel> userQuesModels,KiQuizModel quizModel)
 	{
 
 		QuizDetailModel quizDetail = new QuizDetailModel();
@@ -42,23 +42,21 @@ QuesService quesService;
 		{
 			if(quizModel.getGrpModel() != null)
 			{
-				QuizeInfoTbl quizTbl = new QuizeInfoTbl();
+				KiQuizeTbl quizTbl = new KiQuizeTbl();
 				
-				GroupInfoTbl grpTbl = new GroupInfoTbl();
+				KiGroupTbl grpTbl = new KiGroupTbl();
 				
 				grpTbl.setGrp_admin(quizModel.getGrpModel().getGrp_admin());
 				grpTbl.setGrp_desc(quizModel.getGrpModel().getGrp_desc());
 				grpTbl.setGrp_name(quizModel.getGrpModel().getGrp_name());
-				grpTbl.setGrp_unique_code(quizModel.getGrpModel().getGrp_unique_code());
 				grpTbl.setGrp_id(quizModel.getGrpModel().getGrp_id());
 				
-				UserInfoTbl userTbl = new UserInfoTbl();
+				KiUserTbl userTbl = new KiUserTbl();
 				userTbl.setUser_email(quizModel.getUserModel().getUser_email());
 				userTbl.setUser_id(quizModel.getUserModel().getUser_id());
 				userTbl.setUser_name(quizModel.getUserModel().getUser_name());
 				userTbl.setUser_password(quizModel.getUserModel().getUser_password());
 				userTbl.setUser_phone_number(quizModel.getUserModel().getUser_phone_number());
-				userTbl.setUser_unique_code(quizModel.getUserModel().getUser_unique_code());
 				
 				
 				quizTbl.setUserInfoTbl(userTbl);
@@ -82,18 +80,18 @@ QuesService quesService;
 				}
 				
 				
-				QuizeInfoTbl qTbl =  quizeRepo.save(quizTbl);
+				KiQuizeTbl qTbl =  quizeRepo.save(quizTbl);
 				
-				List<UserQuestionModel> questions = new ArrayList<>();
+				List<KiUserQuestionModel> questions = new ArrayList<>();
 				
 				if(userQuesModels.size() > 0)
 				{
-					for(UserQuestionModel model : userQuesModels)
+					for(KiUserQuestionModel model : userQuesModels)
 					{
 						
 			
 						
-						ImageInfoTbl mTbl = imageService.saveQuesImage(model.getImageInfoModel());
+						KiImgTbl mTbl = imageService.saveQuesImage(model.getImageInfoModel());
 						
 						UserQuestInfoTbl userQuesInfoTbl = new UserQuestInfoTbl();
 						
@@ -130,7 +128,7 @@ QuesService quesService;
 					    
 					    ImageInfoModel imageModel = ConvertedHelper.getImageModel(mTbl);
 					    
-					    UserQuestionModel qmodel = ConvertedHelper.getUserQuestionModel(userQTbl);
+					    KiUserQuestionModel qmodel = ConvertedHelper.getUserQuestionModel(userQTbl);
 					    
 					 
 					    questions.add(qmodel);
@@ -141,10 +139,11 @@ QuesService quesService;
 				}
 				
 				quizDetail.setQuestions(questions);
-				QuizModel quizeModel = new QuizModel();
+				KiQuizModel quizeModel = new KiQuizModel();
 				quizeModel.setQuiz_id(qTbl.getQuiz_id());
 				
-				
+				quizDetail.setError(null);
+				quizDetail.setStatus("Success");
 				quizDetail.setQuizModel(quizeModel);
 				
 			}

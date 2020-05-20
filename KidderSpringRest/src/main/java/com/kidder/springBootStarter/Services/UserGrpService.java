@@ -7,12 +7,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kidder.springBootStarter.Model.GroupModel;
+import com.kidder.springBootStarter.Model.KiGroupModel;
 import com.kidder.springBootStarter.Model.UserGrpInfoModel;
 import com.kidder.springBootStarter.Model.UserGrpReqstStatusInfoModel;
-import com.kidder.springBootStarter.Model.UserModel;
-import com.kidder.springBootStarter.Pojo.GroupInfoTbl;
-import com.kidder.springBootStarter.Pojo.GrpReqstTbl;
+import com.kidder.springBootStarter.Model.KiUserModel;
+import com.kidder.springBootStarter.Pojo.KiGroupTbl;
+import com.kidder.springBootStarter.Pojo.KiGrpReqstTbl;
 import com.kidder.springBootStarter.Repo.GroupRepository;
 import com.kidder.springBootStarter.Repo.UserGrpRepository;
 
@@ -21,7 +21,7 @@ public class UserGrpService {
 	@Autowired
 	UserGrpRepository userGrpRepository;
 	@Autowired
-	GrpReqstTbl grpReqstTbl;
+	KiGrpReqstTbl grpReqstTbl;
 	
 
 	
@@ -62,7 +62,7 @@ public class UserGrpService {
 		long millis=System.currentTimeMillis(); 
 		setLastModifiedDate(new Timestamp(millis));
 		for(UserGrpReqstStatusInfoModel userList:userGrpInfoModel.getUser_list()) {
-			userGrpRepository.updateReqstStatus(userList.getGrp_reqst_status(), getLastModifiedDate(), userList.getUser_username(), userGrpInfoModel.getGrp_admin());
+//			userGrpRepository.updateReqstStatus(userList.getGrp_reqst_status(), getLastModifiedDate(), userList.getUser_username(), userGrpInfoModel.getGrp_admin());
 		}
 	}
 	

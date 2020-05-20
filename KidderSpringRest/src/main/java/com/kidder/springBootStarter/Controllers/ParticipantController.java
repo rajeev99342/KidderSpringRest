@@ -1,6 +1,7 @@
 package com.kidder.springBootStarter.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,11 +23,12 @@ public class ParticipantController {
 	@Autowired
 	GroupParticipantService grpPartiServce;
 	
-	@Transactional
+//	@Transactional(propagation = Propagation.NESTED)
+
 	@RequestMapping("/addGrpParticipant")
 	public GroupParticipantModel addGrpParticipant(@RequestBody GroupParticipantModel groupPartiModel)
 	{
-		return grpPartiServce.addParticipant(groupPartiModel);
+		return grpPartiServce.addParticipant(groupPartiModel,"Participant");
 	}
 	
 }

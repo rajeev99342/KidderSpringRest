@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.kidder.Common.CommonResource;
 import com.kidder.Common.DeleteImageHelper;
 import com.kidder.springBootStarter.Model.ImageInfoModel;
-import com.kidder.springBootStarter.Pojo.ImageInfoTbl;
+import com.kidder.springBootStarter.Pojo.KiImgTbl;
 import com.kidder.springBootStarter.Repo.ImageRepository;
 
 @Service
@@ -17,12 +17,12 @@ public class ImageService {
 	@Autowired
 	ImageRepository imageRepo;
 	
-	public ImageInfoTbl saveQuesImage(ImageInfoModel imgeInfoModel)
+	public KiImgTbl saveQuesImage(ImageInfoModel imgeInfoModel)
 	{
-		ImageInfoTbl mTbl = null; 
+		KiImgTbl mTbl = null; 
 			if(imgeInfoModel != null)
 			{
-				ImageInfoTbl tbl = new ImageInfoTbl();
+				KiImgTbl tbl = new KiImgTbl();
 				if(imgeInfoModel.getImg_id() != null)
 				{
 					DeleteImageHelper.delete(new File(imgeInfoModel.getImg_path()));

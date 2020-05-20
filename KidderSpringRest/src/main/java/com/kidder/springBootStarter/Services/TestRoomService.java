@@ -1,5 +1,6 @@
 package com.kidder.springBootStarter.Services;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kidder.Common.ConvertedHelper;
-import com.kidder.springBootStarter.Model.QuizModel;
-import com.kidder.springBootStarter.Model.UserModel;
-import com.kidder.springBootStarter.Pojo.QuizeInfoTbl;
+import com.kidder.springBootStarter.Model.KiQuizModel;
+import com.kidder.springBootStarter.Model.KiUserModel;
+import com.kidder.springBootStarter.Pojo.KiQuizeTbl;
 import com.kidder.springBootStarter.Repo.TestRoomRepository;
 
 @Service
@@ -20,26 +21,26 @@ public class TestRoomService {
 	@Autowired
 	TestRoomRepository testRoomRepo;
 	
-	public List<QuizModel> getTestRoomByGroupId(long grp_id)
+	public List<KiQuizModel> getTestRoomByGroupId(long grp_id)
 	{
 	
-			List<QuizeInfoTbl> quizInfoTbls =  testRoomRepo.getTestRoomByGroupId(grp_id);
+			List<KiQuizeTbl> quizInfoTbls =  testRoomRepo.getTestRoomByGroupId(grp_id);
 			
-			List<QuizModel> quizModels = new ArrayList<QuizModel>();
+			List<KiQuizModel> quizModels = new ArrayList<KiQuizModel>();
 			
-			for(QuizeInfoTbl tbl : quizInfoTbls)
+			for(KiQuizeTbl tbl : quizInfoTbls)
 			{
-				QuizModel model = new QuizModel();
+				KiQuizModel model = new KiQuizModel();
 				
 				model.setGrpModel(null);
 				model.setQuiz_created_date(tbl.getQuiz_created_date());
-				model.setQuiz_duration(model.getQuiz_duration());
+				model.setQuiz_duration(tbl.getQuiz_duration());
 				model.setQuiz_id(tbl.getQuiz_id());
-				model.setQuiz_marks(model.getQuiz_marks());
+				model.setQuiz_marks(tbl.getQuiz_marks());
 				model.setQuiz_name(tbl.getQuiz_name());
 				model.setQuiz_num_of_ques(tbl.getQuiz_num_of_ques());
 				model.setQuiz_published_date(tbl.getQuiz_published_date());
-				UserModel userModel = new UserModel();
+				KiUserModel userModel = new KiUserModel();
 				model.setQuiz_status(tbl.getQuiz_status());
 				userModel.setError(null);
 				userModel.setStatus("Success");
@@ -59,19 +60,29 @@ public class TestRoomService {
 	}
 	
 	
-	public QuizModel startTest(QuizModel quizModel)
+	public KiQuizModel startTest(KiQuizModel quizModel,String mode)
 	{
 		
-		QuizeInfoTbl quizTbl= null;
+		KiQuizeTbl quizTbl= null;
 		
 		if(quizModel != null && quizModel.getUserModel() != null)
 		{
 			
-			
-			
 			try {
-				QuizeInfoTbl tbl = testRoomRepo.getQuizByQuizId(quizModel.getQuiz_id());
-				tbl.setQuiz_status(1);
+				KiQuizeTbl tbl = testRoomRepo.getQuizByQuizId(quizModel.getQuiz_id());
+				
+				if(mode.equals("start")) {
+					tbl.setQuiz_status(1);
+				}else if(mode.equals("end")) {
+					tbl.setQuiz_status(2);
+				}
+				
+				long millis=System.currentTimeMillis();  
+				
+				tbl.setQuiz_published_date(new Timestamp(millis));
+//				quizTbl.setQuiz_created_date(new Timestamp(millis));
+				
+				
 				quizTbl = testRoomRepo.save(tbl);
 			}catch (Exception e) {
 				// TODO: handle exception
@@ -80,6 +91,8 @@ public class TestRoomService {
 			
 			quizModel = null;
 			quizModel =  ConvertedHelper.getQuizModel(quizTbl);
+			quizModel.setError(null);
+			quizModel.setStatus("Success");
 			
 		}
 		

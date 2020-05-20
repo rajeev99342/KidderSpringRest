@@ -6,19 +6,22 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import com.kidder.springBootStarter.Pojo.UserInfoTbl;
+import com.kidder.springBootStarter.Pojo.KiUserTbl;
 
 @Repository
-public interface UserInfoRepository extends JpaRepository<UserInfoTbl,Long>{
+public interface UserInfoRepository extends JpaRepository<KiUserTbl,Long>{
 	//public String saveUserDetail(UserModel userModel);
-	@Query("from UserInfoTbl uit where uit.user_username = :user_username")
-	public List<UserInfoTbl> getUserDetailsByUserName(@Param("user_username") String user_username);
+	@Query("from KiUserTbl as kiUser where kiUser.user_username = :user_username")
+	public List<KiUserTbl> getUserDetailsByUserName(@Param("user_username") String user_username);
 	
-	@Query("from UserInfoTbl uit where uit.user_username = :user_username")
-	public UserInfoTbl getUserByUsername(@Param("user_username") String user_username);
+	@Query("from KiUserTbl as kiUser where kiUser.user_username = :user_username")
+	public KiUserTbl getUserByUsername(@Param("user_username") String user_username);
 	
 	
-	@Query("from UserInfoTbl uit where uit.user_username = :user_username")
-	public UserInfoTbl loginUser(@Param("user_username") String user_username);
+	@Query("from KiUserTbl as kiUser where kiUser.user_username = :user_username")
+	public KiUserTbl loginUser(@Param("user_username") String user_username);
+	
+	@Query("from KiUserTbl as kiUser where uniqueCode = :uniqueCode")
+	public KiUserTbl getUserByUniqueCode(@Param("uniqueCode") String uniqueCode);
 	
 }

@@ -2,6 +2,7 @@ package com.kidder.Generator;
 
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,13 +13,14 @@ import java.util.logging.*;
 import org.hibernate.HibernateException;
 
 import com.kidder.SpringBootConnection.SpringDbConnection;
+import com.kidder.springBootStarter.SpringBootStarter;
 
 
 public abstract class AbstractIdGenerator implements IdGenerator
 {
 
 
-	protected static final String ID_TABLE = "ml_next_object_id";
+	protected static final String ID_TABLE = "ki_next_object_id";
 	protected static final Logger logger = Logger.getLogger( AbstractIdGenerator.class.getName() );
 
 	// returns a id which will be the low value of a block of one or more so
@@ -46,8 +48,10 @@ public abstract class AbstractIdGenerator implements IdGenerator
 
 		try
 		{
-			DataSource ds = SpringDbConnection.getAppContext().getBean( DataSource.class );
-			conn = ds.getConnection();
+			 conn = DriverManager.getConnection("jdbc:mysql://kiddertestdb.c8bvgfi9mdv2.ap-south-1.rds.amazonaws.com:3306/kidder", "kiddertestuser", "kiddertestpassword");
+
+//			DataSource ds = SpringBootStarter.getAppContext().getBean( DataSource.class );
+//			conn = ds.getConnection();
 
 			if ( null != conn )
 			{

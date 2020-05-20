@@ -11,6 +11,15 @@ import com.kidder.Generator.HibernateIntegerPrimaryKeyAttacher;
 
 		private long id = -1L;
 
+		private String uniqueCode;
+
+		public String getUniqueCode() {
+			return uniqueCode;
+		}
+
+		public void setUniqueCode(String uniqueCode) {
+			this.uniqueCode = uniqueCode;
+		}
 
 		private Boolean deleteFl = false;
 

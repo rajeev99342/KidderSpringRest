@@ -3,23 +3,37 @@ package com.kidder.springBootStarter.Model;
 import java.sql.Timestamp;
 import java.util.List;
 
-import com.kidder.springBootStarter.Pojo.QuizeInfoTbl;
+import com.kidder.springBootStarter.Pojo.KiQuizeTbl;
 
 public class QuizDetailModel {
 	
-	QuizModel quizModel ;
-	List<UserQuestionModel> questions;
+	KiQuizModel quizModel ;
+	List<KiUserQuestionModel> questions;
+	private String status;
 	
-	public List<UserQuestionModel> getQuestions() {
+	private String error;
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getError() {
+		return error;
+	}
+	public void setError(String error) {
+		this.error = error;
+	}
+	public List<KiUserQuestionModel> getQuestions() {
 		return questions;
 	}
-	public void setQuestions(List<UserQuestionModel> questions) {
+	public void setQuestions(List<KiUserQuestionModel> questions) {
 		this.questions = questions;
 	}
-	public QuizModel getQuizModel() {
+	public KiQuizModel getQuizModel() {
 		return quizModel;
 	}
-	public void setQuizModel(QuizModel quizModel) {
+	public void setQuizModel(KiQuizModel quizModel) {
 		this.quizModel = quizModel;
 	}
 	

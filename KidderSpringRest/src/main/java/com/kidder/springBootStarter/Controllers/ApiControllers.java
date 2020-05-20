@@ -2,6 +2,8 @@ package com.kidder.springBootStarter.Controllers;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -17,15 +19,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kidder.springBootStarter.Model.GroupModel;
+import com.kidder.springBootStarter.Model.ChildModel;
+import com.kidder.springBootStarter.Model.KiGroupModel;
+import com.kidder.springBootStarter.Model.KidderQuestionModel;
+import com.kidder.springBootStarter.Model.ParentModel;
 import com.kidder.springBootStarter.Model.QuizDetailModel;
-import com.kidder.springBootStarter.Model.QuizModel;
+import com.kidder.springBootStarter.Model.KiQuizModel;
 import com.kidder.springBootStarter.Model.TestModel;
 import com.kidder.springBootStarter.Model.UserGrpInfoModel;
-import com.kidder.springBootStarter.Model.UserModel;
-import com.kidder.springBootStarter.Model.UserQuestionModel;
+import com.kidder.springBootStarter.Model.KiUserModel;
+import com.kidder.springBootStarter.Model.KiUserQuestionModel;
 import com.kidder.springBootStarter.Pojo.TestTbl;
-import com.kidder.springBootStarter.Pojo.UserInfoTbl;
+import com.kidder.springBootStarter.Repo.ChildRepo;
+import com.kidder.springBootStarter.Repo.ParentRepo;
+import com.kidder.springBootStarter.Pojo.ChildTbl;
+import com.kidder.springBootStarter.Pojo.KiUserTbl;
+import com.kidder.springBootStarter.Pojo.ParentTbl;
 import com.kidder.springBootStarter.Services.GroupInfoService;
 import com.kidder.springBootStarter.Services.QuestionService;
 import com.kidder.springBootStarter.Services.QuizeInfoService;
@@ -55,19 +64,20 @@ public class ApiControllers {
 	
 	@Autowired
 	QuestionService questionService;
-	
+
 	
 	
 	
 	@Transactional
 	@RequestMapping("/hello")
-	public TestTbl sayHello(@RequestBody TestModel testModel)
+	public List<KiUserTbl> sayHello()
 	{
-		return testService.saveData(testModel);
+		
+		return userInfoService.getAllUser();
 	}
 	@Transactional
 	@RequestMapping(value = "/saveUserData", method = RequestMethod.POST)
-	public @ResponseBody UserModel saveUserData(@RequestBody UserModel userModel) throws SQLException {
+	public @ResponseBody KiUserModel saveUserData(@RequestBody KiUserModel userModel) throws SQLException {
 		
 		return userInfoService.saveUserDetail(userModel);
 	}
@@ -75,7 +85,7 @@ public class ApiControllers {
 	
 	@Transactional
 	@RequestMapping(value = "/saveGroupData", method = RequestMethod.POST)
-	public @ResponseBody GroupModel saveGroupData(@RequestBody GroupModel groupModel) {
+	public @ResponseBody KiGroupModel saveGroupData(@RequestBody KiGroupModel groupModel) {
 		return groupInfoService.saveGroupDetail(groupModel);
 	}
 	
@@ -112,20 +122,20 @@ public class ApiControllers {
 	@Transactional
 //	@RequestMapping(value = "/getGrpByAdmin", method = RequestMethod.POST)
 	@GetMapping("/getGrpByAdmin"+"/{admin}"+"/{isMyGroup}")
-	public @ResponseBody Set<GroupModel> getGrpByAdmin(@PathVariable(name="admin") String admin,@PathVariable(name="isMyGroup") Boolean isMyGroup) {
+	public @ResponseBody Set<KiGroupModel> getGrpByAdmin(@PathVariable(name="admin") String admin,@PathVariable(name="isMyGroup") Boolean isMyGroup) {
 		
 		return groupInfoService.getGrpByAdmin(admin,isMyGroup);
 		
 	}
 	
 	@GetMapping("/searchParticipant"+"/{username}")
-	public @ResponseBody UserModel getUser(@PathVariable(name="username") String username) {
+	public @ResponseBody KiUserModel getUser(@PathVariable(name="username") String username) {
 		
 		return userInfoService.getUser(username);
 	}
 
 	@GetMapping("/login"+"/{username}"+"/{password}")
-	public  @ResponseBody UserModel loginUser(@PathVariable(name="username") String username,@PathVariable(name="password") String password)
+	public  @ResponseBody KiUserModel loginUser(@PathVariable(name="username") String username,@PathVariable(name="password") String password)
 	{
 		return userInfoService.loginUser(username,password);
 	}
@@ -134,7 +144,7 @@ public class ApiControllers {
 	@Transactional
 
 	@GetMapping("/getTestRoomsByGroupId"+"/{groupId}")
-	public @ResponseBody List<QuizModel> getTestRoomsByGroupId(@PathVariable(name="groupId") long groupId) {
+	public @ResponseBody List<KiQuizModel> getTestRoomsByGroupId(@PathVariable(name="groupId") long groupId) {
 		
 		return testRoomService.getTestRoomByGroupId(groupId);
 		
@@ -143,7 +153,7 @@ public class ApiControllers {
 	@Transactional
 
 	@GetMapping("/getQuestionByQuizId"+"/{quizId}")
-	public @ResponseBody List<UserQuestionModel> getQuestions(@PathVariable(name="quizId") long quizId) throws Exception {
+	public @ResponseBody List<KiUserQuestionModel> getQuestions(@PathVariable(name="quizId") long quizId) throws Exception {
 		
 		return questionService.getQuestionByQuizId(quizId);
 		
@@ -153,21 +163,62 @@ public class ApiControllers {
 	@Transactional
 //	@RequestMapping(value = "/getGrpByAdmin", method = RequestMethod.POST)
 	@GetMapping("/getGrpsByUserId"+"/{user_id}")
-	public @ResponseBody Set<GroupModel> getGrpsByUserId(@PathVariable(name="user_id") long user_id) {
+	public @ResponseBody Set<KiGroupModel> getGrpsByUserId(@PathVariable(name="user_id") long user_id) {
 		
 		return groupInfoService.getGrpsByUserId(user_id);
 		
 	}
 	
 	@Transactional
-	@PostMapping("/startTest")
-	public @ResponseBody QuizModel startTest(@RequestBody QuizModel quizModel)
+	@PostMapping("/startTest"+"/{mode}")
+	public @ResponseBody KiQuizModel startTest(@PathVariable(name="mode") String mode, @RequestBody KiQuizModel quizModel)
 	{
 		
-		return testRoomService.startTest(quizModel);
+		return testRoomService.startTest(quizModel,mode);
 		
 		
 	}
 	
+	@Autowired
+	ChildRepo childRepo;
+	@Autowired
+	ParentRepo parentRepo;
+	
+	@Transactional
+	@PostMapping("/mappingTest")
+	public @ResponseBody ParentTbl checkMapping(@RequestBody ParentModel parent)
+	{
+		
+		ParentTbl parentTbl = new ParentTbl();
+		ParentTbl savedParent = new ParentTbl();
+
+		if(parent.getChilds() != null)
+		{
+			Set<ChildTbl> childs = new HashSet<>();
+			
+			for(ChildModel model : parent.getChilds())
+			{
+				parentTbl.generateId();
+				ChildTbl tbl = new ChildTbl();
+				tbl.generateId();
+				tbl.setName(model.getName());
+				tbl.setParent_id(parentTbl.getParent_id());
+				childs.add(tbl);
+			}
+			
+			
+			Set<ChildTbl> child_tbl = new HashSet<>();
+			
+			parentTbl.setParent_name(parent.getParent_name());
+			savedParent = new ParentTbl();
+			child_tbl.addAll(childRepo.saveAll(childs));
+			parentTbl.setChilds(child_tbl);
+
+			savedParent =  parentRepo.save(parentTbl);
+
+		}
+		return null;
+		
+	}
 	
 }

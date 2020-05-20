@@ -11,7 +11,7 @@ public class CheckTable {
 
 	public static Boolean isTableExist(String tableName) throws SQLException
 	{
-	Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/kidder", "root", "");
+	Connection con = DriverManager.getConnection("jdbc:mysql://kiddertestdb.c8bvgfi9mdv2.ap-south-1.rds.amazonaws.com:3306/kidder", "kiddertestuser", "kiddertestpassword");
 	
 		Boolean flag ;
 	
