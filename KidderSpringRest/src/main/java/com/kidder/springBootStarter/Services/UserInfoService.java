@@ -157,10 +157,12 @@ public class UserInfoService {
 	
 	public KiUserTbl saveByModel(KiUserModel userMode) {
 		KiUserTbl userTbl = new KiUserTbl();
-		if(userMode.getUniqueCode() != null)
+		userTbl = userInfoRepository.getUserByUsername(userMode.getUser_username());
+		if(userTbl != null)
 		{
-			userTbl = userInfoRepository.getUserByUniqueCode(userMode.getUniqueCode());
+			userTbl = userInfoRepository.getUserByUsername(userMode.getUser_username());
 		}else {
+			userTbl = new KiUserTbl();
 			userTbl.generateId();
 			userTbl.setUniqueCode(GenerateUniqueCode.Generate(userTbl.getUser_id(), "ki_user_tbl"));
 		}

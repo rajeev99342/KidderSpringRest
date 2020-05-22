@@ -13,10 +13,10 @@ public class GetImagePathFromBase64 {
 
 		if(dgrm != null)
 		{
-			if(dgrm.getUniqueCode() != null)
-			{
-				DeleteImageHelper.delete(new File(dgrm.getDgrm_img_path()));
-			}
+//			if(dgrm.getUniqueCode() != null)
+//			{
+//				DeleteImageHelper.delete(new File(dgrm.getDgrm_img_path()));
+//			}
 	
 			path = CommonResource.StoreBase64Image(dgrm.getDgrm_img_base64(), dgrm.getDgrm_img_name());
 			

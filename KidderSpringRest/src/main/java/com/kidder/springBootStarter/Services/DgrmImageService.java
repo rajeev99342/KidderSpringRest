@@ -68,21 +68,43 @@ public class DgrmImageService {
 			 if(drgm.getUniqueCode() != null)
 			 {
 				 kidgrmTbl = dgrmImgRepo.getDgrmByUniqueCode(drgm.getUniqueCode());
-				 
+		
 			 }else {
 				 kidgrmTbl.generateId();
 				 kidgrmTbl.setUniqueCode(GenerateUniqueCode.Generate(kidgrmTbl.getDgrm_img_id(), "kdit"));
 			 }
-			 kidgrmTbl.setDgrm_img_path(GetImagePathFromBase64.getImagePath(drgm));
-			 kidgrmTbl.setDeleteFl(false);
-			 kidgrmTbl.setDgrm_img_base64(null);
-			 kidgrmTbl.setKi_kidder_quest_id(kikidderQuest.getKi_kidder_quest_id());
-			 kidgrmTbl.setDgrm_img_name(drgm.getDgrm_img_name());
-			 dgrms.add(kidgrmTbl);
+			 
+			 if(drgm.getToBeDeleted())
+			 {
+				 DeleteImageHelper.delete(new File(drgm.getDgrm_img_path()));
+				 kidgrmTbl.setDgrm_img_path(drgm.getDgrm_img_path());
+				 kidgrmTbl.setDeleteFl(true);
+				 kidgrmTbl.setDgrm_img_base64(null);
+				 kidgrmTbl.setDgrm_img_name(drgm.getDgrm_img_name());
+				 dgrmImgRepo.delete(kidgrmTbl);
+			 }else {
+				 if(drgm.getUniqueCode() != null)
+				 {
+					 kidgrmTbl.setDgrm_img_path(drgm.getDgrm_img_path());
+					 kidgrmTbl.setDeleteFl(false);
+					 kidgrmTbl.setDgrm_img_base64(null);
+					 kidgrmTbl.setDgrm_img_name(drgm.getDgrm_img_name());
+					 dgrms.add(kidgrmTbl); 
+				 }else {
+					 kidgrmTbl.setDgrm_img_path(GetImagePathFromBase64.getImagePath(drgm));
+					 kidgrmTbl.setDeleteFl(false);
+					 kidgrmTbl.setDgrm_img_base64(null);
+					 kidgrmTbl.setKi_kidder_quest_id(kikidderQuest.getKi_kidder_quest_id());
+					 kidgrmTbl.setDgrm_img_name(drgm.getDgrm_img_name());
+					 dgrms.add(kidgrmTbl); 
+				 }
+		
+			 }
+
 		 }
 //		 
 		 
-		 
+		
 		List<KiDgrmImgTbl> dgrmImages =  dgrmImgRepo.saveAll(dgrms);
 		Set<KiDgrmImgTbl> imageDgrmSet  = new HashSet<>();
 		for(KiDgrmImgTbl kiDgrmImgTbl : dgrmImages)
@@ -97,17 +119,22 @@ public class DgrmImageService {
 		Set<DgrmImageInfoModel> models = new HashSet<>();
 		for(KiDgrmImgTbl tbl : imgTbls)
 		{
-			DgrmImageInfoModel model = new DgrmImageInfoModel();
 			
-			model.setDeleteFl(tbl.getDeleteFl());
-			File imgFile = new File(tbl.getDgrm_img_path());
-			model.setDgrm_img_base64(GetBase64ImageFromFile.encodeFileToBase64Binary(imgFile));
-			model.setDgrm_img_desc(tbl.getDgrm_img_desc());
-			model.setDgrm_img_id(tbl.getDgrm_img_id());
-			model.setDgrm_img_name(tbl.getDgrm_img_name());
-			model.setUniqueCode(tbl.getUniqueCode());
-			model.setDgrm_img_path(tbl.getDgrm_img_path());
-			models.add(model);
+			if(tbl.getDeleteFl() == false)
+			{
+				DgrmImageInfoModel model = new DgrmImageInfoModel();
+				
+				model.setDeleteFl(tbl.getDeleteFl());
+				File imgFile = new File(tbl.getDgrm_img_path());
+				model.setDgrm_img_base64(GetBase64ImageFromFile.encodeFileToBase64Binary(imgFile));
+				model.setDgrm_img_desc(tbl.getDgrm_img_desc());
+				model.setDgrm_img_id(tbl.getDgrm_img_id());
+				model.setDgrm_img_name(tbl.getDgrm_img_name());
+				model.setUniqueCode(tbl.getUniqueCode());
+				model.setDgrm_img_path(tbl.getDgrm_img_path());
+				models.add(model);
+			}
+
 		}
 		return models;
 	}
