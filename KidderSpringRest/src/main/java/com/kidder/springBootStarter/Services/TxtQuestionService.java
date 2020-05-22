@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.kidder.Common.ConvertedHelper;
 import com.kidder.Common.GenerateUniqueCode;
-import com.kidder.springBootStarter.Model.KiTxtQuesInfoModel;
+import com.kidder.springBootStarter.Model.KiTxtQuesModel;
 import com.kidder.springBootStarter.Pojo.KiTxtQuestTbl;
 import com.kidder.springBootStarter.Repo.TxtQuestionRepository;
 
@@ -19,7 +19,7 @@ public class TxtQuestionService {
 	public KiTxtQuestTbl saveTxtQuest(KiTxtQuestTbl txtQues)
 	{
 		KiTxtQuestTbl txtQuesTbl = null;
-		KiTxtQuesInfoModel txtQuesModel = new KiTxtQuesInfoModel();
+		KiTxtQuesModel txtQuesModel = new KiTxtQuesModel();
 		if(txtQues != null)
 		{
 			txtQuesTbl = txtQuesRepo.save(txtQues);
@@ -36,7 +36,7 @@ public class TxtQuestionService {
 		return txtQuesRepo.getByUniqueCode(uniqueCode);
 	}
 	
-	public KiTxtQuestTbl saveTxtQuestByModel(KiTxtQuesInfoModel model) {
+	public KiTxtQuestTbl saveTxtQuestByModel(KiTxtQuesModel model) {
 		 KiTxtQuestTbl txtQuest = new KiTxtQuestTbl();
 
 		 if(model.getUniqueCode() != null)
@@ -61,6 +61,17 @@ public class TxtQuestionService {
 		 return txtQuesRepo.save(txtQuest);
 		 
 		 
+	}
+	
+	public KiTxtQuesModel getTxtQuestModel(KiTxtQuestTbl tbl)
+	{
+		KiTxtQuesModel model = new KiTxtQuesModel();
+		
+		model.setDeleteFl(tbl.getDeleteFl());
+		model.setQuesTxt(tbl.getQuesTxt());
+		model.setUniqueCode(tbl.getUniqueCode());
+		model.setTxt_ques_id(tbl.getTxt_ques_id());
+		return model;
 	}
 	
 }

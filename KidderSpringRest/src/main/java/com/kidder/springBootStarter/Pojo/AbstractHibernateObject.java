@@ -24,7 +24,6 @@ import com.kidder.Generator.HibernateIntegerPrimaryKeyAttacher;
 		private Boolean deleteFl = false;
 
 
-		private int tenantId = -1;
 
 		public Long getId()
 		{
@@ -50,15 +49,7 @@ import com.kidder.Generator.HibernateIntegerPrimaryKeyAttacher;
 
 
 
-		public int getTenantId()
-		{
-			return this.tenantId;
-		}
-
-		public void setTenantId( int tenantId )
-		{
-			this.tenantId = tenantId;
-		}
+	
 
 		public String toString()
 		{

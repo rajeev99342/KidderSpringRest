@@ -14,19 +14,28 @@ import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 
 @Entity
-@Table(name = "ki_dgrm_img_tbl")
-@Component
+@javax.persistence.Table(name="ki_dgrm_img_tbl",indexes = 
+{@javax.persistence.Index(name="ki_dgrm_img_tbl_pk",columnList = "dgrm_img_id",unique = true)})
 public class KiDgrmImgTbl extends AbstractHibernateObject {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	
+	@Id	
 	@javax.persistence.Basic
-	@javax.persistence.Column( name = "dgrm_img_id" )
-    private Long dgrm_img_id;
+	@javax.persistence.Column( name = "dgrm_img_id")
+	public Long getDgrm_img_id() {
+		return super.getId();
+	}
+
+	public void setDgrm_img_id(Long dgrm_img_id) {
+		super.setId(dgrm_img_id);
+	}
+
+	public String getDgrm_img_name() {
+		return dgrm_img_name;
+	}
+
 	@javax.persistence.Basic
 	@javax.persistence.Column( name = "dgrm_img_name" )
 	private String dgrm_img_name;
@@ -66,19 +75,7 @@ public class KiDgrmImgTbl extends AbstractHibernateObject {
 	public void setKi_kidder_quest_id(long ki_kidder_quest_id) {
 		this.ki_kidder_quest_id = ki_kidder_quest_id;
 	}
-	@javax.persistence.Basic
-	@javax.persistence.Column( name = "dgrm_img_id" )
-	public Long getDgrm_img_id() {
-		return super.getId();
-	}
 
-	public void setDgrm_img_id(Long dgrm_img_id) {
-		super.setId(dgrm_img_id);
-	}
-
-	public String getDgrm_img_name() {
-		return dgrm_img_name;
-	}
 
 	public void setDgrm_img_name(String dgrm_img_name) {
 		this.dgrm_img_name = dgrm_img_name;
@@ -100,6 +97,27 @@ public class KiDgrmImgTbl extends AbstractHibernateObject {
 		this.dgrm_img_desc = dgrm_img_desc;
 	}
 	
+	@javax.persistence.Basic
+	@javax.persistence.Column( name = "delete_fl" )
 
+	public Boolean getDeleteFl() {
+		return super.getDeleteFl();
+	}
+
+	public void setDeleteFl(Boolean deleteFl) {
+		super.setDeleteFl(deleteFl);
+	}
+	@javax.persistence.Basic
+	@javax.persistence.Column(name = "unique_code")
+	public String getUniqueCode() {
+		return super.getUniqueCode();
+	}
+
+
+	public void setUniqueCode(String uniqueCode) {
+		super.setUniqueCode(uniqueCode);
+	}
+
+	
 
 }

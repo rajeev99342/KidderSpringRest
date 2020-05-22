@@ -31,9 +31,29 @@ public class KiKidderQuestModel extends CommonColumnModel{
 
 	private KiUserModel userModel;
 
-	private KiTxtQuesInfoModel txtQuesInfoModel;
+	private KiTxtQuesModel txtQuesInfoModel;
 	
 	private Set<DgrmImageInfoModel> dgrmImageInfoModels;
+	
+	private Boolean error;
+	
+	private String status;
+
+	public Boolean getError() {
+		return error;
+	}
+
+	public void setError(Boolean error) {
+		this.error = error;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	public Long getKi_kidder_quest_id() {
 		return ki_kidder_quest_id;
@@ -126,11 +146,11 @@ public class KiKidderQuestModel extends CommonColumnModel{
 		this.userModel = userModel;
 	}
 
-	public KiTxtQuesInfoModel getTxtQuesInfoModel() {
+	public KiTxtQuesModel getTxtQuesInfoModel() {
 		return txtQuesInfoModel;
 	}
 
-	public void setTxtQuesInfoModel(KiTxtQuesInfoModel txtQuesInfoModel) {
+	public void setTxtQuesInfoModel(KiTxtQuesModel txtQuesInfoModel) {
 		this.txtQuesInfoModel = txtQuesInfoModel;
 	}
 

@@ -163,11 +163,11 @@ public class UserInfoService {
 		}else {
 			userTbl.generateId();
 			userTbl.setUniqueCode(GenerateUniqueCode.Generate(userTbl.getUser_id(), "ki_user_tbl"));
-		
 		}
 		userTbl.setUser_email(userMode.getUser_email());
 		userTbl.setUser_name(userMode.getUser_name());
 		userTbl.setUser_password(userMode.getUser_password());
+		userTbl.setDeleteFl(false);
 		userTbl.setUser_phone_number(userMode.getUser_phone_number());
 		userTbl.setUser_username(userMode.getUser_username());
 		return userInfoRepository.save(userTbl);

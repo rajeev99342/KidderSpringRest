@@ -12,4 +12,11 @@ public interface KiKidderQuestRepository extends JpaRepository<KiKidderQuestTbl,
 
 	@Query("from KiKidderQuestTbl as ki where ki.userInfoTbl.user_username = :user_username and ki.ki_kidder_quest_level = :ki_kidder_quest_level")
 	public List<KiKidderQuestTbl> getKidderQuestByLevel(@Param("user_username") String user_username,@Param("ki_kidder_quest_level") Integer ki_kidder_quest_level);
+	
+	@Query("from KiKidderQuestTbl as ki where uniqueCode = :uniqueCode and deleteFl = :false")
+	public KiKidderQuestTbl getByUniqueCode(@Param("uniqueCode") String uniqueCode);
+	
+	@Query("from KiKidderQuestTbl as ki where ki.userInfoTbl.user_username = :user_username and deleteFl = false")
+	public List<KiKidderQuestTbl> getQuestionByAdmin(@Param("user_username") String user_username);
+	
 }

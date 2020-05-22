@@ -13,6 +13,7 @@ import com.kidder.Common.CommonResource;
 import com.kidder.Common.ConvertedHelper;
 import com.kidder.Common.DeleteImageHelper;
 import com.kidder.Common.GenerateUniqueCode;
+import com.kidder.Common.GetBase64ImageFromFile;
 import com.kidder.Common.GetImagePathFromBase64;
 import com.kidder.springBootStarter.Model.DgrmImageInfoModel;
 import com.kidder.springBootStarter.Pojo.KiDgrmImgTbl;
@@ -89,6 +90,26 @@ public class DgrmImageService {
 			imageDgrmSet.add(kiDgrmImgTbl);
 		}
 		return imageDgrmSet;
+	}
+	
+	public Set<DgrmImageInfoModel> getDgrmModels(Set<KiDgrmImgTbl> imgTbls) throws Exception
+	{
+		Set<DgrmImageInfoModel> models = new HashSet<>();
+		for(KiDgrmImgTbl tbl : imgTbls)
+		{
+			DgrmImageInfoModel model = new DgrmImageInfoModel();
+			
+			model.setDeleteFl(tbl.getDeleteFl());
+			File imgFile = new File(tbl.getDgrm_img_path());
+			model.setDgrm_img_base64(GetBase64ImageFromFile.encodeFileToBase64Binary(imgFile));
+			model.setDgrm_img_desc(tbl.getDgrm_img_desc());
+			model.setDgrm_img_id(tbl.getDgrm_img_id());
+			model.setDgrm_img_name(tbl.getDgrm_img_name());
+			model.setUniqueCode(tbl.getUniqueCode());
+			model.setDgrm_img_path(tbl.getDgrm_img_path());
+			models.add(model);
+		}
+		return models;
 	}
 	
 }

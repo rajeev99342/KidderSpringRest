@@ -1,3 +1,4 @@
+
 package com.kidder.springBootStarter.Pojo;
 
 import java.util.Set;
@@ -7,26 +8,20 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "ki_kidder_quest_tbl")
-
+@javax.persistence.Table(name="ki_kidder_quest_tbl",indexes = 
+{@javax.persistence.Index(name="ki_kidder_quest_tbl_pk",columnList = "ki_kidder_quest_id",unique = true)})
 public class KiKidderQuestTbl extends AbstractHibernateObject{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-    private Long ki_kidder_quest_id;
 
 	private String ki_kidder_quest_name;
 	
@@ -47,17 +42,24 @@ public class KiKidderQuestTbl extends AbstractHibernateObject{
 	private String ki_kidder_quest_ans;
 	
 	private Double ki_kidder_quest_marks;
+	private KiTxtQuestTbl txtQuesInfoTbl;
 
 
+	private Set<KiDgrmImgTbl> dgrmImgInfoTbls;
+	private KiUserTbl userInfoTbl;
 
-
+	
+	@javax.persistence.Id
 	@javax.persistence.Basic
-	@javax.persistence.Column( name = "ki_kidder_quest_id" )
-	public void setKi_kidder_quest_id(Long ki_kidder_quest_id) {
-		super.setId(ki_kidder_quest_id);
-	}
+	@javax.persistence.Column( name = "ki_kidder_quest_id")
+	@org.hibernate.annotations.Type(type="long")
+	@javax.validation.constraints.NotNull
 	public Long getKi_kidder_quest_id() {
 		return super.getId();
+	}
+
+	public void setKi_kidder_quest_id(Long ki_kidder_quest_id) {
+		super.setId(ki_kidder_quest_id);
 	}
 
 
@@ -106,10 +108,6 @@ public class KiKidderQuestTbl extends AbstractHibernateObject{
 	public String getKi_kidder_quest_name() {
 		return ki_kidder_quest_name;
 	}
-
-
-
-
 
 
 	public void setKi_kidder_quest_name(String ki_kidder_quest_name) {
@@ -198,11 +196,8 @@ public class KiKidderQuestTbl extends AbstractHibernateObject{
 	
 	
 	@javax.persistence.Basic
-	@OneToOne(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="txt_ques_id")
-	private KiTxtQuestTbl txtQuesInfoTbl;
-
-
 
 	public KiTxtQuestTbl getTxtQuesInfoTbl() {
 		return txtQuesInfoTbl;
@@ -215,9 +210,8 @@ public class KiKidderQuestTbl extends AbstractHibernateObject{
 
 
 	@javax.persistence.Basic
-	@ManyToOne(cascade = {CascadeType.DETACH},fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="user_id")
-	private KiUserTbl userInfoTbl;
 
 	public KiUserTbl getUserInfoTbl() {
 		return userInfoTbl;
@@ -230,9 +224,6 @@ public class KiKidderQuestTbl extends AbstractHibernateObject{
 	@javax.persistence.Basic
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name="ki_kidder_quest_id",updatable = false,insertable = false)
-	private Set<KiDgrmImgTbl> dgrmImgInfoTbls;
-
-
 
 	public Set<KiDgrmImgTbl> getDgrmImgInfoTbls() {
 		return dgrmImgInfoTbls;
@@ -243,11 +234,30 @@ public class KiKidderQuestTbl extends AbstractHibernateObject{
 		this.dgrmImgInfoTbls = dgrmImgInfoTbls;
 	}
 
+	@javax.persistence.Basic
+	@javax.persistence.Column(name = "deleteFl")
+
+	public Boolean getDeleteFl() {
+		return super.getDeleteFl();
+	}
 
 
+	public void setDeleteFl(Boolean deleteFl) {
+		super.setDeleteFl(deleteFl);
+	}
+
+	@javax.persistence.Basic
+	@javax.persistence.Column(name = "unique_code")
+	public String getUniqueCode() {
+		return super.getUniqueCode();
+	}
 
 
+	public void setUniqueCode(String uniqueCode) {
+		super.setUniqueCode(uniqueCode);
+	}
 
+	
 	
 
 }

@@ -6,7 +6,7 @@ import com.kidder.springBootStarter.Model.GroupParticipantModel;
 import com.kidder.springBootStarter.Model.ImageInfoModel;
 import com.kidder.springBootStarter.Model.KiKidderQuestModel;
 import com.kidder.springBootStarter.Model.KiQuizModel;
-import com.kidder.springBootStarter.Model.KiTxtQuesInfoModel;
+import com.kidder.springBootStarter.Model.KiTxtQuesModel;
 import com.kidder.springBootStarter.Model.KiUserModel;
 import com.kidder.springBootStarter.Model.UserQuestImgModel;
 import com.kidder.springBootStarter.Model.KiUserQuestionModel;
@@ -219,7 +219,7 @@ public class ConvertedHelper {
 	 }
 	 
 	 
-	 public static KiTxtQuestTbl getTxtQuestionTbl (KiTxtQuesInfoModel model)
+	 public static KiTxtQuestTbl getTxtQuestionTbl (KiTxtQuesModel model)
 	 {
 		 KiTxtQuestTbl tbl = new KiTxtQuestTbl();
 		 tbl.setQuesTxt(model.getQuesTxt());
@@ -227,9 +227,9 @@ public class ConvertedHelper {
 		 return tbl;
 	 }
 	 
-	 public static KiTxtQuesInfoModel  getTxtQuestionModel (KiTxtQuestTbl tbl )
+	 public static KiTxtQuesModel  getTxtQuestionModel (KiTxtQuestTbl tbl )
 	 {
-		 KiTxtQuesInfoModel model = new KiTxtQuesInfoModel();
+		 KiTxtQuesModel model = new KiTxtQuesModel();
 		 model.setQuesTxt(tbl.getQuesTxt());
 		 model.setTxt_ques_id(tbl.getTxt_ques_id());
 		 return model;
@@ -312,7 +312,7 @@ public class ConvertedHelper {
 		 KiUserModel userModel = null;
 		 KiQuizModel quizModel = null;
 		 ImageInfoModel imgModel = null;
-		 KiTxtQuesInfoModel txtModel = null;
+		 KiTxtQuesModel txtModel = null;
 		 KiUserQuestionModel model = new KiUserQuestionModel();
 
 		 if(tbl.getUserInfoTbl() != null)

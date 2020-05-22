@@ -28,7 +28,7 @@ import com.kidder.springBootStarter.Model.ImageInfoModel;
 import com.kidder.springBootStarter.Model.KiKidderQuestModel;
 import com.kidder.springBootStarter.Model.KidderQuestionModel;
 import com.kidder.springBootStarter.Model.KiQuizModel;
-import com.kidder.springBootStarter.Model.KiTxtQuesInfoModel;
+import com.kidder.springBootStarter.Model.KiTxtQuesModel;
 import com.kidder.springBootStarter.Model.KiUserModel;
 import com.kidder.springBootStarter.Model.KiUserQuestionModel;
 import com.kidder.springBootStarter.Pojo.KiDgrmImgTbl;

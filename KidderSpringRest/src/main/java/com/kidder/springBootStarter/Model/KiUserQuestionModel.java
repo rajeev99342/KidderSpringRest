@@ -25,11 +25,11 @@ public class KiUserQuestionModel implements Serializable{
 	private KiQuizModel quizModel;
 	private KiUserModel userModel;
 	private ImageInfoModel imageInfoModel;
-	private KiTxtQuesInfoModel txtQuesInfoModel;
-	public KiTxtQuesInfoModel getTxtQuesInfoModel() {
+	private KiTxtQuesModel txtQuesInfoModel;
+	public KiTxtQuesModel getTxtQuesInfoModel() {
 		return txtQuesInfoModel;
 	}
-	public void setTxtQuesInfoModel(KiTxtQuesInfoModel txtQuesInfoModel) {
+	public void setTxtQuesInfoModel(KiTxtQuesModel txtQuesInfoModel) {
 		this.txtQuesInfoModel = txtQuesInfoModel;
 	}
 	public KiQuizModel getQuizModel() {
