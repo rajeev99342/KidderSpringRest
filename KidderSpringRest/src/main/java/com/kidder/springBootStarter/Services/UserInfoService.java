@@ -1,6 +1,5 @@
 package com.kidder.springBootStarter.Services;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kidder.Common.CheckTable;
-import com.kidder.Common.CommonResource;
 import com.kidder.Common.GenerateUniqueCode;
 import com.kidder.springBootStarter.Model.KiUserModel;
 import com.kidder.springBootStarter.Pojo.KiUserTbl;
@@ -26,24 +24,41 @@ public class UserInfoService {
 	public KiUserModel saveUserDetail(KiUserModel userModel) throws SQLException{
 		
 		
+		KiUserModel model = new KiUserModel();
+		KiUserTbl tbl = new KiUserTbl();
 		
-		if(CheckTable.isTableExist("user_info_tbl"))
+		if(CheckTable.isTableExist("ki_user_tbl"))
 		{
-			if (userInfoRepository.getUserDetailsByUserName(userModel.getUser_username()).size() == 0) {
-				return this.saveUserDetails(userModel);
+			if (userInfoRepository.getUserDetailsByUserName(userModel.getUser_username()).size() == 0)
+			{
+				tbl =  this.saveByModel(userModel);
 			}else {
 				userModel = new KiUserModel();
 				userModel.setError("Username already exits");
 				userModel.setStatus("Failed");
 				
-				return userModel;
+				model = userModel;
+				return model;
 			}
 			
 		}else {
-			return this.saveUserDetails(userModel);
+			tbl = this.saveByModel(userModel);
 		}
 	
-		
+		if(tbl != null)
+		{
+			model.setDeleteFl(tbl.getDeleteFl());
+			model.setError(null);
+			model.setStatus("Success");
+			model.setUniqueCode(tbl.getUniqueCode());
+			model.setUser_email(tbl.getUser_email());
+			model.setUser_id(tbl.getUser_id());
+			model.setUser_name(tbl.getUser_name());
+			model.setUser_username(tbl.getUser_username());
+			model.setUser_password(tbl.getUser_password());
+			model.setUser_phone_number(tbl.getUser_phone_number());
+		}
+		return model;
 
 	}
 
@@ -101,6 +116,7 @@ public class UserInfoService {
 				model.setStatus("Success");
 				model.setUser_email(tbl.getUser_email());
 				model.setUser_name(tbl.getUser_name());
+				model.setUniqueCode(tbl.getUniqueCode());
 				model.setUser_id(tbl.getUser_id());
 				model.setUser_phone_number(tbl.getUser_phone_number());
 				model.setUser_username(tbl.getUser_username());

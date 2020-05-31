@@ -1,12 +1,11 @@
 package com.kidder.springBootStarter.Model;
 
 import java.io.Serializable;
+import java.util.Set;
 
-import com.kidder.springBootStarter.Pojo.KiDgrmImgTbl;
-import com.kidder.springBootStarter.Pojo.KiQuizeTbl;
-import com.kidder.springBootStarter.Pojo.KiTxtQuestTbl;
 
-public class KiUserQuestionModel implements Serializable{
+
+public class KiUserQuestionModel extends CommonColumnModel{
 	/**
 	 * 
 	 */
@@ -22,9 +21,9 @@ public class KiUserQuestionModel implements Serializable{
 	private String user_quest_optionC;
 	private String user_quest_optionD;
 	private String user_quest_ans;
-	private KiQuizModel quizModel;
 	private KiUserModel userModel;
-	private ImageInfoModel imageInfoModel;
+	private Set<ImageInfoModel> imgInfoTbls;
+
 	private KiTxtQuesModel txtQuesInfoModel;
 	public KiTxtQuesModel getTxtQuesInfoModel() {
 		return txtQuesInfoModel;
@@ -32,12 +31,7 @@ public class KiUserQuestionModel implements Serializable{
 	public void setTxtQuesInfoModel(KiTxtQuesModel txtQuesInfoModel) {
 		this.txtQuesInfoModel = txtQuesInfoModel;
 	}
-	public KiQuizModel getQuizModel() {
-		return quizModel;
-	}
-	public void setQuizModel(KiQuizModel quizModel) {
-		this.quizModel = quizModel;
-	}
+
 	public KiUserModel getUserModel() {
 		return userModel;
 	}
@@ -111,12 +105,12 @@ public class KiUserQuestionModel implements Serializable{
 	public void setUser_quest_ans(String user_quest_ans) {
 		this.user_quest_ans = user_quest_ans;
 	}
+	public Set<ImageInfoModel> getImgInfoTbls() {
+		return imgInfoTbls;
+	}
+	public void setImgInfoTbls(Set<ImageInfoModel> imgInfoTbls) {
+		this.imgInfoTbls = imgInfoTbls;
+	}
 
-	public ImageInfoModel getImageInfoModel() {
-		return imageInfoModel;
-	}
-	public void setImageInfoModel(ImageInfoModel imageInfoModel) {
-		this.imageInfoModel = imageInfoModel;
-	}
 	
 }

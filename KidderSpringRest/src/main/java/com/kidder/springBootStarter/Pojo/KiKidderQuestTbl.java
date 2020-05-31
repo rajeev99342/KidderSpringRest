@@ -63,7 +63,6 @@ public class KiKidderQuestTbl extends AbstractHibernateObject{
 	}
 
 
-	
 	@javax.persistence.Basic
 	@javax.persistence.Column( name = "ki_kidder_quest_topic" )
 

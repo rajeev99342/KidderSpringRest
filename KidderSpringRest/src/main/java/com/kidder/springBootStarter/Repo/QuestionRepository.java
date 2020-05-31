@@ -6,11 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.kidder.springBootStarter.Pojo.UserQuestInfoTbl;
+import com.kidder.springBootStarter.Pojo.KiUserQuestTbl;
 
-public interface QuestionRepository extends JpaRepository<UserQuestInfoTbl, Long> {
+public interface QuestionRepository extends JpaRepository<KiUserQuestTbl, Long> {
 
-	@Query("from UserQuestInfoTbl as uQues where uQues.quizInfoTbl.quiz_id = :quiz_id")
-	List<UserQuestInfoTbl> getQuestionByQuizId(@Param("quiz_id") long quiz_id);
+	@Query("from KiUserQuestTbl as uQues where uQues.quiz_id = :quiz_id")
+	List<KiUserQuestTbl> getQuestionByQuizId(@Param("quiz_id") Long quiz_id);
 	
 }

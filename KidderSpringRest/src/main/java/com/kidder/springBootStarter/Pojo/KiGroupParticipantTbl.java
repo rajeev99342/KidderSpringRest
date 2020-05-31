@@ -1,56 +1,43 @@
 
 package com.kidder.springBootStarter.Pojo;
 
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.ManyToAny;
 
 @Entity
-@Table(name="grp_part_tbl")
-public class KiGroupParticipantTbl {
+@javax.persistence.Table(name="ki_grp_part_tbl",indexes = 
+{@javax.persistence.Index(name="ki_grp_part_tbl_pk",columnList = "grp_part_id",unique = true)})
+public class KiGroupParticipantTbl extends AbstractHibernateObject{
 
 
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-    private Long grp_part_id;
-	
-	
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="grp_id")
-    private KiGroupTbl groupInfoTbl;
-
-	
-	
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="user_id")
-    private KiUserTbl userInfoTb;
-
-	private int isAdmin;
-
-
-
-
-
+	@javax.persistence.Id
+	@javax.persistence.Basic
+	@javax.persistence.Column( name = "grp_part_id" )
 	public Long getGrp_part_id() {
-		return grp_part_id;
+		return super.getId();
 	}
 
 	public void setGrp_part_id(Long grp_part_id) {
-		this.grp_part_id = grp_part_id;
+		super.setId(grp_part_id);
 	}
+	
+	
+	private Boolean isAdmin;
+    private KiUserTbl userInfoTb;
+    private KiGroupTbl groupInfoTbl;
+
+
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="grp_id")
 
 	public KiGroupTbl getGroupInfoTbl() {
 		return groupInfoTbl;
@@ -60,6 +47,10 @@ public class KiGroupParticipantTbl {
 		this.groupInfoTbl = groupInfoTbl;
 	}
 
+	
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="user_id")
 	public KiUserTbl getUserInfoTb() {
 		return userInfoTb;
 	}
@@ -67,13 +58,38 @@ public class KiGroupParticipantTbl {
 	public void setUserInfoTb(KiUserTbl userInfoTb) {
 		this.userInfoTb = userInfoTb;
 	}
+	
 
-	public int getIsAdmin() {
+	@javax.persistence.Basic
+	@javax.persistence.Column( name = "is_admin" )
+	public Boolean getIsAdmin() {
 		return isAdmin;
 	}
 
-	public void setIsAdmin(int isAdmin) {
+	public void setIsAdmin(Boolean isAdmin) {
 		this.isAdmin = isAdmin;
+	}
+
+
+	@javax.persistence.Basic
+	@javax.persistence.Column(name = "unique_code")
+	public String getUniqueCode() {
+		return super.getUniqueCode();
+	}
+
+
+	public void setUniqueCode(String uniqueCode) {
+		super.setUniqueCode(uniqueCode);
+	}
+	@javax.persistence.Basic
+	@javax.persistence.Column( name = "delete_fl" )
+
+	public Boolean getDeleteFl() {
+		return super.getDeleteFl();
+	}
+
+	public void setDeleteFl(Boolean deleteFl) {
+		super.setDeleteFl(deleteFl);
 	}
 
 	

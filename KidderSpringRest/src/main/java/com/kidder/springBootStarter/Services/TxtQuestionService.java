@@ -3,7 +3,6 @@ package com.kidder.springBootStarter.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kidder.Common.ConvertedHelper;
 import com.kidder.Common.GenerateUniqueCode;
 import com.kidder.springBootStarter.Model.KiTxtQuesModel;
 import com.kidder.springBootStarter.Pojo.KiTxtQuestTbl;
@@ -46,7 +45,6 @@ public class TxtQuestionService {
 			 txtQuest = txtQuesRepo.getByUniqueCode(model.getUniqueCode());
 			 
 		 }else {
-			 txtQuest = ConvertedHelper.getTxtQuestionTbl(model);
 			 
 			 txtQuest.generateId(); 
 			 

@@ -8,9 +8,22 @@ import java.util.List;
 
 import com.kidder.springBootStarter.Pojo.KiGroupTbl;
 import com.kidder.springBootStarter.Pojo.KiUserTbl;
-public class KiQuizModel implements Serializable {
+public class KiQuizModel extends CommonColumnModel {
 	private long quiz_id;
 
+	private String quiz_name;
+	private int quiz_num_of_ques;
+	private String quiz_exam;
+	private String quiz_sub;
+	private Timestamp quiz_created_date;
+	private String quiz_topic;
+	private Timestamp quiz_published_date;
+	private int quiz_duration;
+	private int quiz_status;
+	private double quiz_marks;
+	KiUserModel userModel;
+	private KiGroupModel grpModel;
+	
 	public long getQuiz_id() {
 		return quiz_id;
 	}
@@ -33,18 +46,6 @@ public class KiQuizModel implements Serializable {
 		this.error = error;
 	}
 
-	private String quiz_name;
-	private int quiz_num_of_ques;
-	private String quiz_exam;
-	private String quiz_sub;
-	private Timestamp quiz_created_date;
-	private String quiz_topic;
-	private Timestamp quiz_published_date;
-	private int quiz_duration;
-	private int quiz_status;
-	private double quiz_marks;
-	KiUserModel userModel;
-	private KiGroupModel grpModel;
 	public String getQuiz_name() {
 		return quiz_name;
 	}

@@ -1,6 +1,6 @@
 package com.kidder.springBootStarter.Model;
 
-public class ImageInfoModel {
+public class ImageInfoModel  extends CommonColumnModel{
     private Long img_id;
 	
 	private String img_name;
@@ -8,6 +8,20 @@ public class ImageInfoModel {
 
 	private String img_path;
 	private String img_base64;
+
+	
+	private Boolean toBeDeleted; 
+
+	private String img_desc;
+	
+	public Boolean getToBeDeleted() {
+		return toBeDeleted;
+	}
+
+
+	public void setToBeDeleted(Boolean toBeDeleted) {
+		this.toBeDeleted = toBeDeleted;
+	}
 
 
 	public String getImg_base64() {
@@ -20,7 +34,6 @@ public class ImageInfoModel {
 	}
 
 
-	private String img_desc;
 
 
 	public Long getImg_id() {

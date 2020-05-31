@@ -36,12 +36,10 @@ import com.kidder.springBootStarter.Pojo.ChildTbl;
 import com.kidder.springBootStarter.Pojo.KiUserTbl;
 import com.kidder.springBootStarter.Pojo.ParentTbl;
 import com.kidder.springBootStarter.Services.GroupInfoService;
-import com.kidder.springBootStarter.Services.QuestionService;
 import com.kidder.springBootStarter.Services.QuizeInfoService;
 import com.kidder.springBootStarter.Services.TestRoomService;
 //import com.kidder.springBootStarter.Services.QuizeInfoService;
 import com.kidder.springBootStarter.Services.TestService;
-import com.kidder.springBootStarter.Services.UserGrpService;
 import com.kidder.springBootStarter.Services.UserInfoService;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 
@@ -53,17 +51,14 @@ public class ApiControllers {
 	TestService testService;
 	@Autowired
 	GroupInfoService groupInfoService;
-	@Autowired
-	UserGrpService userGrpService;
+
 	@Autowired
 	UserInfoService userInfoService;
 	@Autowired
 	QuizeInfoService quizeInfoService;
 	@Autowired
 	TestRoomService testRoomService;
-	
-	@Autowired
-	QuestionService questionService;
+
 
 	
 	
@@ -91,7 +86,7 @@ public class ApiControllers {
 	
 	@Transactional
 	@RequestMapping(value = "/saveQuiz", method = RequestMethod.POST)
-	public @ResponseBody QuizDetailModel saveUserQuiz(@RequestBody QuizDetailModel quizDetailModel) {
+	public @ResponseBody KiQuizModel saveUserQuiz(@RequestBody QuizDetailModel quizDetailModel) throws Exception {
 		
 		
 		return  quizeInfoService.saveUserQuiz(quizDetailModel.getQuestions(),quizDetailModel.getQuizModel());
@@ -107,18 +102,18 @@ public class ApiControllers {
 //		return null;
 //		
 //	}
-	@Transactional
-	@RequestMapping(value = "/grpRequest", method = RequestMethod.POST)
-	public @ResponseBody String grpAddRequest(@RequestBody UserGrpInfoModel userGrpInfoModel) {
-		if(userGrpInfoModel.isReqstFrmUser()) {
-			userGrpService.addUserRqust(userGrpInfoModel);
-		} else if(userGrpInfoModel.isReqstFrmGrpAdmin()) {
-			userGrpService.updateUserRqustStatus(userGrpInfoModel);
-		} else 
-			return "Invalid Request";
-		return "Request Completed";
-	}
-	
+//	@Transactional
+//	@RequestMapping(value = "/grpRequest", method = RequestMethod.POST)
+//	public @ResponseBody String grpAddRequest(@RequestBody UserGrpInfoModel userGrpInfoModel) {
+//		if(userGrpInfoModel.isReqstFrmUser()) {
+//			userGrpService.addUserRqust(userGrpInfoModel);
+//		} else if(userGrpInfoModel.isReqstFrmGrpAdmin()) {
+//			userGrpService.updateUserRqustStatus(userGrpInfoModel);
+//		} else 
+//			return "Invalid Request";
+//		return "Request Completed";
+//	}
+//	
 	@Transactional
 //	@RequestMapping(value = "/getGrpByAdmin", method = RequestMethod.POST)
 	@GetMapping("/getGrpByAdmin"+"/{admin}"+"/{isMyGroup}")
@@ -128,11 +123,6 @@ public class ApiControllers {
 		
 	}
 	
-	@GetMapping("/searchParticipant"+"/{username}")
-	public @ResponseBody KiUserModel getUser(@PathVariable(name="username") String username) {
-		
-		return userInfoService.getUser(username);
-	}
 
 	@GetMapping("/login"+"/{username}"+"/{password}")
 	public  @ResponseBody KiUserModel loginUser(@PathVariable(name="username") String username,@PathVariable(name="password") String password)
@@ -150,15 +140,15 @@ public class ApiControllers {
 		
 	}
 	
-	@Transactional
-
-	@GetMapping("/getQuestionByQuizId"+"/{quizId}")
-	public @ResponseBody List<KiUserQuestionModel> getQuestions(@PathVariable(name="quizId") long quizId) throws Exception {
-		
-		return questionService.getQuestionByQuizId(quizId);
-		
-	}
-	
+//	@Transactional
+//
+//	@GetMapping("/getQuestionByQuizId"+"/{quizId}")
+//	public @ResponseBody List<KiUserQuestionModel> getQuestions(@PathVariable(name="quizId") long quizId) throws Exception {
+//		
+//		return questionService.getQuestionByQuizId(quizId);
+//		
+//	}
+//	
 	
 	@Transactional
 //	@RequestMapping(value = "/getGrpByAdmin", method = RequestMethod.POST)

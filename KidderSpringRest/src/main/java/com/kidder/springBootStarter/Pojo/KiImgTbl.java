@@ -8,13 +8,27 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+
 @Entity
-@Table(name = "ki_img_tbl")
-@Component
-public class KiImgTbl {
+@javax.persistence.Table(name="ki_img_tbl",indexes = 
+{@javax.persistence.Index(name="ki_img_tbl_pk",columnList = "img_id",unique = true)})
+public class KiImgTbl extends AbstractHibernateObject{
+
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long img_id;
+	@javax.persistence.Basic
+	@javax.persistence.Column(name = "img_id")
+	public Long getImg_id() {
+		return super.getId();
+	}
+
+	public void setImg_id(Long img_id) {
+		super.setId(img_id);
+	}
+
 	
 	private String img_name;
 	
@@ -25,28 +39,32 @@ public class KiImgTbl {
 	private String img_desc;
 	
 	
-	private String img_base64;
-	
-	private String unique_code;
-	
+	private String img_base64;	
 
+	private long user_quest_id;
+	
 	@javax.persistence.Basic
-	@javax.persistence.Column( name = "img_unique_code" )
+	@javax.persistence.Column( name = "unique_code" )
 	public String getUnique_code() {
-		return unique_code;
+		return super.getUniqueCode();
 	}
 
 	public void setUnique_code(String unique_code) {
-		this.unique_code = unique_code;
+		super.setUniqueCode(unique_code);
 	}
 
-	public Long getImg_id() {
-		return img_id;
+	@javax.persistence.Basic
+	@javax.persistence.Column(name = "deleteFl")
+
+	public Boolean getDeleteFl() {
+		return super.getDeleteFl();
 	}
 
-	public void setImg_id(Long img_id) {
-		this.img_id = img_id;
+
+	public void setDeleteFl(Boolean deleteFl) {
+		super.setDeleteFl(deleteFl);
 	}
+
 	
 	@javax.persistence.Basic
 	@javax.persistence.Column( name = "img_base64" )
@@ -87,6 +105,15 @@ public class KiImgTbl {
 	}
 
 
+	@javax.persistence.Basic
+	@javax.persistence.Column( name = "user_quest_id" )
+	
+	public long getUser_quest_id() {
+		return user_quest_id;
+	}
 
+	public void setUser_quest_id(long user_quest_id) {
+		this.user_quest_id = user_quest_id;
+	}
 	
 }

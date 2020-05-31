@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kidder.Common.ConvertedHelper;
 import com.kidder.Common.GetBase64ImageFromFile;
 import com.kidder.springBootStarter.Model.DgrmImageInfoModel;
 import com.kidder.springBootStarter.Model.KiKidderQuestModel;

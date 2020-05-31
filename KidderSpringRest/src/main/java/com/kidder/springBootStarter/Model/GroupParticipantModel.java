@@ -5,7 +5,7 @@ package com.kidder.springBootStarter.Model;
 import com.kidder.springBootStarter.Pojo.KiGroupTbl;
 import com.kidder.springBootStarter.Pojo.KiUserTbl;
 
-public class GroupParticipantModel {
+public class GroupParticipantModel extends CommonColumnModel{
 
 
     private Long grp_part_id;
@@ -15,7 +15,7 @@ public class GroupParticipantModel {
 
     private KiUserModel userModel;
 
-	private Integer isAdmin;
+	private Boolean isAdmin;
 	
 	private String  status;
 	
@@ -63,13 +63,15 @@ public class GroupParticipantModel {
 		this.userModel = userModel;
 	}
 
-	public Integer getIsAdmin() {
+	public Boolean getIsAdmin() {
 		return isAdmin;
 	}
 
-	public void setIsAdmin(Integer isAdmin) {
+	public void setIsAdmin(Boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
+
+ 
 
 
 	

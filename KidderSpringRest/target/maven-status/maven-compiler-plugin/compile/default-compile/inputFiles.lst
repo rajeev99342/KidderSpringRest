@@ -18,11 +18,12 @@
 /home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/springBootStarter/Pojo/ChildTbl.java
 /home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/springBootStarter/Model/KiUserQuestionModel.java
 /home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/Common/GetImagePathFromBase64.java
+/home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/springBootStarter/Model/KiTxtQuesModel.java
 /home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/springBootStarter/Controllers/ParticipantController.java
 /home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/springBootStarter/Services/UserQuestInfoService.java
+/home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/springBootStarter/Pojo/KiUserQuestTbl.java
 /home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/springBootStarter/Repo/GroupRepository.java
 /home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/springBootStarter/SpringBootStarter.java
-/home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/springBootStarter/Pojo/UserQuestInfoTbl.java
 /home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/springBootStarter/Repo/UserInfoRepository.java
 /home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/springBootStarter/Services/GroupParticipantService.java
 /home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/context/ApplicationContextProvider.java
@@ -48,7 +49,6 @@
 /home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/springBootStarter/Repo/KiSubjectRepository.java
 /home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/springBootStarter/Model/KiQuizModel.java
 /home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/springBootStarter/Pojo/KiGrpReqstTbl.java
-/home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/springBootStarter/Pojo/KiGroupUserTbl.java
 /home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/Common/GenerateUniqueCode.java
 /home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/Generator/IdGeneratorImpl.java
 /home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/Common/DeleteImageHelper.java
@@ -58,6 +58,7 @@
 /home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/springBootStarter/Repo/ChildRepo.java
 /home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/springBootStarter/Model/KiUserModel.java
 /home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/springBootStarter/Repo/UserQuestInfoRepository.java
+/home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/Common/GetBase64ImageFromFile.java
 /home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/springBootStarter/Services/ImageService.java
 /home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/Common/CheckTable.java
 /home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/springBootStarter/Model/KiSubjectModel.java
@@ -71,7 +72,6 @@
 /home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/springBootStarter/Pojo/KiTopicTbl.java
 /home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/Generator/AbstractIdGenerator.java
 /home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/springBootStarter/Controllers/KidderAdminQuestController.java
-/home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/springBootStarter/Model/KiTxtQuesInfoModel.java
 /home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/springBootStarter/Pojo/QuizeQuestionMapTbl.java
 /home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/springBootStarter/Pojo/KiSubjectTbl.java
 /home/waralgorithm/Desktop/KidderRoot/KidderSpringRest/KidderSpringRest/src/main/java/com/kidder/springBootStarter/Model/GroupParticipantModel.java

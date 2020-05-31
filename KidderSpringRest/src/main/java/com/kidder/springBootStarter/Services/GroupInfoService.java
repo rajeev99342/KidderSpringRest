@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.kidder.Common.CommonResource;
-import com.kidder.Common.ConvertedHelper;
+import com.kidder.Common.GenerateUniqueCode;
 import com.kidder.springBootStarter.Model.KiGroupModel;
 import com.kidder.springBootStarter.Model.GroupParticipantModel;
 import com.kidder.springBootStarter.Model.KiUserModel;
@@ -25,8 +25,6 @@ GroupInfoRepository groupInfoRepository;
 @Autowired 
 UserInfoService userService;
 
-@Autowired
-UserGrpService userGroupService;
 
 @Autowired
 GroupParticipantService grpPartiService;
@@ -45,13 +43,13 @@ public KiGroupModel saveGroupDetail(KiGroupModel groupModel){
 			
 			GroupParticipantModel grpPartiModel = new GroupParticipantModel();
 			
-			groupModel = null;
 			
-			groupModel = ConvertedHelper.getGroupModel(groupInfoTbl);
+			groupModel.setUniqueCode(groupInfoTbl.getUniqueCode());
+			groupModel.setGrp_id(groupInfoTbl.getGrp_id());
 			
 			grpPartiModel.setGroupModel(groupModel);
 			
-			grpPartiModel.setIsAdmin(1);
+			grpPartiModel.setIsAdmin(true);
 			
 			KiUserModel userModel =  userService.getUser(groupInfoTbl.getGrp_admin());
 			
@@ -59,13 +57,17 @@ public KiGroupModel saveGroupDetail(KiGroupModel groupModel){
 			
 			grpPartiService.addParticipant(grpPartiModel,"Admin");
 			
-			groupModel = null;
-			
-			groupModel = ConvertedHelper.getGroupModel(groupInfoTbl);
-			
+			groupModel = new KiGroupModel();
+
+			groupModel.setDeleteFl(groupInfoTbl.getDeleteFl());
 			groupModel.setError(null);
-			
-			groupModel.setStatus("Sucess");
+			groupModel.setGrp_admin(groupInfoTbl.getGrp_admin());
+			groupModel.setGrp_desc(groupInfoTbl.getGrp_desc());
+			groupModel.setGrp_id(groupInfoTbl.getGrp_id());
+			groupModel.setGrp_name(groupInfoTbl.getGrp_name());
+			groupModel.setStatus("Success");
+			groupModel.setUniqueCode(groupInfoTbl.getUniqueCode());
+		
 			
 
 		}catch (Exception e) {
@@ -73,6 +75,7 @@ public KiGroupModel saveGroupDetail(KiGroupModel groupModel){
 			// TODO: handle exception
 			groupModel1.setError(e.getMessage());
 			groupModel1.setStatus("Failed");
+			groupModel = groupModel1;
 		}
 		
 		return groupModel;
@@ -91,7 +94,14 @@ public KiGroupModel saveGroupDetail(KiGroupModel groupModel){
 public KiGroupTbl SetParams(KiGroupModel groupModel) {
 	KiGroupTbl groupInfoTbl = new KiGroupTbl();
 
-			groupInfoTbl.setGrp_id(groupModel.getGrp_id());
+		if(groupModel.getUniqueCode() != null)
+		{
+			groupInfoTbl = groupInfoRepository.getGroupByUniqueCode(groupModel.getUniqueCode());
+		}else {
+			groupInfoTbl.generateId();
+			groupInfoTbl.setUniqueCode(GenerateUniqueCode.Generate(groupInfoTbl.getGrp_id(),"kgrpTbl"));
+		}
+			
 			groupInfoTbl.setGrp_name(groupModel.getGrp_name());
 			groupInfoTbl.setGrp_admin(groupModel.getGrp_admin());
 			groupInfoTbl.setGrp_desc(groupModel.getGrp_desc());
@@ -124,6 +134,8 @@ public KiGroupTbl SetParams(KiGroupModel groupModel) {
 				  model.setGrp_admin(t.getGrp_admin());
 				  model.setGrp_desc(t.getGrp_desc());
 				  model.setGrp_id(t.getGrp_id());
+				  model.setDeleteFl(t.getDeleteFl());
+				  model.setUniqueCode(t.getUniqueCode());
 				  model.setGrp_name(t.getGrp_name());
 				  model.setStatus("Success");
 				  models.add(model);	  
@@ -133,6 +145,8 @@ public KiGroupTbl SetParams(KiGroupModel groupModel) {
 				  model.setError(null);
 				  model.setGrp_admin(t.getGrp_admin());
 				  model.setGrp_desc(t.getGrp_desc());
+				  model.setUniqueCode(t.getUniqueCode());
+
 				  model.setGrp_id(t.getGrp_id());
 				  model.setGrp_name(t.getGrp_name());
 				  model.setStatus("Success");
@@ -198,6 +212,7 @@ public KiGroupTbl SetParams(KiGroupModel groupModel) {
 	    	 m.setGrp_admin(tbl.getGrp_admin());
 	    	 m.setGrp_desc(tbl.getGrp_desc());
 	    	 m.setGrp_id(tbl.getGrp_id());
+	    	 m.setUniqueCode(tbl.getUniqueCode());
 	    	 m.setGrp_name(tbl.getGrp_name());
 	    	 models.add(m);
 	    	 

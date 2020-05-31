@@ -26,7 +26,11 @@ public interface GroupInfoRepository extends JpaRepository<KiGroupTbl,Long>{
 	public Set<KiGroupTbl>getAllGrp();
 	
 	
-	@Query("from KiGroupTbl as g where g.grp_id in (select gp.groupInfoTbl.grp_id from KiGroupParticipantTbl as gp where gp.userInfoTb.user_id = :user_id) ")
+	@Query("from KiGroupTbl as g where g.grp_id in (select gp.groupInfoTbl.grp_id from KiGroupParticipantTbl as gp where gp.userInfoTb.user_id = :user_id)")
 	public Set<KiGroupTbl>getGrpByUserId(@Param("user_id") long user_id);
+
 	
+	
+	@Query("from KiGroupTbl as g where uniqueCode = uniqueCode")
+	public KiGroupTbl getGroupByUniqueCode(@Param("uniqueCode") String uniqueCode);
 }

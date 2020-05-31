@@ -6,13 +6,28 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 
+
 @Entity
-@Table(name = "ki_group_tbl")
-@Component
-public class KiGroupTbl {
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long grp_id;
+@javax.persistence.Table(name="ki_group_tbl",indexes = 
+{@javax.persistence.Index(name="ki_group_tbl_pk",columnList = "grp_id",unique = true)})
+public class KiGroupTbl extends AbstractHibernateObject {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@javax.persistence.Id
+	@javax.persistence.Basic
+	@javax.persistence.Column( name = "grp_id" )
+	public Long getGrp_id() {
+		return super.getId();
+	}
+
+	public void setGrp_id(Long grp_id) {
+		super.setId(grp_id);
+	}
+
+	
 	@javax.persistence.Basic
 	@javax.persistence.Column( name = "grp_name" )
 	private String grp_name;
@@ -26,13 +41,6 @@ public class KiGroupTbl {
 	private String grp_desc;
 
 
-	public Long getGrp_id() {
-		return grp_id;
-	}
-
-	public void setGrp_id(Long grp_id) {
-		this.grp_id = grp_id;
-	}
 
 	public String getGrp_name() {
 		return grp_name;
@@ -58,5 +66,25 @@ public class KiGroupTbl {
 		this.grp_desc = grp_desc;
 	}
 
+	@javax.persistence.Basic
+	@javax.persistence.Column(name = "unique_code")
+	public String getUniqueCode() {
+		return super.getUniqueCode();
+	}
+
+
+	public void setUniqueCode(String uniqueCode) {
+		super.setUniqueCode(uniqueCode);
+	}
+	@javax.persistence.Basic
+	@javax.persistence.Column( name = "delete_fl" )
+
+	public Boolean getDeleteFl() {
+		return super.getDeleteFl();
+	}
+
+	public void setDeleteFl(Boolean deleteFl) {
+		super.setDeleteFl(deleteFl);
+	}
 
 }

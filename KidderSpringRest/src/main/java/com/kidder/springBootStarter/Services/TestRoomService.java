@@ -9,7 +9,8 @@ import javax.persistence.Convert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kidder.Common.ConvertedHelper;
+import com.kidder.springBootStarter.Model.KiGroupModel;
+//import com.kidder.Common.ConvertedHelper;
 import com.kidder.springBootStarter.Model.KiQuizModel;
 import com.kidder.springBootStarter.Model.KiUserModel;
 import com.kidder.springBootStarter.Pojo.KiQuizeTbl;
@@ -23,7 +24,7 @@ public class TestRoomService {
 	
 	public List<KiQuizModel> getTestRoomByGroupId(long grp_id)
 	{
-	
+
 			List<KiQuizeTbl> quizInfoTbls =  testRoomRepo.getTestRoomByGroupId(grp_id);
 			
 			List<KiQuizModel> quizModels = new ArrayList<KiQuizModel>();
@@ -32,7 +33,17 @@ public class TestRoomService {
 			{
 				KiQuizModel model = new KiQuizModel();
 				
-				model.setGrpModel(null);
+				
+				
+				KiGroupModel grpModel = new KiGroupModel();
+				
+				grpModel.setDeleteFl(tbl.getGrpInfoTbl().getDeleteFl());
+				grpModel.setGrp_admin(tbl.getGrpInfoTbl().getGrp_admin());
+				grpModel.setGrp_desc(tbl.getGrpInfoTbl().getGrp_desc());
+				grpModel.setGrp_id(tbl.getGrpInfoTbl().getGrp_id());
+				grpModel.setGrp_name(tbl.getGrpInfoTbl().getGrp_name());
+				grpModel.setUniqueCode(tbl.getGrpInfoTbl().getUniqueCode());
+				model.setGrpModel(grpModel);
 				model.setQuiz_created_date(tbl.getQuiz_created_date());
 				model.setQuiz_duration(tbl.getQuiz_duration());
 				model.setQuiz_id(tbl.getQuiz_id());
@@ -40,6 +51,7 @@ public class TestRoomService {
 				model.setQuiz_name(tbl.getQuiz_name());
 				model.setQuiz_num_of_ques(tbl.getQuiz_num_of_ques());
 				model.setQuiz_published_date(tbl.getQuiz_published_date());
+				model.setUniqueCode(tbl.getUnique_code());
 				KiUserModel userModel = new KiUserModel();
 				model.setQuiz_status(tbl.getQuiz_status());
 				userModel.setError(null);
@@ -49,20 +61,19 @@ public class TestRoomService {
 				userModel.setUser_name(tbl.getUserInfoTbl().getUser_name());
 				userModel.setUser_phone_number(tbl.getUserInfoTbl().getUser_phone_number());
 				userModel.setUser_username(tbl.getUserInfoTbl().getUser_username());
-				
+				userModel.setUniqueCode(tbl.getUserInfoTbl().getUniqueCode());
 				model.setUserModel(userModel);
 				
 				quizModels.add(model);
 				
 			}
 			return quizModels;
-			
+		
 	}
-	
-	
+
 	public KiQuizModel startTest(KiQuizModel quizModel,String mode)
 	{
-		
+
 		KiQuizeTbl quizTbl= null;
 		
 		if(quizModel != null && quizModel.getUserModel() != null)
@@ -89,14 +100,14 @@ public class TestRoomService {
 				System.out.println("error while start test"+e.getMessage());
 			}
 			
-			quizModel = null;
-			quizModel =  ConvertedHelper.getQuizModel(quizTbl);
+//			quizModel = null;
+			
 			quizModel.setError(null);
 			quizModel.setStatus("Success");
 			
 		}
 		
-		return quizModel;
+		return null;
 	}
 	
 }

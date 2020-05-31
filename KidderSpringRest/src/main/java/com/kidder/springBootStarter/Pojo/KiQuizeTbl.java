@@ -2,6 +2,7 @@ package com.kidder.springBootStarter.Pojo;
 
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -16,40 +17,42 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
-@Entity
-@Table(name = "ki_quiz_tbl")
 
-public class KiQuizeTbl {
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	
+@Entity
+@javax.persistence.Table(name="ki_quiz_tbl",indexes = 
+{@javax.persistence.Index(name="ki_quiz_tbl_pk",columnList = "quiz_id",unique = true)})
+public class KiQuizeTbl extends AbstractHibernateObject {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@javax.persistence.Id
 	@javax.persistence.Basic
 	@javax.persistence.Column( name = "quiz_id" )
-	private long quiz_id;
+	public long getQuiz_id() {
+		return super.getId();
+	}
+
+	public void setQuiz_id(long quiz_id) {
+		super.setId(quiz_id);
+	}
 	
 	private String quiz_name;
 	private int quiz_num_of_ques;
-
+	private String quizSub ;
+	private String quizTopic ;
 	private Timestamp quiz_created_date;
 	private Timestamp quiz_published_date;
 	private int quiz_duration;
 	private double quiz_marks;
-	
-	
+	private KiGroupTbl grpInfoTbl;
+	private KiUserTbl userInfoTbl;
+
+	private int quiz_status;
+	private Set<KiUserQuestTbl> userQuestTbls;
+
 	@javax.persistence.Basic
 	@javax.persistence.Column( name = "quiz_status" )
-	private int quiz_status;
-
-	public long getQuiz_id() {
-		return quiz_id;
-	}
-
-	public void setQuiz_id(long quiz_id) {
-		this.quiz_id = quiz_id;
-	}
-
-
-
 	public int getQuiz_status() {
 		return quiz_status;
 	}
@@ -59,12 +62,31 @@ public class KiQuizeTbl {
 	}
 
 
+	@javax.persistence.Basic
+	@javax.persistence.Column( name = "quiz_sub" )
+
+	public String getQuizSub() {
+		return quizSub;
+	}
+
+	public void setQuizSub(String quizSub) {
+		this.quizSub = quizSub;
+	}
+
+	
+	@javax.persistence.Basic
+	@javax.persistence.Column( name = "quiz_topic" )
+	public String getQuizTopic() {
+		return quizTopic;
+	}
+
+	public void setQuizTopic(String quizTopic) {
+		this.quizTopic = quizTopic;
+	}
 
 	@javax.persistence.Basic
-	@OneToOne(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name ="grp_id")
-	private KiGroupTbl grpInfoTbl;
-
 	public KiGroupTbl getGrpInfoTbl() {
 		return grpInfoTbl;
 	}
@@ -75,9 +97,8 @@ public class KiQuizeTbl {
 	
 	
 	@javax.persistence.Basic
-	@OneToOne(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name ="user_id")
-	KiUserTbl userInfoTbl;
 
 	public KiUserTbl getUserInfoTbl() {
 		return userInfoTbl;
@@ -109,9 +130,6 @@ public class KiQuizeTbl {
 	public void setQuiz_name(String quiz_name) {
 		this.quiz_name = quiz_name;
 	}
-
-
-
 
 	@javax.persistence.Basic
 	@javax.persistence.Column( name = "quiz_published_date" )
@@ -157,5 +175,39 @@ public class KiQuizeTbl {
 	}
 
 	
+	@javax.persistence.Basic
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name="quiz_id",updatable = false,insertable = false)
+	public Set<KiUserQuestTbl> getUserQuestTbls() {
+		return userQuestTbls;
+	}
+
+	public void setUserQuestTbls(Set<KiUserQuestTbl> userQuestTbls) {
+		this.userQuestTbls = userQuestTbls;
+	}
+
+	@javax.persistence.Basic
+	@javax.persistence.Column( name = "unique_code" )
+	public String getUnique_code() {
+		return super.getUniqueCode();
+	}
+
+	public void setUnique_code(String unique_code) {
+		super.setUniqueCode(unique_code);
+	}
+
+	@javax.persistence.Basic
+	@javax.persistence.Column(name = "deleteFl")
+
+	public Boolean getDeleteFl() {
+		return super.getDeleteFl();
+	}
+
+
+	public void setDeleteFl(Boolean deleteFl) {
+		super.setDeleteFl(deleteFl);
+	}
+
+
 	
 }
