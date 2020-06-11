@@ -15,7 +15,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 @javax.persistence.Table(name="ki_kidder_quest_tbl",indexes = 
-{@javax.persistence.Index(name="ki_kidder_quest_tbl_pk",columnList = "ki_kidder_quest_id",unique = true)})
+{@javax.persistence.Index(name="ki_kidder_quest_tbl_pk",columnList = "kq_id",unique = true)})
 public class KiKidderQuestTbl extends AbstractHibernateObject{
 	/**
 	 * 
@@ -23,25 +23,26 @@ public class KiKidderQuestTbl extends AbstractHibernateObject{
 	private static final long serialVersionUID = 1L;
 
 
-	private String ki_kidder_quest_name;
+	private String kqName;
 	
-	private String ki_kidder_quest_optionA;
+	private String kqOptionA;
 	
-	private String ki_kidder_quest_optionB;
+	private String kqOptionB;
 	
-	private String ki_kidder_quest_optionC;
+	private String kqOptionC;
 	
-	private String ki_kidder_quest_optionD;
+	private String kqOptionD;
 	
-	private String ki_kidder_quest_sub;
+	private String kqSub;
 	
-	private String ki_kidder_quest_topic;
+	private String kqTopic;
 	
-	private Integer ki_kidder_quest_level;
+	private Integer kqLvl;
 	
-	private String ki_kidder_quest_ans;
-	
-	private Double ki_kidder_quest_marks;
+	private String kqAns;
+	private long quiz_id;
+
+	private Double kqMarks;
 	private KiTxtQuestTbl txtQuesInfoTbl;
 
 
@@ -51,145 +52,145 @@ public class KiKidderQuestTbl extends AbstractHibernateObject{
 	
 	@javax.persistence.Id
 	@javax.persistence.Basic
-	@javax.persistence.Column( name = "ki_kidder_quest_id")
+	@javax.persistence.Column( name = "kq_id")
 	@org.hibernate.annotations.Type(type="long")
 	@javax.validation.constraints.NotNull
-	public Long getKi_kidder_quest_id() {
+	public Long getkqId() {
 		return super.getId();
 	}
 
-	public void setKi_kidder_quest_id(Long ki_kidder_quest_id) {
+	public void setkqId(Long ki_kidder_quest_id) {
 		super.setId(ki_kidder_quest_id);
 	}
 
 
 	@javax.persistence.Basic
-	@javax.persistence.Column( name = "ki_kidder_quest_topic" )
+	@javax.persistence.Column( name = "kq_topic" )
 
-	public String getKi_kidder_quest_topic() {
-		return ki_kidder_quest_topic;
+	public String getkqTopic() {
+		return kqTopic;
 	}
 
 
-	public void setKi_kidder_quest_topic(String ki_kidder_quest_topic) {
-		this.ki_kidder_quest_topic = ki_kidder_quest_topic;
+	public void setkqTopic(String kqTopic) {
+		this.kqTopic = kqTopic;
 	}
 	
 	
 	@javax.persistence.Basic
-	@javax.persistence.Column( name = "ki_kidder_quest_sub" )
-	public void setKi_kidder_quest_sub(String ki_kidder_quest_sub) {
-		this.ki_kidder_quest_sub = ki_kidder_quest_sub;
+	@javax.persistence.Column( name = "kq_sub" )
+	public void setkqSub(String kqSub) {
+		this.kqSub = kqSub;
 	}
 
 
 
 
-	public void setKi_kidder_quest_level(Integer ki_kidder_quest_level) {
-		this.ki_kidder_quest_level = ki_kidder_quest_level;
+	public void setkqLvl(Integer kqLvl) {
+		this.kqLvl = kqLvl;
 	}
 
 
 	@javax.persistence.Basic
-	@javax.persistence.Column( name = "ki_kidder_quest_level" )
-	public Integer getKi_kidder_quest_level() {
-		return ki_kidder_quest_level;
+	@javax.persistence.Column( name = "kq_lvl" )
+	public Integer getkqLvl() {
+		return kqLvl;
 	}
 
 
-	public String getKi_kidder_quest_sub() {
-		return ki_kidder_quest_sub;
+	public String getkqSub() {
+		return kqSub;
 	}
 
 	
 	@javax.persistence.Basic
-	@javax.persistence.Column( name = "ki_kidder_quest_name" )
-	public String getKi_kidder_quest_name() {
-		return ki_kidder_quest_name;
+	@javax.persistence.Column( name = "kq_name" )
+	public String getkqName() {
+		return kqName;
 	}
 
 
-	public void setKi_kidder_quest_name(String ki_kidder_quest_name) {
-		this.ki_kidder_quest_name = ki_kidder_quest_name;
+	public void setkqName(String kqName) {
+		this.kqName = kqName;
 	}
 
 	
 	@javax.persistence.Basic
-	@javax.persistence.Column( name = "ki_kidder_quest_optionA" )
+	@javax.persistence.Column( name = "kq_option_a" )
  
 	 
-	public String getKi_kidder_quest_optionA() {
-		return ki_kidder_quest_optionA;
+	public String getkqOptionA() {
+		return kqOptionA;
 	}
 
 
-	public void setKi_kidder_quest_optionA(String ki_kidder_quest_optionA) {
-		this.ki_kidder_quest_optionA = ki_kidder_quest_optionA;
+	public void setkqOptionA(String kqOptionA) {
+		this.kqOptionA = kqOptionA;
 	}
 
 	
 	@javax.persistence.Basic
-	@javax.persistence.Column( name = "ki_kidder_quest_optionB" )
+	@javax.persistence.Column( name = "kq_option_b" )
   
-	public String getKi_kidder_quest_optionB() {
-		return ki_kidder_quest_optionB;
+	public String getkqOptionB() {
+		return kqOptionB;
 	}
 
 
-	public void setKi_kidder_quest_optionB(String ki_kidder_quest_optionB) {
-		this.ki_kidder_quest_optionB = ki_kidder_quest_optionB;
+	public void setkqOptionB(String kqOptionB) {
+		this.kqOptionB = kqOptionB;
 	}
 
 
 	
 	@javax.persistence.Basic
-	@javax.persistence.Column( name = "ki_kidder_quest_optionC" )
+	@javax.persistence.Column( name = "kq_option_c" )
   
-	public String getKi_kidder_quest_optionC() {
-		return ki_kidder_quest_optionC;
+	public String getkqOptionC() {
+		return kqOptionC;
 	}
 
 
-	public void setKi_kidder_quest_optionC(String ki_kidder_quest_optionC) {
-		this.ki_kidder_quest_optionC = ki_kidder_quest_optionC;
+	public void setkqOptionC(String kqOptionC) {
+		this.kqOptionC = kqOptionC;
 	}
 	
 	@javax.persistence.Basic
-	@javax.persistence.Column( name = "ki_kidder_quest_optionD" )
+	@javax.persistence.Column( name = "kq_option_d" )
    
 	
-	public String getKi_kidder_quest_optionD() {
-		return ki_kidder_quest_optionD;
+	public String getkqOptionD() {
+		return kqOptionD;
 	}
 
 
-	public void setKi_kidder_quest_optionD(String ki_kidder_quest_optionD) {
-		this.ki_kidder_quest_optionD = ki_kidder_quest_optionD;
+	public void setkqOptionD(String kqOptionD) {
+		this.kqOptionD = kqOptionD;
 	}
 	
 	@javax.persistence.Basic
-	@javax.persistence.Column( name = "ki_kidder_quest_ans" )
-	public String getKi_kidder_quest_ans() {
-		return ki_kidder_quest_ans;
+	@javax.persistence.Column( name = "kq_ans" )
+	public String getkqAns() {
+		return kqAns;
 	}
 
 
-	public void setKi_kidder_quest_ans(String ki_kidder_quest_ans) {
-		this.ki_kidder_quest_ans = ki_kidder_quest_ans;
+	public void setkqAns(String kqAns) {
+		this.kqAns = kqAns;
 	}
 
 
 	
 	@javax.persistence.Basic
-	@javax.persistence.Column(name = "ki_kidder_quest_marks")
+	@javax.persistence.Column(name = "kq_marks")
   
-	public Double getKi_kidder_quest_marks() {
-		return ki_kidder_quest_marks;
+	public Double getkqMarks() {
+		return kqMarks;
 	}
 
 
-	public void setKi_kidder_quest_marks(Double ki_kidder_quest_marks) {
-		this.ki_kidder_quest_marks = ki_kidder_quest_marks;
+	public void setkqMarks(Double kqMarks) {
+		this.kqMarks = kqMarks;
 	}
 
 	
@@ -222,7 +223,7 @@ public class KiKidderQuestTbl extends AbstractHibernateObject{
 	
 	@javax.persistence.Basic
 	@OneToMany(fetch = FetchType.EAGER)
-	@JoinColumn(name="ki_kidder_quest_id",updatable = false,insertable = false)
+	@JoinColumn(name="kq_id",updatable = false,insertable = false)
 
 	public Set<KiDgrmImgTbl> getDgrmImgInfoTbls() {
 		return dgrmImgInfoTbls;
@@ -256,7 +257,16 @@ public class KiKidderQuestTbl extends AbstractHibernateObject{
 		super.setUniqueCode(uniqueCode);
 	}
 
-	
+	@javax.persistence.Basic
+	@JoinColumn(name = "quiz_id")
+
+	public long getQuiz_id() {
+		return quiz_id;
+	}
+
+	public void setQuiz_id(long quiz_id) {
+		this.quiz_id = quiz_id;
+	}
 	
 
 }

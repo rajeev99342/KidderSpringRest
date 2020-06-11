@@ -1,4 +1,3 @@
-drop table dgrm_image_info_tbl,group_info_tbl,grp_part_tbl,grp_reqst_tbl,image_info_tbl,ki_dgrm_img_tbl,ki_kidder_quest_tbl,ki_next_object_id,ki_txt_quest_tbl,ki_user_tbl,quiz_info_tbl,test_tbl2,txt_ques_tbl,user_info_tbl,user_quest_info_tbl
 drop table ki_user_tbl;
 drop table ki_kidder_quest_tbl;
 drop table ki_txt_quest_tbl;
@@ -36,22 +35,23 @@ CONSTRAINT ki_txt_quest_tbl_pk PRIMARY KEY(txt_ques_id)
 
 create table ki_kidder_quest_tbl(
 	
-	ki_kidder_quest_id numeric(19,0) NOT NULL,
-	ki_kidder_quest_name varchar(255),
-	ki_kidder_quest_optionA varchar(255)  NOT NULL,
-	ki_kidder_quest_optionB varchar(255)  NOT NULL,
-	ki_kidder_quest_optionC varchar(255)  NOT NULL,
-	ki_kidder_quest_optionD varchar(255)  NOT NULL,
-	ki_kidder_quest_sub varchar(255)  NOT NULL,
-	ki_kidder_quest_topic varchar(255) ,
-	ki_kidder_quest_level numeric(3,0),
-	ki_kidder_quest_ans varchar(255)  NOT NULL,
-	ki_kidder_quest_marks numeric(19,0) NOT NULL,
+	kq_id numeric(19,0) NOT NULL,
+	kq_name varchar(255),
+	quiz_id  numeric(19,0),
+	kq_option_a varchar(255)  NOT NULL,
+	kq_option_b varchar(255)  NOT NULL,
+	kq_option_c varchar(255)  NOT NULL,
+	kq_option_d varchar(255)  NOT NULL,
+	kq_sub varchar(255) ,
+	kq_topic varchar(255) ,
+	kq_lvl numeric(3,0),
+	kq_ans varchar(255)  NOT NULL,
+	kq_marks numeric(19,0) NOT NULL,
 	user_id numeric(19,0),
 	txt_ques_id numeric(19,0),
 	unique_code varchar(255) NOT NULL,
 	delete_fl character(1) NOT NULL,
-	CONSTRAINT ki_kidder_quest_tbl_pk PRIMARY KEY(ki_kidder_quest_id)
+	CONSTRAINT ki_kidder_quest_tbl_pk PRIMARY KEY(kq_id)
 
 
 );
@@ -63,7 +63,7 @@ create table ki_dgrm_img_tbl(
 	dgrm_img_base64 varchar(255),
 	delete_fl character(1) NOT NULL,
 	unique_code varchar(255) NOT NULL,
-	ki_kidder_quest_id numeric(19,0) NOT NULL,
+	kq_id numeric(19,0) NOT NULL,
 	CONSTRAINT ki_dgrm_img_tbl_PK PRIMARY KEY(dgrm_img_id)
 );
 
@@ -110,10 +110,9 @@ create table ki_quiz_tbl(
 	grp_id  numeric(19,0) NOT NULL,
 	quiz_name varchar(255) NOT NULL,
 	user_id numeric(19,0) NOT NULL,
-	quiz_num_of_ques numeric(4,0)  NOT NULL,
+	quiz_num_of_quest numeric(4,0)  NOT NULL,
 	quiz_created_date varchar(255)  NOT NULL,
 	quiz_sub varchar(255),
-	quiz_topic varchar(255),
 	quiz_published_date varchar(255),
 	quiz_duration numeric(4,0),
 	quiz_marks numeric(3,0),

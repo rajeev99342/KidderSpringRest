@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kidder.springBootStarter.Model.ChildModel;
+import com.kidder.springBootStarter.Model.GroupDetailsModel;
 import com.kidder.springBootStarter.Model.KiGroupModel;
+import com.kidder.springBootStarter.Model.KiKidderQuestModel;
 import com.kidder.springBootStarter.Model.KidderQuestionModel;
 import com.kidder.springBootStarter.Model.ParentModel;
 import com.kidder.springBootStarter.Model.QuizDetailModel;
@@ -36,17 +38,19 @@ import com.kidder.springBootStarter.Pojo.ChildTbl;
 import com.kidder.springBootStarter.Pojo.KiUserTbl;
 import com.kidder.springBootStarter.Pojo.ParentTbl;
 import com.kidder.springBootStarter.Services.GroupInfoService;
+import com.kidder.springBootStarter.Services.KiKidderQuestService;
 import com.kidder.springBootStarter.Services.QuizeInfoService;
 import com.kidder.springBootStarter.Services.TestRoomService;
 //import com.kidder.springBootStarter.Services.QuizeInfoService;
 import com.kidder.springBootStarter.Services.TestService;
 import com.kidder.springBootStarter.Services.UserInfoService;
+
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 
 @RestController
-@RequestMapping(value= {"/kidder/api"})
+@RequestMapping(value = { "/kidder/api" })
 public class ApiControllers {
-	
+
 	@Autowired
 	TestService testService;
 	@Autowired
@@ -59,41 +63,38 @@ public class ApiControllers {
 	@Autowired
 	TestRoomService testRoomService;
 
+	@Autowired
 
-	
-	
-	
+	KiKidderQuestService kiQuestService;
+
 	@Transactional
 	@RequestMapping("/hello")
-	public List<KiUserTbl> sayHello()
-	{
-		
+	public List<KiUserTbl> sayHello() {
+
 		return userInfoService.getAllUser();
 	}
+
 	@Transactional
 	@RequestMapping(value = "/saveUserData", method = RequestMethod.POST)
 	public @ResponseBody KiUserModel saveUserData(@RequestBody KiUserModel userModel) throws SQLException {
-		
+
 		return userInfoService.saveUserDetail(userModel);
 	}
-	
-	
+
 	@Transactional
 	@RequestMapping(value = "/saveGroupData", method = RequestMethod.POST)
 	public @ResponseBody KiGroupModel saveGroupData(@RequestBody KiGroupModel groupModel) {
 		return groupInfoService.saveGroupDetail(groupModel);
 	}
-	
+
 	@Transactional
 	@RequestMapping(value = "/saveQuiz", method = RequestMethod.POST)
-	public @ResponseBody KiQuizModel saveUserQuiz(@RequestBody QuizDetailModel quizDetailModel) throws Exception {
-		
-		
-		return  quizeInfoService.saveUserQuiz(quizDetailModel.getQuestions(),quizDetailModel.getQuizModel());
-		
-		
+	public @ResponseBody KiQuizModel saveUserQuiz(@RequestBody KiQuizModel quizModel) throws Exception {
+
+		return quizeInfoService.saveUserQuiz(quizModel);
+
 	}
-	
+
 //	@Autowired
 //	QuizeInfoService quizeInfoService;
 //	@RequestMapping(value = "/saveQuiz", method = RequestMethod.POST)
@@ -116,99 +117,70 @@ public class ApiControllers {
 //	
 	@Transactional
 //	@RequestMapping(value = "/getGrpByAdmin", method = RequestMethod.POST)
-	@GetMapping("/getGrpByAdmin"+"/{admin}"+"/{isMyGroup}")
-	public @ResponseBody Set<KiGroupModel> getGrpByAdmin(@PathVariable(name="admin") String admin,@PathVariable(name="isMyGroup") Boolean isMyGroup) {
-		
-		return groupInfoService.getGrpByAdmin(admin,isMyGroup);
-		
-	}
-	
+	@GetMapping("/getGrpByAdmin" + "/{admin}" + "/{isMyGroup}")
+	public @ResponseBody Set<KiGroupModel> getGrpByAdmin(@PathVariable(name = "admin") String admin,
+			@PathVariable(name = "isMyGroup") Boolean isMyGroup) {
 
-	@GetMapping("/login"+"/{username}"+"/{password}")
-	public  @ResponseBody KiUserModel loginUser(@PathVariable(name="username") String username,@PathVariable(name="password") String password)
-	{
-		return userInfoService.loginUser(username,password);
+		return groupInfoService.getGrpByAdmin(admin, isMyGroup);
+
 	}
-	
-	
+
+	@GetMapping("/login" + "/{username}" + "/{password}")
+	public @ResponseBody KiUserModel loginUser(@PathVariable(name = "username") String username,
+			@PathVariable(name = "password") String password) {
+		return userInfoService.loginUser(username, password);
+	}
+
 	@Transactional
 
-	@GetMapping("/getTestRoomsByGroupId"+"/{groupId}")
-	public @ResponseBody List<KiQuizModel> getTestRoomsByGroupId(@PathVariable(name="groupId") long groupId) {
-		
+	@GetMapping("/getTestRoomsByGroupId" + "/{groupId}")
+	public @ResponseBody List<KiQuizModel> getTestRoomsByGroupId(@PathVariable(name = "groupId") long groupId) {
+
 		return testRoomService.getTestRoomByGroupId(groupId);
-		
+
 	}
-	
-//	@Transactional
-//
-//	@GetMapping("/getQuestionByQuizId"+"/{quizId}")
-//	public @ResponseBody List<KiUserQuestionModel> getQuestions(@PathVariable(name="quizId") long quizId) throws Exception {
-//		
-//		return questionService.getQuestionByQuizId(quizId);
-//		
-//	}
+
+	@Transactional
+
+	@GetMapping("/getQuestionByQuizId" + "/{quizId}")
+	public @ResponseBody Set<KiKidderQuestModel> getQuestions(@PathVariable(name = "quizId") long quizId)
+			throws Exception {
+
+		return kiQuestService.getQuestionByQuizId(quizId);
+
+	}
 //	
-	
+
 	@Transactional
-//	@RequestMapping(value = "/getGrpByAdmin", method = RequestMethod.POST)
-	@GetMapping("/getGrpsByUserId"+"/{user_id}")
-	public @ResponseBody Set<KiGroupModel> getGrpsByUserId(@PathVariable(name="user_id") long user_id) {
-		
+	@GetMapping("/getGrpsByUserId" + "/{user_id}")
+	public @ResponseBody Set<KiGroupModel> getGrpsByUserId(@PathVariable(name = "user_id") long user_id) {
+
 		return groupInfoService.getGrpsByUserId(user_id);
-		
+
 	}
-	
+
 	@Transactional
-	@PostMapping("/startTest"+"/{mode}")
-	public @ResponseBody KiQuizModel startTest(@PathVariable(name="mode") String mode, @RequestBody KiQuizModel quizModel)
-	{
-		
-		return testRoomService.startTest(quizModel,mode);
-		
-		
+	@PostMapping("/startTest" + "/{mode}")
+	public @ResponseBody KiQuizModel startTest(@PathVariable(name = "mode") String mode,
+			@RequestBody KiQuizModel quizModel) {
+
+		return testRoomService.startTest(quizModel, mode);
+
 	}
-	
-	@Autowired
-	ChildRepo childRepo;
-	@Autowired
-	ParentRepo parentRepo;
-	
+
 	@Transactional
-	@PostMapping("/mappingTest")
-	public @ResponseBody ParentTbl checkMapping(@RequestBody ParentModel parent)
-	{
-		
-		ParentTbl parentTbl = new ParentTbl();
-		ParentTbl savedParent = new ParentTbl();
+	@GetMapping("/fetchTest" + "/{grp_id}")
+	public @ResponseBody GroupDetailsModel getGroupDetail(@PathVariable(name = "grp_id") long grp_id) {
 
-		if(parent.getChilds() != null)
-		{
-			Set<ChildTbl> childs = new HashSet<>();
-			
-			for(ChildModel model : parent.getChilds())
-			{
-				parentTbl.generateId();
-				ChildTbl tbl = new ChildTbl();
-				tbl.generateId();
-				tbl.setName(model.getName());
-				tbl.setParent_id(parentTbl.getParent_id());
-				childs.add(tbl);
-			}
-			
-			
-			Set<ChildTbl> child_tbl = new HashSet<>();
-			
-			parentTbl.setParent_name(parent.getParent_name());
-			savedParent = new ParentTbl();
-			child_tbl.addAll(childRepo.saveAll(childs));
-			parentTbl.setChilds(child_tbl);
+		return quizeInfoService.getAllTestByGroupIdAndUsers(grp_id);
 
-			savedParent =  parentRepo.save(parentTbl);
-
-		}
-		return null;
-		
 	}
-	
+
+	@Transactional
+	@GetMapping("/getDraftTest" + "/{grp_id}")
+	public @ResponseBody List<KiQuizModel> getDraftTest(@PathVariable(name = "grp_id") long grp_id) {
+
+		return quizeInfoService.getAllDraftTest(grp_id);
+
+	}
 }

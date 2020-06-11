@@ -75,26 +75,26 @@ public class KidderAdminQuestController {
 		return model;
 		
 	}
-	
-	@SuppressWarnings("unchecked")
-	@Transactional
-	@RequestMapping(value = "/getQuestByAdmin"+"/"+"{username}", method = RequestMethod.GET)
-	public @ResponseBody Set<KiKidderQuestModel> getQuestByAdmin(@PathVariable String username) throws Exception
-	{
-		
-		Set<KiKidderQuestModel> models = new HashSet<>();
-		try {
-			return kiKidderQuestService.getQuestionByAdmin(username);
-
-		}catch (Exception e) {
-			// TODO: handle exception
-			KiKidderQuestModel model = new KiKidderQuestModel();
-			model.setError(true);
-			model.setStatus(e.getMessage());
-			 models.add(model);
-			 return models;
-		}
-		
-	}
+//	
+//	@SuppressWarnings("unchecked")
+//	@Transactional
+//	@RequestMapping(value = "/getQuestByAdmin"+"/"+"{username}", method = RequestMethod.GET)
+//	public @ResponseBody Set<KiKidderQuestModel> getQuestByAdmin(@PathVariable String username) throws Exception
+//	{
+//		
+//		Set<KiKidderQuestModel> models = new HashSet<>();
+//		try {
+//			return kiKidderQuestService.getQuestionByAdmin(username);
+//
+//		}catch (Exception e) {
+//			// TODO: handle exception
+//			KiKidderQuestModel model = new KiKidderQuestModel();
+//			model.setError(true);
+//			model.setStatus(e.getMessage());
+//			 models.add(model);
+//			 return models;
+//		}
+//		
+//	}
 	
 }

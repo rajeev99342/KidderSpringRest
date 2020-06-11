@@ -3,6 +3,7 @@ package com.kidder.springBootStarter.Services;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.kidder.Common.CheckTable;
 import com.kidder.Common.GenerateUniqueCode;
 import com.kidder.springBootStarter.Model.KiUserModel;
+import com.kidder.springBootStarter.Pojo.KiGroupParticipantTbl;
 import com.kidder.springBootStarter.Pojo.KiUserTbl;
 import com.kidder.springBootStarter.Repo.UserInfoRepository;
 
@@ -20,33 +22,32 @@ public class UserInfoService {
 
 	@Autowired
 	UserInfoRepository userInfoRepository;
+	
+	@Autowired
+	GroupParticipantService grpParticipantService ;
 
-	public KiUserModel saveUserDetail(KiUserModel userModel) throws SQLException{
-		
-		
+	public KiUserModel saveUserDetail(KiUserModel userModel) throws SQLException {
+
 		KiUserModel model = new KiUserModel();
 		KiUserTbl tbl = new KiUserTbl();
-		
-		if(CheckTable.isTableExist("ki_user_tbl"))
-		{
-			if (userInfoRepository.getUserDetailsByUserName(userModel.getUser_username()).size() == 0)
-			{
-				tbl =  this.saveByModel(userModel);
-			}else {
+
+		if (CheckTable.isTableExist("ki_user_tbl")) {
+			if (userInfoRepository.getUserDetailsByUserName(userModel.getUser_username()).size() == 0) {
+				tbl = this.saveByModel(userModel);
+			} else {
 				userModel = new KiUserModel();
 				userModel.setError("Username already exits");
 				userModel.setStatus("Failed");
-				
+
 				model = userModel;
 				return model;
 			}
-			
-		}else {
+
+		} else {
 			tbl = this.saveByModel(userModel);
 		}
-	
-		if(tbl != null)
-		{
+
+		if (tbl != null) {
 			model.setDeleteFl(tbl.getDeleteFl());
 			model.setError(null);
 			model.setStatus("Success");
@@ -71,15 +72,14 @@ public class UserInfoService {
 		userInfoTbl.setUser_phone_number(userModel.getUser_phone_number());
 		return userInfoTbl;
 	}
-	
-	public KiUserModel saveUserDetails(KiUserModel userModel)
-	{
+
+	public KiUserModel saveUserDetails(KiUserModel userModel) {
 		KiUserTbl userInfoTbl = new KiUserTbl();
 
 		if (userModel.getUniqueCode() != null) {
-	
-		}else {
-			
+
+		} else {
+
 		}
 		KiUserTbl returnedUserInfoTbl;
 
@@ -148,6 +148,7 @@ public class UserInfoService {
 					model.setUser_id(tbl.getUser_id());
 					model.setUser_name(tbl.getUser_name());
 					model.setUser_username(tbl.getUser_username());
+					model.setUniqueCode(tbl.getUniqueCode());
 					model.setUser_phone_number(tbl.getUser_phone_number());
 				}
 
@@ -165,30 +166,59 @@ public class UserInfoService {
 			return null;
 		}
 	}
-	
-	public List<KiUserTbl> getAllUser(){
-		
+
+	public List<KiUserTbl> getAllUser() {
+
 		return userInfoRepository.findAll();
 	}
-	
+
 	public KiUserTbl saveByModel(KiUserModel userMode) {
 		KiUserTbl userTbl = new KiUserTbl();
 		userTbl = userInfoRepository.getUserByUsername(userMode.getUser_username());
-		if(userTbl != null)
-		{
+		if (userTbl != null) {
 			userTbl = userInfoRepository.getUserByUsername(userMode.getUser_username());
-		}else {
+		} else {
 			userTbl = new KiUserTbl();
 			userTbl.generateId();
 			userTbl.setUniqueCode(GenerateUniqueCode.Generate(userTbl.getUser_id(), "ki_user_tbl"));
+			userTbl.setUser_password(userMode.getUser_password());
+			userTbl.setUser_email(userMode.getUser_email());
+			userTbl.setUser_name(userMode.getUser_name());
+			userTbl.setDeleteFl(false);
+			userTbl.setUser_phone_number(userMode.getUser_phone_number());
+			userTbl.setUser_username(userMode.getUser_username());
 		}
-		userTbl.setUser_email(userMode.getUser_email());
-		userTbl.setUser_name(userMode.getUser_name());
-		userTbl.setUser_password(userMode.getUser_password());
-		userTbl.setDeleteFl(false);
-		userTbl.setUser_phone_number(userMode.getUser_phone_number());
-		userTbl.setUser_username(userMode.getUser_username());
+		
 		return userInfoRepository.save(userTbl);
+	}
+
+	public List<KiUserModel> getAllUserByGroupId(long grpId) {
+
+		List<KiGroupParticipantTbl> grpParticipants = grpParticipantService.getUserByGroupId(grpId);
+		
+		List<Long> userIds = new ArrayList<>();
+		List<KiUserTbl> tbls = new ArrayList<>();
+
+		for(KiGroupParticipantTbl grp : grpParticipants)
+		{
+			
+			tbls.add(userInfoRepository.getuserByUserId(grp.getUserInfoTb().getUser_id()));
+		}
+
+		
+		List<KiUserModel> models = new ArrayList<KiUserModel>();
+		
+		for(KiUserTbl tbl : tbls)
+		{
+			KiUserModel model = new KiUserModel();
+			model.setDeleteFl(tbl.getDeleteFl());
+			model.setUniqueCode(tbl.getUniqueCode());
+			model.setUser_email(tbl.getUser_email());
+			model.setUser_id(tbl.getUser_id());
+			model.setUser_name(tbl.getUser_name());
+			models.add(model);			
+		}
+		return models;
 	}
 
 }

@@ -29,36 +29,35 @@ public class KiQuizeTbl extends AbstractHibernateObject {
 	@javax.persistence.Id
 	@javax.persistence.Basic
 	@javax.persistence.Column( name = "quiz_id" )
-	public long getQuiz_id() {
+	public long getQuizId() {
 		return super.getId();
 	}
 
-	public void setQuiz_id(long quiz_id) {
+	public void setQuizId(long quiz_id) {
 		super.setId(quiz_id);
 	}
 	
-	private String quiz_name;
-	private int quiz_num_of_ques;
+	private String quizName;
+	private int quizNoOfQuest;
 	private String quizSub ;
-	private String quizTopic ;
-	private Timestamp quiz_created_date;
-	private Timestamp quiz_published_date;
-	private int quiz_duration;
-	private double quiz_marks;
+	private Timestamp quizCreatedDate;
+	private Timestamp quizPublishedDate;
+	private int quizDuration;
+	private double quizMarks;
 	private KiGroupTbl grpInfoTbl;
 	private KiUserTbl userInfoTbl;
 
-	private int quiz_status;
-	private Set<KiUserQuestTbl> userQuestTbls;
+	private int quizStatus;
+	private Set<KiKidderQuestTbl> kidderQuestTbls;
 
 	@javax.persistence.Basic
 	@javax.persistence.Column( name = "quiz_status" )
-	public int getQuiz_status() {
-		return quiz_status;
+	public int getquizStatus() {
+		return quizStatus;
 	}
 
-	public void setQuiz_status(int quiz_status) {
-		this.quiz_status = quiz_status;
+	public void setquizStatus(int quizStatus) {
+		this.quizStatus = quizStatus;
 	}
 
 
@@ -74,15 +73,7 @@ public class KiQuizeTbl extends AbstractHibernateObject {
 	}
 
 	
-	@javax.persistence.Basic
-	@javax.persistence.Column( name = "quiz_topic" )
-	public String getQuizTopic() {
-		return quizTopic;
-	}
 
-	public void setQuizTopic(String quizTopic) {
-		this.quizTopic = quizTopic;
-	}
 
 	@javax.persistence.Basic
 	@OneToOne(fetch = FetchType.EAGER)
@@ -111,45 +102,45 @@ public class KiQuizeTbl extends AbstractHibernateObject {
 	
 	@javax.persistence.Basic
 	@javax.persistence.Column( name = "quiz_created_date" )
-	public Timestamp getQuiz_created_date() {
-		return quiz_created_date;
+	public Timestamp getquizCreatedDate() {
+		return quizCreatedDate;
 	}
 
-	public void setQuiz_created_date(Timestamp quiz_created_date) {
-		this.quiz_created_date = quiz_created_date;
+	public void setquizCreatedDate(Timestamp quizCreateDate) {
+		this.quizCreatedDate = quizCreateDate;
 	}
 
 
 	
 	@javax.persistence.Basic
 	@javax.persistence.Column( name = "quiz_name" )
-	public String getQuiz_name() {
-		return quiz_name;
+	public String getquizName() {
+		return quizName;
 	}
 
-	public void setQuiz_name(String quiz_name) {
-		this.quiz_name = quiz_name;
+	public void setquizName(String quizName) {
+		this.quizName = quizName;
 	}
 
 	@javax.persistence.Basic
 	@javax.persistence.Column( name = "quiz_published_date" )
-	public Timestamp getQuiz_published_date() {
-		return quiz_published_date;
+	public Timestamp getquizPublishedDate() {
+		return quizPublishedDate;
 	}
 
-	public void setQuiz_published_date(Timestamp quiz_published_date) {
-		this.quiz_published_date = quiz_published_date;
+	public void setquizPublishedDate(Timestamp quizPublishedDate) {
+		this.quizPublishedDate = quizPublishedDate;
 	}
 	
 	
 	@javax.persistence.Basic
 	@javax.persistence.Column( name = "quiz_duration" )
-	public int getQuiz_duration() {
-		return quiz_duration;
+	public int getquizDuration() {
+		return quizDuration;
 	}
 
-	public void setQuiz_duration(int quiz_duration) {
-		this.quiz_duration = quiz_duration;
+	public void setquizDuration(int quizDuration) {
+		this.quizDuration = quizDuration;
 	}
 	
 	
@@ -157,35 +148,37 @@ public class KiQuizeTbl extends AbstractHibernateObject {
 
 	@javax.persistence.Basic
 	@javax.persistence.Column( name = "quiz_marks" )
-	public double getQuiz_marks() {
-		return quiz_marks;
+	public double getquizMarks() {
+		return quizMarks;
 	}
 
-	public void setQuiz_marks(double quiz_marks) {
-		this.quiz_marks = quiz_marks;
+	public void setquizMarks(double quizMarks) {
+		this.quizMarks = quizMarks;
 	}
 	@javax.persistence.Basic
-	@javax.persistence.Column( name = "quiz_num_of_ques" )
-	public int getQuiz_num_of_ques() {
-		return quiz_num_of_ques;
+	@javax.persistence.Column( name = "quiz_num_of_quest" )
+	public int getquizNoOfQuest() {
+		return quizNoOfQuest;
 	}
 
-	public void setQuiz_num_of_ques(int quiz_num_of_ques) {
-		this.quiz_num_of_ques = quiz_num_of_ques;
+	public void setquizNoOfQuest(int quizNoOfQuest) {
+		this.quizNoOfQuest = quizNoOfQuest;
 	}
 
 	
 	@javax.persistence.Basic
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name="quiz_id",updatable = false,insertable = false)
-	public Set<KiUserQuestTbl> getUserQuestTbls() {
-		return userQuestTbls;
+	public Set<KiKidderQuestTbl> getKqtbls() {
+		return kidderQuestTbls;
 	}
 
-	public void setUserQuestTbls(Set<KiUserQuestTbl> userQuestTbls) {
-		this.userQuestTbls = userQuestTbls;
+	public void setKqtbls(Set<KiKidderQuestTbl> kidderQuestTbls) {
+		this.kidderQuestTbls = kidderQuestTbls;
 	}
 
+	
+	
 	@javax.persistence.Basic
 	@javax.persistence.Column( name = "unique_code" )
 	public String getUnique_code() {

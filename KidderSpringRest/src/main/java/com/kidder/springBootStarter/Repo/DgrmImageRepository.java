@@ -12,4 +12,6 @@ public interface DgrmImageRepository extends JpaRepository<KiDgrmImgTbl, Long> {
 //
 	@Query("from KiDgrmImgTbl as dgrm where uniqueCode = :uniqueCode ")
 	KiDgrmImgTbl getDgrmByUniqueCode(@Param("uniqueCode") String uniqueCode);
+	
+	
 }

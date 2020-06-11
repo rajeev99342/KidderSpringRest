@@ -15,6 +15,6 @@ public interface TestRoomRepository extends JpaRepository<KiQuizeTbl, Long>{
 	List<KiQuizeTbl> getTestRoomByGroupId(@Param("grp_id") long grp_id);
 	
 	
-	@Query("from KiQuizeTbl as qt where qt.quiz_id = :quiz_id")
-	KiQuizeTbl getQuizByQuizId(@Param("quiz_id") long quiz_id);
+	@Query("from KiQuizeTbl as qt where qt.quizId = :quizId")
+	KiQuizeTbl getQuizByQuizId(@Param("quizId") long quizId);
 }

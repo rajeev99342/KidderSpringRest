@@ -32,21 +32,40 @@ public class KiDgrmImgTbl extends AbstractHibernateObject {
 		super.setId(dgrm_img_id);
 	}
 
-	public String getDgrm_img_name() {
-		return dgrm_img_name;
-	}
 
 	@javax.persistence.Basic
 	@javax.persistence.Column( name = "dgrm_img_name" )
 	private String dgrm_img_name;
+	public String getDgrm_img_name() {
+		return dgrm_img_name;
+	}
+	public void setDgrm_img_name(String dgrm_img_name) {
+		this.dgrm_img_name = dgrm_img_name;
+	}
+
 	
 	@javax.persistence.Basic
 	@javax.persistence.Column( name = "dgrm_img_path" )
 	private String dgrm_img_path;
+	public String getDgrm_img_path() {
+		return dgrm_img_path;
+	}
+
+	public void setDgrm_img_path(String dgrm_img_path) {
+		this.dgrm_img_path = dgrm_img_path;
+	}
+	
 	
 	@javax.persistence.Basic
 	@javax.persistence.Column( name = "dgrm_img_desc" )
 	private String dgrm_img_desc;
+	public String getDgrm_img_desc() {
+		return dgrm_img_desc;
+	}
+
+	public void setDgrm_img_desc(String dgrm_img_desc) {
+		this.dgrm_img_desc = dgrm_img_desc;
+	}
 	
 	
 	
@@ -65,38 +84,17 @@ public class KiDgrmImgTbl extends AbstractHibernateObject {
 
 
 	@javax.persistence.Basic
-	@javax.persistence.Column( name = "ki_kidder_quest_id" , nullable = false)
-	@org.hibernate.annotations.Type(type = "long")
-	private long  ki_kidder_quest_id;
-	public long getKi_kidder_quest_id() {
-		return ki_kidder_quest_id;
+	@JoinColumn(name = "kq_id")
+	private long kq_id;
+
+	public long getKq_id() {
+		return kq_id;
 	}
 
-	public void setKi_kidder_quest_id(long ki_kidder_quest_id) {
-		this.ki_kidder_quest_id = ki_kidder_quest_id;
+	public void setKq_id(long kq_id) {
+		this.kq_id = kq_id;
 	}
 
-
-	public void setDgrm_img_name(String dgrm_img_name) {
-		this.dgrm_img_name = dgrm_img_name;
-	}
-
-	public String getDgrm_img_path() {
-		return dgrm_img_path;
-	}
-
-	public void setDgrm_img_path(String dgrm_img_path) {
-		this.dgrm_img_path = dgrm_img_path;
-	}
-
-	public String getDgrm_img_desc() {
-		return dgrm_img_desc;
-	}
-
-	public void setDgrm_img_desc(String dgrm_img_desc) {
-		this.dgrm_img_desc = dgrm_img_desc;
-	}
-	
 	@javax.persistence.Basic
 	@javax.persistence.Column( name = "delete_fl" )
 

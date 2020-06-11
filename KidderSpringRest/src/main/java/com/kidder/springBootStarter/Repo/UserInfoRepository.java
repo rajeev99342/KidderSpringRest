@@ -24,4 +24,12 @@ public interface UserInfoRepository extends JpaRepository<KiUserTbl,Long>{
 	@Query("from KiUserTbl as kiUser where uniqueCode = :uniqueCode")
 	public KiUserTbl getUserByUniqueCode(@Param("uniqueCode") String uniqueCode);
 	
+	
+//	@Query("from KiUserTbl as kiUser where kiUser.user_username = :user_username")
+//	public KiUserTbl getAllUserByGroupId(@Param("grp_id") long grp_id);
+	
+
+	@Query("from KiUserTbl as kiUser where kiUser.user_id = :user_id")
+	public KiUserTbl getuserByUserId(@Param("user_id") Long user_id);
+	
 }

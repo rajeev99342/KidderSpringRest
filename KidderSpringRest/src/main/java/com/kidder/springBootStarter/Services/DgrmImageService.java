@@ -93,7 +93,7 @@ public class DgrmImageService {
 					 kidgrmTbl.setDgrm_img_path(GetImagePathFromBase64.getImagePath(drgm));
 					 kidgrmTbl.setDeleteFl(false);
 					 kidgrmTbl.setDgrm_img_base64(null);
-					 kidgrmTbl.setKi_kidder_quest_id(kikidderQuest.getKi_kidder_quest_id());
+					 kidgrmTbl.setKq_id(kikidderQuest.getkqId());
 					 kidgrmTbl.setDgrm_img_name(drgm.getDgrm_img_name());
 					 dgrms.add(kidgrmTbl); 
 				 }
@@ -136,6 +136,74 @@ public class DgrmImageService {
 
 		}
 		return models;
+	}
+	
+	public Set<KiDgrmImgTbl> saveAllDgrms(Set<DgrmImageInfoModel> dgrmImageInfoModels,KiKidderQuestTbl kikidderQuest,Boolean isEdit)
+	{
+		
+		Set<KiDgrmImgTbl> savedDgrmImageTbls = new HashSet<>();
+		
+		if(isEdit)
+		{
+			// delete all images then insert all image
+			
+			for(DgrmImageInfoModel imgModel : dgrmImageInfoModels )
+			{
+				
+				if(imgModel.getDgrm_img_path() != null)
+				{
+					DeleteImageHelper.delete(new File(imgModel.getDgrm_img_path()));
+
+					KiDgrmImgTbl tbl = new KiDgrmImgTbl();
+					tbl.setDeleteFl(imgModel.getDeleteFl());
+					tbl.setDgrm_img_base64(null);
+					tbl.setDgrm_img_desc(imgModel.getDgrm_img_desc());
+					tbl.setDgrm_img_path(imgModel.getDgrm_img_path());
+					tbl.setDgrm_img_id(imgModel.getDgrm_img_id());
+					tbl.setDgrm_img_name(imgModel.getDgrm_img_name());
+					tbl.setKq_id((kikidderQuest.getkqId()));
+					tbl.setUniqueCode(imgModel.getUniqueCode());
+					if(imgModel.getUniqueCode() != null)
+					{
+						 dgrmImgRepo.deleteById(imgModel.getDgrm_img_id());
+					}
+						
+				}
+				
+		
+
+			}
+			
+		}
+		int num = 0;
+		if(dgrmImageInfoModels != null && dgrmImageInfoModels.size() != 0)
+		{
+			for(DgrmImageInfoModel imgModel : dgrmImageInfoModels )
+			{
+				KiDgrmImgTbl tbl = new KiDgrmImgTbl();
+
+				tbl.generateId();
+				tbl.setUniqueCode(GenerateUniqueCode.Generate(tbl.getDgrm_img_id(), "kdgm"));
+				tbl.setDeleteFl(false);
+				tbl.setDgrm_img_base64(null);
+				tbl.setDgrm_img_desc(imgModel.getDgrm_img_desc());
+				
+				tbl.setDgrm_img_name(imgModel.getDgrm_img_name());
+				num++;
+				String imageName = kikidderQuest.getkqId()+"_dgrm"+num;
+				imgModel.setDgrm_img_name(imageName);
+				tbl.setDgrm_img_path(GetImagePathFromBase64.getImagePath(imgModel));
+				tbl.setDgrm_img_name(imageName);
+				tbl.setKq_id(kikidderQuest.getkqId());
+				savedDgrmImageTbls.add(dgrmImgRepo.save(tbl));
+
+			}
+		}
+		
+		return savedDgrmImageTbls;
+		
+		
+		
 	}
 	
 }

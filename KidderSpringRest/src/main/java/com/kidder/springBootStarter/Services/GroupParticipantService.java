@@ -2,6 +2,9 @@ package com.kidder.springBootStarter.Services;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -123,6 +126,13 @@ public class GroupParticipantService {
 		tbl.setUser_phone_number(model.getUser_phone_number());
 		tbl.setUser_username(model.getUser_username());
 		return tbl;
+	}
+	
+	public List<KiGroupParticipantTbl> getUserByGroupId(long grpId)
+	{
+		return grpPartiRepo.getUserByGroupId(grpId);
+		
+		
 	}
 	
 	
