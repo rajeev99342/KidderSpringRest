@@ -16,7 +16,7 @@ public interface QuizeInfoRepository extends JpaRepository<KiQuizeTbl,Long>{
 	public KiQuizeTbl getByUniqueCode(@Param("unique_code") String unique_code);
 	
 	
-	@Query("from KiQuizeTbl test where test.grpInfoTbl.grp_id in (select grp_id from KiGroupTbl where deleteFl = false) and deleteFl = false")
+	@Query("from KiQuizeTbl test where test.grpInfoTbl.grp_id in (select grp_id from KiGroupTbl as g  where deleteFl = false and g.grp_id = :grp_id) and deleteFl = false")
 	public List<KiQuizeTbl> getAllTestByGrpId(@Param("grp_id") Long grp_id);
 	
 }

@@ -63,12 +63,16 @@ public class TxtQuestionService {
 	
 	public KiTxtQuesModel getTxtQuestModel(KiTxtQuestTbl tbl)
 	{
-		KiTxtQuesModel model = new KiTxtQuesModel();
-		
-		model.setDeleteFl(tbl.getDeleteFl());
-		model.setQuesTxt(tbl.getQuesTxt());
-		model.setUniqueCode(tbl.getUniqueCode());
-		model.setTxt_ques_id(tbl.getTxt_ques_id());
+		KiTxtQuesModel model = null;
+		if(tbl != null)
+		{
+			model = new KiTxtQuesModel();
+			model.setDeleteFl(tbl.getDeleteFl());
+			model.setQuesTxt(tbl.getQuesTxt());
+			model.setUniqueCode(tbl.getUniqueCode());
+			model.setTxt_ques_id(tbl.getTxt_ques_id());
+			
+		}
 		return model;
 	}
 	

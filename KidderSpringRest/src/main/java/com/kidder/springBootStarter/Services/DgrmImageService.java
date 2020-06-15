@@ -73,7 +73,7 @@ public class DgrmImageService {
 				 kidgrmTbl.setUniqueCode(GenerateUniqueCode.Generate(kidgrmTbl.getDgrm_img_id(), "kdit"));
 			 }
 			 
-			 if(drgm.getToBeDeleted())
+			 if(drgm.getDeleteFl())
 			 {
 				 DeleteImageHelper.delete(new File(drgm.getDgrm_img_path()));
 				 kidgrmTbl.setDgrm_img_path(drgm.getDgrm_img_path());
@@ -149,26 +149,17 @@ public class DgrmImageService {
 			
 			for(DgrmImageInfoModel imgModel : dgrmImageInfoModels )
 			{
-				
-				if(imgModel.getDgrm_img_path() != null)
-				{
+				KiDgrmImgTbl tbl = new KiDgrmImgTbl();
+				if(imgModel.getDeleteFl() && imgModel.getUniqueCode() != null)
+				{					
 					DeleteImageHelper.delete(new File(imgModel.getDgrm_img_path()));
 
-					KiDgrmImgTbl tbl = new KiDgrmImgTbl();
-					tbl.setDeleteFl(imgModel.getDeleteFl());
-					tbl.setDgrm_img_base64(null);
-					tbl.setDgrm_img_desc(imgModel.getDgrm_img_desc());
-					tbl.setDgrm_img_path(imgModel.getDgrm_img_path());
-					tbl.setDgrm_img_id(imgModel.getDgrm_img_id());
-					tbl.setDgrm_img_name(imgModel.getDgrm_img_name());
-					tbl.setKq_id((kikidderQuest.getkqId()));
-					tbl.setUniqueCode(imgModel.getUniqueCode());
-					if(imgModel.getUniqueCode() != null)
-					{
-						 dgrmImgRepo.deleteById(imgModel.getDgrm_img_id());
-					}
-						
+					tbl = dgrmImgRepo.getDgrmByUniqueCode(imgModel.getUniqueCode());
+					
+					dgrmImgRepo.delete(tbl);
+					
 				}
+		
 				
 		
 
@@ -182,20 +173,38 @@ public class DgrmImageService {
 			{
 				KiDgrmImgTbl tbl = new KiDgrmImgTbl();
 
-				tbl.generateId();
-				tbl.setUniqueCode(GenerateUniqueCode.Generate(tbl.getDgrm_img_id(), "kdgm"));
-				tbl.setDeleteFl(false);
-				tbl.setDgrm_img_base64(null);
-				tbl.setDgrm_img_desc(imgModel.getDgrm_img_desc());
-				
-				tbl.setDgrm_img_name(imgModel.getDgrm_img_name());
-				num++;
-				String imageName = kikidderQuest.getkqId()+"_dgrm"+num;
-				imgModel.setDgrm_img_name(imageName);
-				tbl.setDgrm_img_path(GetImagePathFromBase64.getImagePath(imgModel));
-				tbl.setDgrm_img_name(imageName);
-				tbl.setKq_id(kikidderQuest.getkqId());
-				savedDgrmImageTbls.add(dgrmImgRepo.save(tbl));
+				if(null == imgModel.getDeleteFl() || imgModel.getDeleteFl() == false)
+				{
+					
+					if(imgModel.getUniqueCode() != null)
+					{
+						tbl = dgrmImgRepo.getDgrmByUniqueCode(imgModel.getUniqueCode());
+						tbl.setDgrm_img_desc(imgModel.getDgrm_img_desc());
+						
+						tbl.setDgrm_img_name(imgModel.getDgrm_img_name());
+						tbl.setDgrm_img_path(GetImagePathFromBase64.getImagePath(imgModel));
+						savedDgrmImageTbls.add(dgrmImgRepo.save(tbl));
+
+					}else {
+						tbl.generateId();
+						tbl.setUniqueCode(GenerateUniqueCode.Generate(tbl.getDgrm_img_id(), "kdgm"));
+						tbl.setDeleteFl(false);
+						tbl.setDgrm_img_base64(null);
+						tbl.setDgrm_img_desc(imgModel.getDgrm_img_desc());
+						
+						tbl.setDgrm_img_name(imgModel.getDgrm_img_name());
+						num++;
+						String imageName = kikidderQuest.getkqId()+"_dgrm"+num;
+						imgModel.setDgrm_img_name(imageName);
+						tbl.setDgrm_img_path(GetImagePathFromBase64.getImagePath(imgModel));
+						tbl.setDgrm_img_name(imageName);
+						tbl.setKq_id(kikidderQuest.getkqId());
+						savedDgrmImageTbls.add(dgrmImgRepo.save(tbl));
+					}
+					
+			
+				}
+	
 
 			}
 		}

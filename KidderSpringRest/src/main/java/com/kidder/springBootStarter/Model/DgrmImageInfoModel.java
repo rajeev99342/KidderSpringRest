@@ -7,7 +7,6 @@ public class DgrmImageInfoModel extends CommonColumnModel{
 	private String dgrm_img_path;
 	private String dgrm_img_desc;
 	private String dgrm_img_base64;
-	private Boolean toBeDeleted; 
 
 	public Long getDgrm_img_id() {
 		return dgrm_img_id;
@@ -23,13 +22,6 @@ public class DgrmImageInfoModel extends CommonColumnModel{
 
 	public void setDgrm_img_id(Long dgrm_img_id) {
 		this.dgrm_img_id = dgrm_img_id;
-	}
-	public Boolean getToBeDeleted() {
-		return toBeDeleted;
-	}
-
-	public void setToBeDeleted(Boolean toBeDeleted) {
-		this.toBeDeleted = toBeDeleted;
 	}
 
 	public String getDgrm_img_name() {

@@ -43,11 +43,24 @@ public class KiQuizeTbl extends AbstractHibernateObject {
 	private Timestamp quizCreatedDate;
 	private Timestamp quizPublishedDate;
 	private int quizDuration;
+	private String quizDesc;
 	private double quizMarks;
 	private KiGroupTbl grpInfoTbl;
 	private KiUserTbl userInfoTbl;
 
 	private int quizStatus;
+	
+	
+	@javax.persistence.Basic
+	@javax.persistence.Column( name = "quiz_desc" )
+	public String getQuizDesc() {
+		return quizDesc;
+	}
+
+	public void setQuizDesc(String quizDesc) {
+		this.quizDesc = quizDesc;
+	}
+
 	private Set<KiKidderQuestTbl> kidderQuestTbls;
 
 	@javax.persistence.Basic

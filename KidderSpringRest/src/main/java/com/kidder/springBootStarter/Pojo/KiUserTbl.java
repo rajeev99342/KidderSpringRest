@@ -20,6 +20,8 @@ public class KiUserTbl extends AbstractHibernateObject{
 	private long user_phone_number;
 	private String user_email;
 	private String user_password;
+	
+	private String user_token;
 
 	@javax.persistence.Id
 	@javax.persistence.Basic
@@ -40,6 +42,8 @@ public class KiUserTbl extends AbstractHibernateObject{
 	public void setUser_name(String user_name) {
 		this.user_name = user_name;
 	}
+	
+	
 	@javax.persistence.Basic
 	@javax.persistence.Column( name = "user_username" )
 	public String getUser_username() {
@@ -80,6 +84,18 @@ public class KiUserTbl extends AbstractHibernateObject{
 	public void setUser_phone_number(long user_phone_number) {
 		this.user_phone_number = user_phone_number;
 	}
+	
+	@javax.persistence.Basic
+	@javax.persistence.Column( name = "user_token" )
+	public String getUser_token() {
+		return user_token;
+	}
+
+	public void setUser_token(String user_token) {
+		this.user_token = user_token;
+	}
+
+	
 	@javax.persistence.Basic
 	@javax.persistence.Column( name = "delete_fl" )
 

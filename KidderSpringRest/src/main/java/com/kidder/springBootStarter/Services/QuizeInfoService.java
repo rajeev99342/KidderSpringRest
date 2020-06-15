@@ -15,14 +15,18 @@ import com.kidder.springBootStarter.Model.GroupDetailsModel;
 import com.kidder.springBootStarter.Model.ImageInfoModel;
 import com.kidder.springBootStarter.Model.QuizDetailModel;
 import com.kidder.springBootStarter.Model.KiQuizModel;
+import com.kidder.springBootStarter.Model.KiUserModel;
 import com.kidder.springBootStarter.Model.KiUserQuestionModel;
 import com.kidder.springBootStarter.Pojo.KiGroupTbl;
 import com.kidder.springBootStarter.Pojo.KiImgTbl;
+import com.kidder.springBootStarter.Pojo.KiKidderQuestTbl;
 import com.kidder.springBootStarter.Pojo.KiQuizeTbl;
 import com.kidder.springBootStarter.Pojo.KiUserTbl;
 import com.kidder.springBootStarter.Pojo.KiUserQuestTbl;
 import com.kidder.springBootStarter.Repo.QuizeInfoRepository;
 import com.kidder.springBootStarter.Repo.UserQuestInfoRepository;
+
+import KidderConstant.TestStatusConstant;
 
 @Service
 public class QuizeInfoService {
@@ -74,9 +78,9 @@ KiKidderQuestService kiQuestService;
 			quizTbl.setquizDuration(quizModel.getquizDuration());
 			quizTbl.setquizMarks(quizModel.getquizMarks());
 			quizTbl.setquizName(quizModel.getquizName());
-			quizTbl.setquizNoOfQuest(quizModel.getKidderQuestModels().size());
 			quizTbl.setquizPublishedDate(quizModel.getquizPublishedDate());
 			quizTbl.setquizStatus(quizModel.getquizStatus());
+			quizTbl.setQuizDesc(quizModel.getQuizDesc());
 			quizTbl.setUserInfoTbl(userService.saveByModel(quizModel.getUserModel()));
 			KiGroupTbl grpTbl = new KiGroupTbl();
 			
@@ -87,8 +91,11 @@ KiKidderQuestService kiQuestService;
 			grpTbl.setUniqueCode(quizModel.getUniqueCode());
 			grpTbl.setDeleteFl(false);
 			quizTbl.setGrpInfoTbl(groupService.saveGroupByModel(quizModel.getGrpModel()));
+			Set<KiKidderQuestTbl> questionTbls = kiQuestService.saveAllQuestByModel(quizModel.getKidderQuestModels(),quizTbl.getQuizId());
+			quizTbl.setquizNoOfQuest(questionTbls.size());
+
 			
-			quizTbl.setKqtbls((kiQuestService.saveAllQuestByModel(quizModel.getKidderQuestModels(),quizTbl.getQuizId())));
+			quizTbl.setKqtbls(questionTbls);
 		
 
 		try {
@@ -131,6 +138,7 @@ KiKidderQuestService kiQuestService;
 			model.setquizPublishedDate(tbl.getquizPublishedDate());
 			model.setquizDuration(tbl.getquizDuration());
 			model.setquizId(tbl.getQuizId());
+			model.setQuizDesc(tbl.getQuizDesc());
 			model.setquizMarks(tbl.getquizMarks());
 			model.setquizNoOfQuest(tbl.getquizNoOfQuest());
 			model.setquizName(tbl.getquizName());
@@ -159,22 +167,71 @@ KiKidderQuestService kiQuestService;
 		{
 			KiQuizModel model = new KiQuizModel();
 			
-			model.setDeleteFl(tbl.getDeleteFl());
-			model.setquizCreatedDate(tbl.getquizCreatedDate());
-			model.setquizPublishedDate(tbl.getquizPublishedDate());
-			model.setquizDuration(tbl.getquizDuration());
-			model.setquizId(tbl.getQuizId());
-			model.setquizNoOfQuest(tbl.getquizNoOfQuest());
-			model.setquizMarks(tbl.getquizMarks());
-			model.setquizName(tbl.getquizName());
-			model.setquizStatus(tbl.getquizStatus());
-			model.setUniqueCode(tbl.getUnique_code());
-			models.add(model);
+			if(tbl.getDeleteFl() == false)
+			{
+				
+				model.setDeleteFl(tbl.getDeleteFl());
+				model.setquizCreatedDate(tbl.getquizCreatedDate());
+				model.setquizPublishedDate(tbl.getquizPublishedDate());
+				model.setquizDuration(tbl.getquizDuration());
+				model.setquizId(tbl.getQuizId());
+				model.setquizNoOfQuest(tbl.getquizNoOfQuest());
+				model.setquizMarks(tbl.getquizMarks());
+				model.setQuizDesc(tbl.getQuizDesc());
+				model.setquizName(tbl.getquizName());
+				model.setquizStatus(tbl.getquizStatus());
+				model.setUniqueCode(tbl.getUnique_code());
+				
+				KiUserModel userModel = new KiUserModel();
+				
+				if(tbl.getUserInfoTbl().getDeleteFl() == false)
+				{
+					userModel.setDeleteFl(tbl.getUserInfoTbl().getDeleteFl());
+					userModel.setUniqueCode(tbl.getUserInfoTbl().getUniqueCode());
+					userModel.setUser_email(tbl.getUserInfoTbl().getUser_email());
+					userModel.setUser_name(tbl.getUserInfoTbl().getUser_name());
+					userModel.setUser_username(tbl.getUserInfoTbl().getUser_username());
+					model.setUserModel(userModel);
+				}
+				
+				
+				
+				models.add(model);
+			}
+
 			}
 	
 		
 		return models;
 
+	}
+	
+	public KiQuizModel updateTestStatus(String uniqueCode,int status)
+	{
+		KiQuizeTbl tbl = quizeRepo.getByUniqueCode(uniqueCode);
+		KiQuizModel model = new KiQuizModel();
+		if(tbl != null)
+		{
+				if(status == TestStatusConstant.TestStatus.TEST_IN_DRAFT)
+				{
+					tbl.setquizStatus(TestStatusConstant.TestStatus.TEST_IN_DRAFT);
+				}else if(status == TestStatusConstant.TestStatus.TEST_IN_UPCOMMING)
+				{
+					tbl.setquizStatus(TestStatusConstant.TestStatus.TEST_IN_UPCOMMING);
+
+				}else if(status == TestStatusConstant.TestStatus.TEST_IN_PROGRESS)
+				{
+					tbl.setquizStatus(TestStatusConstant.TestStatus.TEST_IN_PROGRESS);
+
+				}
+			
+				KiQuizeTbl quizTbl  = quizeRepo.save(tbl);
+				model.setDeleteFl(quizTbl.getDeleteFl());
+				model.setError(null);
+				model.setStatus("Success");
+		}
+		return model;
+		
 	}
 	
 

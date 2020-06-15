@@ -19,6 +19,14 @@ public class KiQuizModel extends CommonColumnModel {
 	private Timestamp quizCreatedDate;
 	private Timestamp quizPublishedDate;
 	private int quizDuration;
+	private String quizDesc;
+	public String getQuizDesc() {
+		return quizDesc;
+	}
+	public void setQuizDesc(String quizDesc) {
+		this.quizDesc = quizDesc;
+	}
+
 	private int quizStatus;
 	private double quizMarks;
 	private KiUserModel userModel;

@@ -16,6 +16,7 @@ create table ki_user_tbl(
 	user_password varchar(255)  NOT NULL,
 	user_email varchar(255),
 	user_phone_number numeric(10,0),
+	user_token varchar(255),
 	unique_code varchar(255) NOT NULL,
 	delete_fl character(1) NOT NULL,
 	CONSTRAINT ki_user_tbl_pk PRIMARY KEY(user_id)
@@ -117,6 +118,7 @@ create table ki_quiz_tbl(
 	quiz_duration numeric(4,0),
 	quiz_marks numeric(3,0),
 	quiz_status numeric(3,0),
+	quiz_desc varchar(225),
 	unique_code varchar(255) NOT NULL,
 	delete_fl character(1) NOT NULL,
 	CONSTRAINT ki_quiz_tbl_pk PRIMARY KEY(quiz_id)

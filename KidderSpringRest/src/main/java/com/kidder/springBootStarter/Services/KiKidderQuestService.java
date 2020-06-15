@@ -125,6 +125,8 @@ public class KiKidderQuestService {
 	public Set<KiKidderQuestTbl> saveAllQuestByModel(Set<KiKidderQuestModel> questModels, long quizId) {
 
 		Set<KiKidderQuestTbl> questTbls = new HashSet<>();
+		Set<KiKidderQuestTbl> questionTbls = new HashSet<>();
+		List<KiKidderQuestTbl> savedQuestTbls = new ArrayList<>();
 
 		Boolean isEdit  = false;
 		
@@ -162,7 +164,7 @@ public class KiKidderQuestService {
 			
 			
 		
-			kiKidderQuestTbl.setDeleteFl(false);
+			kiKidderQuestTbl.setDeleteFl(model.getDeleteFl());
 			if(model.getDgrmImageInfoModels() != null && model.getDgrmImageInfoModels().size() != 0)
 			{
 				kiKidderQuestTbl.setDgrmImgInfoTbls(
@@ -171,18 +173,17 @@ public class KiKidderQuestService {
 				kiKidderQuestTbl.setDgrmImgInfoTbls(null);
 			}
 		
+			if(model.getDeleteFl())
+			{
+				kiKidderQuestRepo.delete(kiKidderQuestTbl);
+			}else {
+				savedQuestTbls.add(kiKidderQuestRepo.save(kiKidderQuestTbl));
+			}
+			
 
-			questTbls.add(kiKidderQuestTbl);
 			
 		}
-
-		List<KiKidderQuestTbl> savedQuestTbls = new ArrayList<>();
-
-		savedQuestTbls =  kiKidderQuestRepo.saveAll(questTbls);
 		
-		questTbls = new HashSet<>();
-		
-		Set<KiKidderQuestTbl> questionTbls = new HashSet<>();
 
 		for(KiKidderQuestTbl tbl : savedQuestTbls)
 		{

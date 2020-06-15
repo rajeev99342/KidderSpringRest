@@ -56,6 +56,7 @@ public class UserInfoService {
 			model.setUser_id(tbl.getUser_id());
 			model.setUser_name(tbl.getUser_name());
 			model.setUser_username(tbl.getUser_username());
+			model.setUser_token(tbl.getUser_token());
 			model.setUser_password(tbl.getUser_password());
 			model.setUser_phone_number(tbl.getUser_phone_number());
 		}
@@ -69,6 +70,7 @@ public class UserInfoService {
 		userInfoTbl.setUser_email(userModel.getUser_email());
 		userInfoTbl.setUser_password(userModel.getUser_password());
 		userInfoTbl.setUser_username(userModel.getUser_username());
+		userInfoTbl.setUser_token(userModel.getUser_token());
 		userInfoTbl.setUser_phone_number(userModel.getUser_phone_number());
 		return userInfoTbl;
 	}
@@ -90,6 +92,7 @@ public class UserInfoService {
 			userModel.setUser_email(returnedUserInfoTbl.getUser_email());
 			userModel.setUser_name(returnedUserInfoTbl.getUser_name());
 			userModel.setUser_id(returnedUserInfoTbl.getUser_id());
+			userModel.setUser_token(returnedUserInfoTbl.getUser_token());
 			userModel.setUser_username(returnedUserInfoTbl.getUser_username());
 			userModel.setStatus("Success");
 			userModel.setError(null);
@@ -119,7 +122,10 @@ public class UserInfoService {
 				model.setUniqueCode(tbl.getUniqueCode());
 				model.setUser_id(tbl.getUser_id());
 				model.setUser_phone_number(tbl.getUser_phone_number());
+				model.setUser_token(tbl.getUser_token());
 				model.setUser_username(tbl.getUser_username());
+			}else {
+				model = null;
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -148,6 +154,7 @@ public class UserInfoService {
 					model.setUser_id(tbl.getUser_id());
 					model.setUser_name(tbl.getUser_name());
 					model.setUser_username(tbl.getUser_username());
+					model.setUser_token(tbl.getUser_token());
 					model.setUniqueCode(tbl.getUniqueCode());
 					model.setUser_phone_number(tbl.getUser_phone_number());
 				}
@@ -187,6 +194,7 @@ public class UserInfoService {
 			userTbl.setDeleteFl(false);
 			userTbl.setUser_phone_number(userMode.getUser_phone_number());
 			userTbl.setUser_username(userMode.getUser_username());
+			userTbl.setUser_token(userMode.getUser_token());
 		}
 		
 		return userInfoRepository.save(userTbl);
@@ -198,26 +206,27 @@ public class UserInfoService {
 		
 		List<Long> userIds = new ArrayList<>();
 		List<KiUserTbl> tbls = new ArrayList<>();
+		List<KiUserModel> models = new ArrayList<KiUserModel>();
 
 		for(KiGroupParticipantTbl grp : grpParticipants)
 		{
 			
-			tbls.add(userInfoRepository.getuserByUserId(grp.getUserInfoTb().getUser_id()));
-		}
-
-		
-		List<KiUserModel> models = new ArrayList<KiUserModel>();
-		
-		for(KiUserTbl tbl : tbls)
-		{
+			KiUserTbl tbl = userInfoRepository.getuserByUserId(grp.getUserInfoTb().getUser_id());
 			KiUserModel model = new KiUserModel();
+			
+			
 			model.setDeleteFl(tbl.getDeleteFl());
 			model.setUniqueCode(tbl.getUniqueCode());
+			model.setUser_username(tbl.getUser_username());
+			model.setUser_token(tbl.getUser_token());
 			model.setUser_email(tbl.getUser_email());
 			model.setUser_id(tbl.getUser_id());
+			model.setAdmin(grp.getIsAdmin());
 			model.setUser_name(tbl.getUser_name());
-			models.add(model);			
+			models.add(model);
+			
 		}
+
 		return models;
 	}
 

@@ -155,6 +155,7 @@ public class ApiControllers {
 	@GetMapping("/getGrpsByUserId" + "/{user_id}")
 	public @ResponseBody Set<KiGroupModel> getGrpsByUserId(@PathVariable(name = "user_id") long user_id) {
 
+
 		return groupInfoService.getGrpsByUserId(user_id);
 
 	}
@@ -175,12 +176,19 @@ public class ApiControllers {
 		return quizeInfoService.getAllTestByGroupIdAndUsers(grp_id);
 
 	}
-
 	@Transactional
-	@GetMapping("/getDraftTest" + "/{grp_id}")
-	public @ResponseBody List<KiQuizModel> getDraftTest(@PathVariable(name = "grp_id") long grp_id) {
+	@GetMapping("/getParticipantByGroup" + "/{grpId}")
+	public @ResponseBody List<KiUserModel> getParticipantByGroup(@PathVariable(name = "grpId") long grpId) {
 
-		return quizeInfoService.getAllDraftTest(grp_id);
-
+		return userInfoService.getAllUserByGroupId(grpId);
 	}
+	
+	
+//	@Transactional
+//	@GetMapping("/getDraftTest" + "/{grp_id}")
+//	public @ResponseBody List<KiQuizModel> getDraftTest(@PathVariable(name = "grp_id") long grp_id) {
+//
+//		return quizeInfoService.getAllDraftTest(grp_id);
+//
+//	}
 }

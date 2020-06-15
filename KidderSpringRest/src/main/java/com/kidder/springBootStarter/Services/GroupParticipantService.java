@@ -125,6 +125,7 @@ public class GroupParticipantService {
 		tbl.setUser_password(model.getUser_password());
 		tbl.setUser_phone_number(model.getUser_phone_number());
 		tbl.setUser_username(model.getUser_username());
+		tbl.setUser_token(model.getUser_token());
 		return tbl;
 	}
 	
