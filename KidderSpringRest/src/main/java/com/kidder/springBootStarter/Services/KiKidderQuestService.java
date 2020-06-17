@@ -108,6 +108,10 @@ public class KiKidderQuestService {
 			userModel.setUser_email(kikidderQ.getUserInfoTbl().getUser_email());
 			userModel.setUser_id(kikidderQ.getUserInfoTbl().getUser_id());
 			userModel.setUser_name(kikidderQ.getUserInfoTbl().getUser_name());
+			userModel.setUser_type(kikidderQ.getUserInfoTbl().getUser_type());
+			
+			userModel.setUser_fb_id(kikidderQ.getUserInfoTbl().getUser_fb_id());
+			userModel.setUser_fb_pic(kikidderQ.getUserInfoTbl().getUser_fb_pic());
 			userModel.setUser_password(kikidderQ.getUserInfoTbl().getUser_password());
 			userModel.setUser_phone_number(kikidderQ.getUserInfoTbl().getUser_phone_number());
 			userModel.setUser_username(kikidderQ.getUserInfoTbl().getUser_username());

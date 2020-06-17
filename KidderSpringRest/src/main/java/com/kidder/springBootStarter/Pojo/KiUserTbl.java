@@ -20,7 +20,9 @@ public class KiUserTbl extends AbstractHibernateObject{
 	private long user_phone_number;
 	private String user_email;
 	private String user_password;
-	
+	private String user_fb_id;
+	private String user_fb_pic;
+	private int user_type;
 	private String user_token;
 
 	@javax.persistence.Id
@@ -28,6 +30,36 @@ public class KiUserTbl extends AbstractHibernateObject{
 	@javax.persistence.Column( name = "user_id" ,unique = true, nullable = false)
 	public Long getUser_id() {
 		return super.getId();
+	}
+
+	
+	@javax.persistence.Basic
+	@javax.persistence.Column( name = "user_fb_id" ,unique = true)
+	public String getUser_fb_id() {
+		return user_fb_id;
+	}
+
+	public void setUser_fb_id(String user_fb_id) {
+		this.user_fb_id = user_fb_id;
+	}
+
+	@javax.persistence.Basic
+	@javax.persistence.Column( name = "user_fb_pic")
+	public String getUser_fb_pic() {
+		return user_fb_pic;
+	}
+
+	public void setUser_fb_pic(String user_fb_pic) {
+		this.user_fb_pic = user_fb_pic;
+	}
+	@javax.persistence.Basic
+	@javax.persistence.Column( name = "user_type" ,unique = true)
+	public int getUser_type() {
+		return user_type;
+	}
+
+	public void setUser_type(int user_type) {
+		this.user_type = user_type;
 	}
 
 	public void setUser_id(Long user_id) {

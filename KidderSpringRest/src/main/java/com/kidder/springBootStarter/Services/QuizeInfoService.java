@@ -190,6 +190,9 @@ KiKidderQuestService kiQuestService;
 					userModel.setUniqueCode(tbl.getUserInfoTbl().getUniqueCode());
 					userModel.setUser_email(tbl.getUserInfoTbl().getUser_email());
 					userModel.setUser_name(tbl.getUserInfoTbl().getUser_name());
+					userModel.setUser_fb_id(tbl.getUserInfoTbl().getUser_fb_id());
+					userModel.setUser_fb_pic(tbl.getUserInfoTbl().getUser_fb_pic());
+					userModel.setUser_type(tbl.getUserInfoTbl().getUser_type());
 					userModel.setUser_username(tbl.getUserInfoTbl().getUser_username());
 					model.setUserModel(userModel);
 				}

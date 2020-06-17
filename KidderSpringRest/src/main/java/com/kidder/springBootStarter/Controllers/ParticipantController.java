@@ -31,6 +31,15 @@ public class ParticipantController {
 	@Autowired
 	UserInfoService userInfoService;
 	
+	
+	
+	@GetMapping("/searchUser"+"/{username}")
+	public @ResponseBody KiUserModel getKidderUser(@PathVariable(name="username") String username) {
+		
+		return userInfoService.getUser(username);
+	}
+	
+	
 //	@Transactional(propagation = Propagation.NESTED)
 
 	@RequestMapping("/addGrpParticipant")

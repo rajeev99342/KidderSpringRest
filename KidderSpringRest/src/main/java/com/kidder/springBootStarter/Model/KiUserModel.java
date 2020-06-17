@@ -9,6 +9,35 @@ public class KiUserModel extends CommonColumnModel {
 	private String user_password;
 	private String user_email;
 	private String user_token;
+	private String user_fb_id;
+	private String user_fb_pic;
+	private int user_type;
+	
+	
+	public String getUser_fb_id() {
+		return user_fb_id;
+	}
+
+	public void setUser_fb_id(String user_fb_id) {
+		this.user_fb_id = user_fb_id;
+	}
+
+	public String getUser_fb_pic() {
+		return user_fb_pic;
+	}
+
+	public void setUser_fb_pic(String user_fb_pic) {
+		this.user_fb_pic = user_fb_pic;
+	}
+
+	public int getUser_type() {
+		return user_type;
+	}
+
+	public void setUser_type(int user_type) {
+		this.user_type = user_type;
+	}
+
 	private boolean admin;
 	
 

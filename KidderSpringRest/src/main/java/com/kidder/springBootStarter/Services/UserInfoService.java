@@ -35,12 +35,7 @@ public class UserInfoService {
 			if (userInfoRepository.getUserDetailsByUserName(userModel.getUser_username()).size() == 0) {
 				tbl = this.saveByModel(userModel);
 			} else {
-				userModel = new KiUserModel();
-				userModel.setError("Username already exits");
-				userModel.setStatus("Failed");
-
-				model = userModel;
-				return model;
+				tbl = this.saveByModel(userModel);
 			}
 
 		} else {
@@ -57,6 +52,9 @@ public class UserInfoService {
 			model.setUser_name(tbl.getUser_name());
 			model.setUser_username(tbl.getUser_username());
 			model.setUser_token(tbl.getUser_token());
+			model.setUser_fb_id(tbl.getUser_fb_id());
+			model.setUser_fb_pic(tbl.getUser_fb_pic());
+			model.setUser_type(tbl.getUser_type());
 			model.setUser_password(tbl.getUser_password());
 			model.setUser_phone_number(tbl.getUser_phone_number());
 		}
@@ -69,6 +67,9 @@ public class UserInfoService {
 		userInfoTbl.setUser_name(userModel.getUser_name());
 		userInfoTbl.setUser_email(userModel.getUser_email());
 		userInfoTbl.setUser_password(userModel.getUser_password());
+		userInfoTbl.setUser_fb_id(userModel.getUser_fb_id());
+		userInfoTbl.setUser_fb_pic(userModel.getUser_fb_pic());
+		userInfoTbl.setUser_type(userModel.getUser_type());
 		userInfoTbl.setUser_username(userModel.getUser_username());
 		userInfoTbl.setUser_token(userModel.getUser_token());
 		userInfoTbl.setUser_phone_number(userModel.getUser_phone_number());
@@ -93,6 +94,9 @@ public class UserInfoService {
 			userModel.setUser_name(returnedUserInfoTbl.getUser_name());
 			userModel.setUser_id(returnedUserInfoTbl.getUser_id());
 			userModel.setUser_token(returnedUserInfoTbl.getUser_token());
+			userModel.setUser_fb_id(returnedUserInfoTbl.getUser_fb_id());
+			userModel.setUser_fb_pic(returnedUserInfoTbl.getUser_fb_pic());
+			userModel.setUser_type(returnedUserInfoTbl.getUser_type());
 			userModel.setUser_username(returnedUserInfoTbl.getUser_username());
 			userModel.setStatus("Success");
 			userModel.setError(null);
@@ -119,6 +123,9 @@ public class UserInfoService {
 				model.setStatus("Success");
 				model.setUser_email(tbl.getUser_email());
 				model.setUser_name(tbl.getUser_name());
+				model.setUser_fb_id(tbl.getUser_fb_id());
+				model.setUser_fb_pic(tbl.getUser_fb_pic());
+				model.setUser_type(tbl.getUser_type());
 				model.setUniqueCode(tbl.getUniqueCode());
 				model.setUser_id(tbl.getUser_id());
 				model.setUser_phone_number(tbl.getUser_phone_number());
@@ -155,6 +162,9 @@ public class UserInfoService {
 					model.setUser_name(tbl.getUser_name());
 					model.setUser_username(tbl.getUser_username());
 					model.setUser_token(tbl.getUser_token());
+					model.setUser_fb_id(tbl.getUser_fb_id());
+					model.setUser_fb_pic(tbl.getUser_fb_pic());
+					model.setUser_type(tbl.getUser_type());
 					model.setUniqueCode(tbl.getUniqueCode());
 					model.setUser_phone_number(tbl.getUser_phone_number());
 				}
@@ -191,6 +201,9 @@ public class UserInfoService {
 			userTbl.setUser_password(userMode.getUser_password());
 			userTbl.setUser_email(userMode.getUser_email());
 			userTbl.setUser_name(userMode.getUser_name());
+			userTbl.setUser_fb_id(userMode.getUser_fb_id());
+			userTbl.setUser_fb_pic(userMode.getUser_fb_pic());
+			userTbl.setUser_type(userMode.getUser_type());
 			userTbl.setDeleteFl(false);
 			userTbl.setUser_phone_number(userMode.getUser_phone_number());
 			userTbl.setUser_username(userMode.getUser_username());
@@ -222,6 +235,9 @@ public class UserInfoService {
 			model.setUser_email(tbl.getUser_email());
 			model.setUser_id(tbl.getUser_id());
 			model.setAdmin(grp.getIsAdmin());
+			model.setUser_fb_id(tbl.getUser_fb_id());
+			model.setUser_fb_pic(tbl.getUser_fb_pic());
+			model.setUser_type(tbl.getUser_type());
 			model.setUser_name(tbl.getUser_name());
 			models.add(model);
 			

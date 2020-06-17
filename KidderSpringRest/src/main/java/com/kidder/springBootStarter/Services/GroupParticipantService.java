@@ -122,6 +122,9 @@ public class GroupParticipantService {
 		tbl.setUniqueCode(model.getUniqueCode());
 		tbl.setUser_email(model.getUser_email());
 		tbl.setUser_name(model.getUser_name());
+		tbl.setUser_fb_id(model.getUser_fb_id());
+		tbl.setUser_fb_pic(model.getUser_fb_pic());
+		tbl.setUser_type(model.getUser_type());
 		tbl.setUser_password(model.getUser_password());
 		tbl.setUser_phone_number(model.getUser_phone_number());
 		tbl.setUser_username(model.getUser_username());

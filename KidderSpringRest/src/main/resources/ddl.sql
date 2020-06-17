@@ -12,11 +12,14 @@ create table ki_user_tbl(
 
 	user_id numeric(19,0) NOT NULL,
 	user_name varchar(255) NOT NULL,
-	user_username varchar(255)  NOT NULL,
-	user_password varchar(255)  NOT NULL,
+	user_username varchar(255),
+	user_password varchar(255),
 	user_email varchar(255),
 	user_phone_number numeric(10,0),
 	user_token varchar(255),
+	user_fb_id varchar(255),
+	user_fb_pic varchar(1000),
+	user_type numeric(3,0),
 	unique_code varchar(255) NOT NULL,
 	delete_fl character(1) NOT NULL,
 	CONSTRAINT ki_user_tbl_pk PRIMARY KEY(user_id)
