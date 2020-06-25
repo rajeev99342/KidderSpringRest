@@ -21,6 +21,8 @@ import com.kidder.springBootStarter.Pojo.KiGrpReqstTbl;
 import com.kidder.springBootStarter.Pojo.KiUserTbl;
 import com.kidder.springBootStarter.Repo.GroupParticipantRepository;
 
+import ch.qos.logback.classic.Logger;
+
 @Service
 public class GroupParticipantService {
 
@@ -135,6 +137,27 @@ public class GroupParticipantService {
 	public List<KiGroupParticipantTbl> getUserByGroupId(long grpId)
 	{
 		return grpPartiRepo.getUserByGroupId(grpId);
+		
+		
+	}
+	
+	
+	public Boolean removeParticipant(String username,long grpId)
+	{
+		
+		Boolean success = false;
+		KiUserTbl userTbl = userService.getUserByUsername(username);
+		KiGroupParticipantTbl grpParticipant =  grpPartiRepo.getParticipantByGrpIdandUserId(userTbl.getUser_id(),grpId);
+		
+		if(grpParticipant != null)
+		{
+				grpParticipant.setDeleteFl(true);
+				grpPartiRepo.save(grpParticipant);
+				System.out.println("Participant removed");
+				success = true;
+		}
+		return success;
+		
 		
 		
 	}

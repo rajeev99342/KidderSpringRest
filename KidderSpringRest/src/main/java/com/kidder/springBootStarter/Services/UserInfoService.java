@@ -245,5 +245,10 @@ public class UserInfoService {
 
 		return models;
 	}
+	
+	public KiUserTbl getUserByUsername(String username)
+	{
+		return userInfoRepository.getUserByUsername(username);		
+	}
 
 }

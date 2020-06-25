@@ -22,4 +22,9 @@ public interface KiKidderQuestRepository extends JpaRepository<KiKidderQuestTbl,
 	
 	@Query("from KiKidderQuestTbl as ki where ki.quiz_id = :quiz_id and deleteFl = false")
 	public List<KiKidderQuestTbl> getQuestionByQuizId(@Param("quiz_id") Long quiz_id);
+	
+//	@Query("from KiKidderQuestTbl as ki where ki.quiz_id in (select * from ki.) and deleteFl = false")
+//	public List<KiKidderQuestTbl> getQuestionByupcomingQuizId(@Param("quiz_id") Long quiz_id);
+	
+	
 }
